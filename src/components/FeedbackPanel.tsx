@@ -84,7 +84,7 @@ export function FeedbackPanel({
         </div>
       )}
 
-      {/* Missed correct answers in multi-select */}
+      {/* Missed correct answers - wording differs for single vs multiple-response */}
       {missed.length > 0 && (
         <div className="missed-box">
           <div className="missed-head">
@@ -92,7 +92,9 @@ export function FeedbackPanel({
               ✓
             </span>
             <div>
-              <div className="picked-label">Also correct</div>
+              <div className="picked-label">
+                {question.type === 'multiple' ? 'Also correct' : 'The correct answer'}
+              </div>
               <div className="picked-text">{missed.map((id) => opt(id).text).join(' + ')}</div>
             </div>
           </div>
