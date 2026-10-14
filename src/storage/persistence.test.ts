@@ -6,11 +6,14 @@ import {
   saveSession,
   loadSettings,
   saveSettings,
-  exportProgress,
-  importProgress,
   defaultSettings,
+  clearAll,
 } from './persistence';
 import { emptyProgress } from '../domain/progress';
+import { deckList } from '../content/decks';
+
+const DECK = deckList[0].deckId;
+const OTHER = deckList.find((d) => d.deckId !== DECK)!.deckId;
 
 beforeEach(() => {
   localStorage.clear();
@@ -21,37 +24,49 @@ describe('persistence', () => {
     const p = emptyProgress();
     p.xpTotal = 120;
     p.cardsCompleted = 12;
-    saveProgress(p);
-    const loaded = loadProgress();
+    saveProgress(DECK, p);
+    const loaded = loadProgress(DECK);
     expect(loaded.xpTotal).toBe(120);
     expect(loaded.cardsCompleted).toBe(12);
   });
 
   it('returns empty progress when nothing is stored', () => {
-    expect(loadProgress().xpTotal).toBe(0);
+    expect(loadProgress(DECK).xpTotal).toBe(0);
   });
 
   it('recovers from corrupt JSON without throwing', () => {
-    localStorage.setItem('ccg:progress', '{not json');
-    expect(loadProgress().xpTotal).toBe(0);
+    localStorage.setItem(`ccg:progress:${DECK}`, '{not json');
+    expect(loadProgress(DECK).xpTotal).toBe(0);
   });
 
   it('preserves flags and per-question state', () => {
     const p = emptyProgress();
     p.flagged = { abc: { at: 1, note: 'x' } };
-    p.questions = { z: { ...emptyProgress().questions.z } };
-    saveProgress(p);
-    const l = loadProgress();
+    saveProgress(DECK, p);
+    const l = loadProgress(DECK);
     expect(l.flagged.abc.note).toBe('x');
-    expect(l.questions).toBeDefined();
   });
 
-  it('saves and clears the active session', () => {
-    const s = { id: 's1', cursor: 3 } as never;
-    saveSession(s);
-    expect(loadSession()?.id).toBe('s1');
-    saveSession(null);
-    expect(loadSession()).toBeNull();
+  it('keeps each certification progress separate', () => {
+    const a = emptyProgress();
+    a.xpTotal = 500;
+    saveProgress(DECK, a);
+    // A different certification must not see it.
+    expect(loadProgress(OTHER).xpTotal).toBe(0);
+
+    const b = emptyProgress();
+    b.xpTotal = 7;
+    saveProgress(OTHER, b);
+    expect(loadProgress(DECK).xpTotal).toBe(500);
+    expect(loadProgress(OTHER).xpTotal).toBe(7);
+  });
+
+  it('keeps each certification session separate', () => {
+    saveSession(DECK, { id: 'a', cursor: 3 } as never);
+    expect(loadSession(DECK)?.id).toBe('a');
+    expect(loadSession(OTHER)).toBeNull();
+    saveSession(DECK, null);
+    expect(loadSession(DECK)).toBeNull();
   });
 
   it('merges settings over defaults', () => {
@@ -61,16 +76,18 @@ describe('persistence', () => {
     expect(s.defaultSessionLength).toBe(defaultSettings.defaultSessionLength);
   });
 
-  it('exports and imports progress', () => {
-    const p = emptyProgress();
-    p.xpTotal = 77;
-    const json = exportProgress(p);
-    const back = importProgress(json);
-    expect(back?.xpTotal).toBe(77);
-  });
+  it('clears every certification but leaves settings alone', () => {
+    saveProgress(DECK, emptyProgress());
+    saveProgress(OTHER, emptyProgress());
+    saveSession(DECK, { id: 'x' } as never);
+    saveSettings({ ...defaultSettings, reduceMotion: true });
 
-  it('rejects a non-progress import', () => {
-    expect(importProgress('{"hello":1}')).toBeNull();
-    expect(importProgress('nope')).toBeNull();
+    clearAll();
+
+    expect(loadProgress(DECK).xpTotal).toBe(0);
+    expect(loadProgress(OTHER).xpTotal).toBe(0);
+    expect(loadSession(DECK)).toBeNull();
+    // Settings are global, not per deck, so they survive.
+    expect(loadSettings().reduceMotion).toBe(true);
   });
 });

@@ -1,5 +1,8 @@
 import { test, expect, type Page } from '@playwright/test';
 
+const DECK = 'architect-foundations';
+const cert = (path = '') => `/#/c/${DECK}${path}`;
+
 /** Drive a real pointer drag on the card. */
 async function swipe(page: Page, dir: 'left' | 'right' | 'up' | 'down') {
   const card = page.getByTestId('swipe-card');
@@ -69,7 +72,7 @@ async function pickedAnswer(page: Page) {
 }
 
 async function gotoSession(page: Page, mode = 'discover') {
-  await page.goto(`/#/session/${mode}`);
+  await page.goto(cert(`/session/${mode}`));
   await expect(page.getByTestId('swipe-card')).toBeVisible();
 }
 
@@ -78,7 +81,7 @@ test.beforeEach(async ({ page }) => {
 });
 
 test('home shows progress, session choices, and the bottom nav', async ({ page }) => {
-  await page.goto('/');
+  await page.goto(cert());
   await expect(page.getByRole('heading', { name: /Good (morning|afternoon|evening)/ })).toBeVisible();
   await expect(page.getByTestId('start-discover')).toBeVisible();
   await expect(page.getByTestId('start-challenge')).toBeVisible();
@@ -202,7 +205,7 @@ test('a short drag does not commit', async ({ page }) => {
 });
 
 test('challenge mode presents a multiple-response card that can be submitted', async ({ page }) => {
-  await page.goto('/#/session/challenge');
+  await page.goto(cert('/session/challenge'));
 
   // Advance until a select-all-that-apply card shows up
   let found = false;
@@ -268,7 +271,7 @@ test('finishing a session shows a friendly summary', async ({ page }) => {
 test('option count varies (2, 3 and 4 options all render)', async ({ page }) => {
   const seen = new Set<number>();
   for (let round = 0; round < 12 && seen.size < 3; round++) {
-    await page.goto(`/?r=${round}#/session/discover`);
+    await page.goto(cert(`/session/discover?r=${round}`));
     const card = page.getByTestId('swipe-card');
     await expect(card).toBeVisible();
     const n = await page.locator('[data-option-id]').count();
@@ -280,8 +283,8 @@ test('option count varies (2, 3 and 4 options all render)', async ({ page }) => 
 });
 
 test('stats screen renders domain progress', async ({ page }) => {
-  await page.goto('/#/stats');
-  await expect(page.getByRole('heading', { name: 'Certification Progress' })).toBeVisible();
+  await page.goto(cert('/stats'));
+  await expect(page.getByRole('heading', { name: /Progress$/ })).toBeVisible();
   await expect(page.getByText('Agentic Architecture & Orchestration')).toBeVisible();
 });
 
@@ -292,5 +295,57 @@ test('settings expose reduced motion and progress export', async ({ page }) => {
   await expect(toggle).toHaveAttribute('aria-checked', 'false');
   await toggle.click();
   await expect(toggle).toHaveAttribute('aria-checked', 'true');
-  await expect(page.getByRole('button', { name: /Export progress/ })).toBeVisible();
+  await expect(page.getByRole('button', { name: /Export all progress/ })).toBeVisible();
+});
+
+// ---------- Multiple certifications ----------
+
+test('the certification picker lists every certification and separates available from planned', async ({
+  page,
+}) => {
+  await page.goto('/#/c');
+  await expect(page.getByRole('heading', { name: 'Choose a certification' })).toBeVisible();
+
+  // The deck that has content is enterable.
+  await expect(page.getByTestId(`cert-${DECK}`)).toBeVisible();
+
+  // The others are visibly planned, not broken links.
+  await expect(page.getByTestId('cert-planned-architect-professional')).toBeVisible();
+  await expect(page.getByTestId('cert-planned-developer-foundations')).toBeVisible();
+});
+
+test('a planned certification opens an informational screen, not a broken session', async ({ page }) => {
+  await page.goto('/#/c');
+  await page.getByTestId('cert-planned-architect-professional').click();
+  await expect(page.getByRole('heading', { name: /coming soon/i })).toBeVisible();
+  await expect(page.getByTestId('swipe-card')).toHaveCount(0);
+  // Still offers a way back into what is available.
+  await expect(page.getByRole('link', { name: /All certifications/ })).toBeVisible();
+});
+
+test('a session route for a planned certification does not start a session', async ({ page }) => {
+  await page.goto('/#/c/architect-professional/session/discover');
+  await expect(page.getByTestId('swipe-card')).toHaveCount(0);
+  await expect(page.getByRole('heading', { name: /coming soon/i })).toBeVisible();
+});
+
+test('an unknown certification falls back to the picker', async ({ page }) => {
+  await page.goto('/#/c/does-not-exist');
+  await expect(page.getByRole('heading', { name: 'Choose a certification' })).toBeVisible();
+});
+
+test('switching certification keeps progress separate per certification', async ({ page }) => {
+  // Make progress on the available deck.
+  await gotoSession(page);
+  await swipeEnabled(page);
+  await expect(page.getByTestId('feedback')).toBeVisible();
+  await page.getByTestId('continue').click();
+
+  await page.goto('/#/c');
+  // The available certification should now show that it has been explored.
+  await expect(page.getByText(/explored/)).toBeVisible();
+
+  // The planned certification must not show any of the other deck's progress.
+  await page.getByTestId('cert-planned-architect-professional').click();
+  await expect(page.getByText(/explored/)).toHaveCount(0);
 });

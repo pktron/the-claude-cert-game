@@ -1,10 +1,12 @@
 import { Link } from 'react-router-dom';
-import { questions } from '../content/deck';
+import { useDeck } from '../content/DeckContext';
 import { domainStats, weakConcepts } from '../domain/progress';
 import { humanizeConcept } from '../domain/labels';
 import type { AppState } from '../storage/useAppState';
 
 export function Review({ app }: { app: AppState }) {
+  const { meta, questions } = useDeck();
+  const deckId = meta.deckId;
   const { progress } = app;
   const now = Date.now();
   const stats = domainStats(questions, progress, now);
@@ -24,7 +26,7 @@ export function Review({ app }: { app: AppState }) {
         <div className="recall-label">
           {dueTotal > 0 ? 'cards due for review' : 'cards due right now'}
         </div>
-        <Link to="/session/recall" className="pill-btn primary" data-testid="start-recall-cta">
+        <Link to={`/c/${deckId}/session/recall`} className="pill-btn primary" data-testid="start-recall-cta">
           Start recall
         </Link>
         <p className="recall-note">

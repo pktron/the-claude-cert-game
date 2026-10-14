@@ -1,9 +1,10 @@
-import { domains, questions } from '../content/deck';
-import { humanizeConcept } from '../domain/labels';
+﻿import { useDeck } from '../content/DeckContext';
 import { deckCompletion, domainStats, weakConcepts } from '../domain/progress';
+import { humanizeConcept } from '../domain/labels';
 import type { AppState } from '../storage/useAppState';
 
 export function Stats({ app }: { app: AppState }) {
+  const { meta, questions } = useDeck();
   const { progress } = app;
   const now = Date.now();
   const completion = deckCompletion(questions, progress);
@@ -26,7 +27,7 @@ export function Stats({ app }: { app: AppState }) {
   return (
     <div className="stats">
       <header className="stats-header">
-        <h1>Certification Progress</h1>
+        <h1>{meta.shortName} Progress</h1>
       </header>
 
       <section className="overall card">
@@ -62,7 +63,7 @@ export function Stats({ app }: { app: AppState }) {
       </div>
 
       <section className="domain-bars">
-        {domains.map((d) => {
+        {meta.domains.map((d) => {
           const s = stats.find((x) => x.domain === d.id);
           const p = s?.accuracy != null ? Math.round(s.accuracy * 100) : 0;
           return (

@@ -212,3 +212,7 @@
 }
 .nav-tab.active { color: var(--blue); }
 .nav-icon { font-size: 20px; }
+
+/* Five tabs now, so keep the labels legible on narrow screens. */
+.nav-label { font-size: 10px; }
+.nav-switch { color: var(--text-dim); }

@@ -1,9 +1,12 @@
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import { domains, getQuestion } from '../content/deck';
+import { useDeck } from '../content/DeckContext';
+import { getQuestion } from '../content/decks';
 import type { AppState } from '../storage/useAppState';
 
 export function Summary({ app }: { app: AppState }) {
   const { session, setSession } = app;
+  const { meta } = useDeck();
+  const deckId = meta.deckId;
   const navigate = useNavigate();
   const { mode } = useParams();
 
@@ -11,7 +14,7 @@ export function Summary({ app }: { app: AppState }) {
     return (
       <div className="summary">
         <h2>No session yet</h2>
-        <Link to="/" className="pill-btn primary" style={{ marginTop: 'var(--sp-4)' }}>
+        <Link to={`/c/${deckId}`} className="pill-btn primary" style={{ marginTop: 'var(--sp-4)' }}>
           Back home
         </Link>
       </div>
@@ -23,11 +26,11 @@ export function Summary({ app }: { app: AppState }) {
   const minutes = session.endedAt ? Math.max(1, Math.round((session.endedAt - session.startedAt) / 60000)) : 0;
 
   // Per-domain accuracy for this session.
-  const perDomain = domains.map((d) => {
+  const perDomain = meta.domains.map((d) => {
     let answered = 0;
     let correct = 0;
     for (const qid of session.queue) {
-      const q = getQuestion(qid);
+      const q = getQuestion(deckId, qid);
       if (q?.domain !== d.id) continue;
       const card = session.cards[qid];
       if (card?.committed) {
@@ -97,17 +100,17 @@ export function Summary({ app }: { app: AppState }) {
           onClick={() => {
             // Clear the finished session so the next visit builds a fresh queue.
             setSession(null);
-            navigate(`/session/${session.config.mode}`);
+            navigate(`/c/${deckId}/session/${session.config.mode}`);
           }}
           data-testid="summary-again"
         >
           Continue
         </button>
-        <Link to="/review" className="pill-btn secondary">
+        <Link to={`/c/${deckId}/review`} className="pill-btn secondary">
           Review missed questions
         </Link>
-        <Link to="/" className="pill-btn ghost">
-          Back home
+        <Link to={`/c/${deckId}/stats`} className="pill-btn ghost">
+          See your progress
         </Link>
       </div>
 

@@ -1,9 +1,22 @@
-import { useEffect } from 'react';
-import { HashRouter, Routes, Route, useLocation } from 'react-router-dom';
-import { useAppState } from './storage/useAppState';
+import { createContext, useContext, useEffect } from 'react';
+import {
+  HashRouter,
+  Routes,
+  Route,
+  Outlet,
+  Navigate,
+  useLocation,
+  useParams,
+} from 'react-router-dom';
+import type { ComponentType } from 'react';
+import { useAppState, type AppState } from './storage/useAppState';
+import { useSettings } from './storage/useSettings';
 import { useReducedMotion } from './hooks/useReducedMotion';
 import { BottomNav } from './components/BottomNav';
-import { Home } from './screens/Home';
+import { DeckProvider } from './content/DeckContext';
+import { getDeckMeta } from './content/decks';
+import { Certifications } from './screens/Certifications';
+import { CertHome } from './screens/CertHome';
 import { SessionScreen } from './screens/SessionScreen';
 import { Summary } from './screens/Summary';
 import { Stats } from './screens/Stats';
@@ -15,6 +28,23 @@ import './styles/global.css';
 import './styles/components.css';
 import './styles/screens.css';
 
+/** App state for the certification currently open, provided by CertLayout. */
+const CertAppContext = createContext<AppState | null>(null);
+
+function useCertApp(): AppState {
+  const ctx = useContext(CertAppContext);
+  if (!ctx) throw new Error('useCertApp must be used inside a certification route');
+  return ctx;
+}
+
+/** Injects the active certification's app state into a screen that expects `app`. */
+function withApp<P extends object>(Comp: ComponentType<P & { app: AppState }>) {
+  return function WithApp(props: P) {
+    const app = useCertApp();
+    return <Comp {...(props as P)} app={app} />;
+  };
+}
+
 function ScrollToTop() {
   const { pathname } = useLocation();
   useEffect(() => {
@@ -23,46 +53,94 @@ function ScrollToTop() {
   return null;
 }
 
-/** During a session or its summary we want the full card, not the tab bar. */
+/** Certification layout: resolve :deckId, provide the deck, host its screens. */
+function CertLayout() {
+  const { deckId = '' } = useParams();
+  const meta = getDeckMeta(deckId);
+  const app = useAppState(deckId);
+  const { pathname } = useLocation();
+  // The card needs the full height, so the tab bar steps aside in a session.
+  const hideNav = pathname.includes('/session/') || pathname.includes('/summary/');
 
-export default function App() {
-  const app = useAppState();
-  const reduceMotion = useReducedMotion(app.settings);
-
-  useEffect(() => {
-    const cls = document.body.classList;
-    cls.toggle('reduce-motion', reduceMotion);
-    cls.toggle('high-contrast', app.settings.highContrast);
-  }, [reduceMotion, app.settings.highContrast]);
+  if (!meta) return <Navigate to="/" replace />;
+  if (!meta.available) return <ComingSoon deckId={deckId} />;
 
   return (
-    <HashRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
-      <ScrollToTop />
-      <Shell app={app} />
-    </HashRouter>
+    <CertAppContext.Provider value={app}>
+      <DeckProvider deckId={deckId}>
+        <div className="app-shell">
+          <main className={`app-main ${hideNav ? 'no-nav' : ''}`}>
+            <Outlet />
+          </main>
+          {!hideNav && <BottomNav />}
+        </div>
+      </DeckProvider>
+    </CertAppContext.Provider>
   );
 }
 
-/** During a session or its summary we want the full card, not the tab bar. */
-function Shell({ app }: { app: ReturnType<typeof useAppState> }) {
-  const { pathname } = useLocation();
-  const hideNav = pathname.startsWith('/session') || pathname.startsWith('/summary');
+/** Landing screen and global settings are not scoped to a certification. */
+function GlobalShell({ children }: { children: React.ReactNode }) {
+  return <div className="app-shell plain">{children}</div>;
+}
 
+function Landing() {
   return (
-    <div className="app-shell">
-      <main className={`app-main ${hideNav ? 'no-nav' : ''}`}>
-        <Routes>
-          <Route path="/" element={<Home app={app} />} />
-          <Route path="/session/:mode" element={<SessionScreen app={app} />} />
-          <Route path="/summary/:mode" element={<Summary app={app} />} />
-          <Route path="/review" element={<Review app={app} />} />
-          <Route path="/stats" element={<Stats app={app} />} />
-          <Route path="/settings" element={<Settings app={app} />} />
-          <Route path="/soon" element={<ComingSoon />} />
-          <Route path="*" element={<Home app={app} />} />
-        </Routes>
+    <GlobalShell>
+      <main className="app-main plain-main">
+        <Certifications />
       </main>
-      {!hideNav && <BottomNav />}
-    </div>
+    </GlobalShell>
+  );
+}
+
+function SettingsPage() {
+  return (
+    <GlobalShell>
+      <main className="app-main plain-main">
+        <Settings />
+      </main>
+    </GlobalShell>
+  );
+}
+
+const CertHomeRoute = withApp(CertHome);
+const SessionRoute = withApp(SessionScreen);
+const SummaryRoute = withApp(Summary);
+const ReviewRoute = withApp(Review);
+const StatsRoute = withApp(Stats);
+
+/** Applies accessibility preferences to the document for every screen. */
+function GlobalEffects() {
+  const { settings } = useSettings();
+  const reduceMotion = useReducedMotion(settings);
+  useEffect(() => {
+    const cls = document.body.classList;
+    cls.toggle('reduce-motion', reduceMotion);
+    cls.toggle('high-contrast', settings.highContrast);
+  }, [reduceMotion, settings.highContrast]);
+  return null;
+}
+
+export default function App() {
+  return (
+    <HashRouter>
+      <ScrollToTop />
+      <GlobalEffects />
+      <Routes>
+        <Route path="/" element={<Landing />} />
+        <Route path="/c" element={<Landing />} />
+        <Route path="/settings" element={<SettingsPage />} />
+        <Route path="/soon" element={<ComingSoon />} />
+        <Route path="/c/:deckId" element={<CertLayout />}>
+          <Route index element={<CertHomeRoute />} />
+          <Route path="session/:mode" element={<SessionRoute />} />
+          <Route path="summary/:mode" element={<SummaryRoute />} />
+          <Route path="review" element={<ReviewRoute />} />
+          <Route path="stats" element={<StatsRoute />} />
+        </Route>
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
+    </HashRouter>
   );
 }

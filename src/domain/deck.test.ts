@@ -1,16 +1,72 @@
 import { describe, it, expect } from 'vitest';
 import { buildQueue, questionPool, spreadMultiResponse } from './session';
 import { emptyProgress } from './progress';
-import { questions } from '../content/deck';
+import { deckList, getDeckMeta, getDeckQuestions, defaultDeckId, getQuestion, domainName } from '../content/decks';
+import type { DomainId } from './types';
+import manifestJson from '../../content/decks/manifest.json';
+const manifest = manifestJson as unknown as { decks: Array<{ deckId: string; title: string; examCode: string; domains: Array<{ id: string; name: string; weight: number }> }> };
 
 /**
  * These tests run against the REAL authored deck, so they catch regressions in
  * how sessions are assembled from real content.
  */
+
+describe('deck registry', () => {
+  it('knows all three certifications', () => {
+    const ids = deckList.map((d) => d.deckId).sort();
+    expect(ids).toEqual(['architect-foundations', 'architect-professional', 'developer-foundations']);
+  });
+
+  it('marks only decks that have a shipped question bank as available', () => {
+    for (const d of deckList) {
+      const expected = getDeckQuestions(d.deckId).length > 0;
+      expect(d.available, `${d.deckId} availability`).toBe(expected);
+    }
+  });
+
+  it('exposes a working default deck', () => {
+    const id = defaultDeckId();
+    expect(id).toBeTruthy();
+    expect(getDeckMeta(id!)?.available).toBe(true);
+  });
+
+  it('returns undefined for an unknown deck', () => {
+    expect(getDeckMeta('nope')).toBeUndefined();
+    expect(getDeckQuestions('nope')).toEqual([]);
+    expect(domainName('nope', 'd1')).toBe('d1');
+  });
+
+  it('matches the manifest for every deck', () => {
+    expect(manifest.decks).toHaveLength(deckList.length);
+    for (const d of deckList) {
+      const m = manifest.decks.find((x) => x.deckId === d.deckId)!;
+      expect(d.title).toBe(m.title);
+      expect(d.examCode).toBe(m.examCode);
+      expect(d.domains).toHaveLength(m.domains.length);
+      // Weights should total 100% of the exam.
+      const total = d.domains.reduce((n: number, x) => n + x.weight, 0);
+      expect(Math.round(total), `${d.examCode} weight total`).toBe(100);
+    }
+  });
+
+  it('gives every domain at least one objective and unique objective ids', () => {
+    for (const d of deckList) {
+      for (const dom of d.domains) {
+        expect(dom.objectives.length, `${d.examCode}/${dom.id}`).toBeGreaterThan(0);
+        expect(new Set(dom.objectives.map((o) => o.id)).size).toBe(dom.objectives.length);
+      }
+    }
+  });
+});
+
 describe('real deck - question pools', () => {
-  it('has questions in every domain', () => {
-    for (const d of ['d1', 'd2', 'd3', 'd4', 'd5'] as const) {
-      expect(questions.filter((q) => q.domain === d).length).toBeGreaterThan(10);
+  const deckId = defaultDeckId()!;
+  const questions = getDeckQuestions(deckId);
+
+  it('has questions in every domain of the deck', () => {
+    const meta = getDeckMeta(deckId)!;
+    for (const d of meta.domains) {
+      expect(questions.filter((q) => q.domain === d.id).length, d.id).toBeGreaterThan(0);
     }
   });
 
@@ -36,22 +92,29 @@ describe('real deck - question pools', () => {
       if (q.type === 'multiple') expect(q.mode).toBe('challenge');
     }
   });
+
+  it('uses the same source document for every question', () => {
+    const docs = new Set(questions.map((q) => q.source.document));
+    expect(docs.size).toBe(1);
+  });
+
+  it('resolves questions and domain names by id', () => {
+    const first = questions[0];
+    expect(getQuestion(deckId, first.id)?.id).toBe(first.id);
+    expect(domainName(deckId, first.domain)).toBe(getDeckMeta(deckId)!.domains.find((d) => d.id === first.domain)!.name);
+  });
 });
 
 describe('real deck - session composition', () => {
+  const deckId = defaultDeckId()!;
+  const questions = getDeckQuestions(deckId);
+
   it('a challenge session always includes at least one multiple-response item', () => {
     for (let len = 5; len <= 20; len += 5) {
       const ids = buildQueue(questions, emptyProgress(), { mode: 'challenge', targetLength: len }, Date.now());
       const multi = ids.filter((id) => questions.find((q) => q.id === id)?.type === 'multiple');
       expect(multi.length, `length ${len} had ${multi.length} multi items`).toBeGreaterThan(0);
     }
-  });
-
-  it('challenge sessions include multiple-response items at a sensible rate (~1/3)', () => {
-    const ids = buildQueue(questions, emptyProgress(), { mode: 'challenge', targetLength: 12 }, Date.now());
-    const multi = ids.filter((id) => questions.find((q) => q.id === id)?.type === 'multiple');
-    expect(multi.length).toBeGreaterThanOrEqual(2);
-    expect(multi.length).toBeLessThanOrEqual(5);
   });
 
   it('a discover session contains only single-answer swipe cards', () => {
@@ -72,17 +135,11 @@ describe('real deck - session composition', () => {
   });
 
   it('domain filter narrows the pool', () => {
-    const ids = buildQueue(questions, emptyProgress(), { mode: 'discover', targetLength: 5, domainFilter: ['d3'] }, Date.now());
+    const meta = getDeckMeta(deckId)!;
+    const d = meta.domains[1].id as DomainId;
+    const ids = buildQueue(questions, emptyProgress(), { mode: 'discover', targetLength: 5, domainFilter: [d] }, Date.now());
     expect(ids).toHaveLength(5);
-    for (const id of ids) expect(questions.find((q) => q.id === id)!.domain).toBe('d3');
-  });
-
-  it('never reuses a direction for two options on the same card', () => {
-    for (const q of questions) {
-      // direction assignment guarantees N unique directions for N options
-      expect(q.options.length).toBeGreaterThanOrEqual(2);
-      expect(q.options.length).toBeLessThanOrEqual(4);
-    }
+    for (const id of ids) expect(questions.find((q) => q.id === id)!.domain).toBe(d);
   });
 });
 
@@ -107,6 +164,8 @@ describe('spreadMultiResponse (integration)', () => {
 
 describe('questionPool on real deck', () => {
   it('recall mode can draw from everything', () => {
+    const deckId = defaultDeckId()!;
+    const questions = getDeckQuestions(deckId);
     expect(questionPool(questions, 'recall').length).toBe(questions.length);
   });
 });

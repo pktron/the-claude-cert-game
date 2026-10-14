@@ -1,7 +1,8 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+﻿import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import type { Direction, Question, SessionCard, SessionMode } from '../domain/types';
-import { questions, getQuestion, domainName } from '../content/deck';
+import { useDeck } from '../content/DeckContext';
+import { getQuestion, domainName } from '../content/decks';
 import { createSession, currentQuestionId, isSessionComplete, makeCard } from '../domain/session';
 import { gradeAnswer } from '../domain/grade';
 import { recordAnswer, flagQuestion } from '../domain/progress';
@@ -22,6 +23,9 @@ const LENGTHS: Record<SessionMode, number[]> = {
 export function SessionScreen({ app }: { app: AppState }) {
   const { mode } = useParams<{ mode: SessionMode }>();
   const sessionMode = (mode ?? 'discover') as SessionMode;
+  const { meta, questions } = useDeck();
+  const deckId = meta.deckId;
+  const qOf = (id: string) => getQuestion(deckId, id);
   const navigate = useNavigate();
   const { progress, setProgress, session, setSession, settings } = app;
   const reduceMotion = useReducedMotion(settings);
@@ -40,7 +44,7 @@ export function SessionScreen({ app }: { app: AppState }) {
   }, [sessionMode, session, setSession, progress, settings.defaultSessionLength]);
 
   const qid = session ? currentQuestionId(session) : null;
-  const question: Question | null = qid ? getQuestion(qid) ?? null : null;
+  const question: Question | null = qid ? (qOf(qid) ?? null) : null;
 
   // Build/refresh the presentation card for the current question.
   // Derived (not stored during render) so the direction assignment stays stable
@@ -180,7 +184,7 @@ export function SessionScreen({ app }: { app: AppState }) {
         countedSession.current = session.id;
         setProgress((p) => ({ ...p, sessionsCompleted: p.sessionsCompleted + 1 }));
       }
-      navigate(`/summary/${sessionMode}`, { replace: true });
+      navigate(`/c/${deckId}/summary/${sessionMode}`, { replace: true });
     }
   }, [session, navigate, setProgress, sessionMode]);
 
@@ -194,7 +198,7 @@ export function SessionScreen({ app }: { app: AppState }) {
           setSession(fresh);
           setShowLengthPicker(false);
         }}
-        onBack={() => navigate('/')}
+        onBack={() => navigate(`/c/${deckId}`)}
       />
     );
   }
@@ -205,11 +209,11 @@ export function SessionScreen({ app }: { app: AppState }) {
   return (
     <div className="session-screen">
       <header className="session-header">
-        <Link to="/" className="back-btn" aria-label="Exit session">
+        <Link to={`/c/${deckId}`} className="back-btn" aria-label="Exit session">
           ←
         </Link>
         <div className="session-title">
-          <div className="session-domain">{domainName(question.domain)}</div>
+          <div className="session-domain">{domainName(deckId, question.domain)}</div>
           <div className="session-count" data-testid="card-counter">
             {index}/{total}
           </div>

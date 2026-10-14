@@ -11,15 +11,53 @@ const ROOT = resolve(new URL('..', import.meta.url).pathname.replace(/^\/([A-Za-
 const STRICT = process.argv.includes('--strict');
 const args = process.argv.slice(2).filter((a) => !a.startsWith('--'));
 
-const DOMAIN_TASK_COUNT = { d1: 7, d2: 5, d3: 6, d4: 6, d5: 6 };
+/**
+ * Coverage expectations come from content/decks/manifest.json, which is
+ * generated from the exam guides. That keeps a single source of truth for
+ * domains, weights, and the objectives each domain is measured against.
+ */
+function loadExpectations() {
+  const manifestPath = join(ROOT, 'content', 'decks', 'manifest.json');
+  if (!existsSync(manifestPath)) return null;
+  try {
+    const manifest = JSON.parse(readFileSync(manifestPath, 'utf8'));
+    const byDeck = new Map();
+    for (const deck of manifest.decks ?? []) {
+      byDeck.set(deck.deckId, {
+        source: deck.source,
+        domains: (deck.domains ?? []).map((d) => ({
+          id: d.id,
+          name: d.name,
+          objectives: (d.objectives ?? []).map((o) => o.id),
+        })),
+      });
+    }
+    return byDeck;
+  } catch (e) {
+    console.log(`WARN could not read manifest.json: ${e.message}`);
+    return null;
+  }
+}
+
+const EXPECTATIONS = loadExpectations();
+
+function deckIdFromFile(file) {
+  const base = basename(file).replace(/\.json$/, '');
+  return base.replace(/\.partial$/, '');
+}
 
 function gatherPaths() {
   if (args.length) return args;
-  // Validate the shipped deck when it exists; otherwise validate the authored
+  // Validate the shipped decks when they exist; otherwise validate the authored
   // partials (which is what content authors run before merging).
-  const merged = join(ROOT, 'content', 'decks', 'architect-foundations.json');
-  if (existsSync(merged)) return [merged];
-  const partialsDir = join(ROOT, 'content', 'decks', 'partials');
+  const decksDir = join(ROOT, 'content', 'decks');
+  const shipped = existsSync(decksDir)
+    ? readdirSync(decksDir)
+        .filter((f) => f.endsWith('.json') && f !== 'manifest.json')
+        .map((f) => join(decksDir, f))
+    : [];
+  if (shipped.length) return shipped;
+  const partialsDir = join(decksDir, 'partials');
   if (existsSync(partialsDir)) {
     return readdirSync(partialsDir)
       .filter((f) => f.endsWith('.json'))
@@ -36,7 +74,7 @@ function err(file, msg) { errors.push(`[${basename(file)}] ${msg}`); }
 function warn(file, msg) { warnings.push(`[${basename(file)}] ${msg}`); }
 const isBlank = (s) => typeof s !== 'string' || s.trim().length === 0;
 
-function validateQuestion(file, q, seenIds) {
+function validateQuestion(file, q, seenIds, deck) {
   const where = q?.id ?? '(no id)';
   // id
   if (isBlank(q.id)) err(file, `question missing id`);
@@ -44,7 +82,17 @@ function validateQuestion(file, q, seenIds) {
   else seenIds.add(q.id);
 
   // domain / taskStatement
-  if (!DOMAIN_TASK_COUNT[q.domain]) err(file, `${where}: invalid domain "${q.domain}"`);
+  const known = deck?.domains.find((d) => d.id === q.domain);
+  if (deck) {
+    if (!known) {
+      err(file, `${where}: domain "${q.domain}" is not a domain of ${deckIdFromFile(file)}`);
+    } else if (q.taskStatement && !known.objectives.includes(String(q.taskStatement))) {
+      warn(
+        file,
+        `${where}: taskStatement "${q.taskStatement}" is not listed for domain ${q.domain} in the manifest`,
+      );
+    }
+  }
   if (isBlank(q.taskStatement)) err(file, `${where}: missing taskStatement`);
 
   // mode / type
@@ -133,17 +181,21 @@ function checkAggregateBias(file, questions) {
   if (lastCount / singles > 0.4) warn(file, `aggregate: correct answer last in ${lastCount}/${singles} items (>40%)`);
 }
 
-function checkCoverage(file, questions) {
-  const byDomain = {};
+function checkCoverage(file, questions, deck) {
+  if (!deck) return;
+  const byDomain = new Map();
   for (const q of questions) {
-    byDomain[q.domain] ??= new Set();
-    byDomain[q.domain].add(String(q.taskStatement).replace('.', '-'));
+    if (!byDomain.has(q.domain)) byDomain.set(q.domain, new Set());
+    byDomain.get(q.domain).add(String(q.taskStatement));
   }
-  for (const [dom, expected] of Object.entries(DOMAIN_TASK_COUNT)) {
-    if (!byDomain[dom]) { warn(file, `coverage: no items for domain ${dom}`); continue; }
-    for (let i = 1; i <= expected; i++) {
-      const ts = `${dom.split('')[1]}-${i}`;
-      if (!byDomain[dom].has(ts)) warn(file, `coverage: domain ${dom} missing task statement ${i}`);
+  for (const d of deck.domains) {
+    const seen = byDomain.get(d.id) ?? new Set();
+    if (seen.size === 0) {
+      warn(file, `coverage: no items for domain ${d.id} (${d.name})`);
+      continue;
+    }
+    for (const obj of d.objectives) {
+      if (!seen.has(obj)) warn(file, `coverage: domain ${d.id} missing objective ${obj}`);
     }
   }
 }
@@ -165,9 +217,10 @@ for (const f of files) {
   }
   const questions = Array.isArray(data) ? data : data.questions;
   if (!Array.isArray(questions)) { err(f, 'expected an array or an object with a "questions" array'); continue; }
-  for (const q of questions) validateQuestion(f, q, seenIds);
+  const deck = EXPECTATIONS?.get(deckIdFromFile(f)) ?? null;
+  for (const q of questions) validateQuestion(f, q, seenIds, deck);
   checkAggregateBias(f, questions);
-  checkCoverage(f, questions);
+  checkCoverage(f, questions, deck);
   allQuestions.push(...questions);
 }
 

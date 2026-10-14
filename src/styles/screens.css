@@ -182,12 +182,86 @@
   color: var(--text); border: 1px solid var(--border); font-family: inherit; font-size: var(--fs-base);
 }
 
+/* ---- Certification picker ---- */
+.certs-header { margin-bottom: var(--sp-6); }
+.certs-sub { color: var(--text-muted); margin-top: var(--sp-2); }
+.cert-list { display: grid; gap: var(--sp-3); margin-top: var(--sp-5); }
+.cert-card {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: var(--sp-4);
+  border-radius: var(--radius);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  text-decoration: none;
+  color: inherit;
+}
+.cert-card:hover { border-color: var(--border-strong); }
+.cert-top { display: flex; align-items: center; justify-content: space-between; gap: var(--sp-3); }
+.cert-name { font-weight: 800; font-size: var(--fs-md); }
+.cert-code { font-size: var(--fs-xs); color: var(--text-muted); margin-top: 2px; }
+.cert-go { font-size: 26px; color: var(--text-dim); }
+.cert-progress { font-size: var(--fs-xs); color: var(--text-dim); margin-top: 4px; }
+.cert-planned { opacity: 0.72; cursor: pointer; }
+.cert-badge {
+  font-size: var(--fs-xs);
+  font-weight: 800;
+  color: var(--teal);
+  padding: 4px 10px;
+  border-radius: var(--radius-pill);
+  background: rgba(22, 199, 154, 0.14);
+  white-space: nowrap;
+}
+.cert-section { margin-top: var(--sp-6); margin-bottom: var(--sp-3); font-size: var(--fs-md); font-weight: 800; }
+.soon-code { color: var(--text-dim); font-size: var(--fs-xs); }
+.soon-link { display: inline-block; margin-top: var(--sp-3); color: var(--blue); font-weight: 700; font-size: var(--fs-sm); }
+
 /* ---- Coming soon ---- */
 .coming { text-align: center; padding-top: var(--sp-6); }
 .coming-emoji { font-size: 56px; }
 .coming-card { padding: var(--sp-4); margin-top: var(--sp-5); text-align: left; }
-.coming-row { display: flex; justify-content: space-between; align-items: center; padding: var(--sp-3) 0; border-top: 1px solid var(--border); }
-.coming-row:first-child { border-top: none; }
+.coming-row { display: flex; justify-content: space-between; align-items: center; padding: var(--sp-3) 0; }
 .coming-name { font-weight: 700; }
 .coming-code { font-size: var(--fs-xs); color: var(--text-muted); }
-.coming-badge { font-size: var(--fs-xs); font-weight: 800; color: var(--teal); padding: 4px 10px; border-radius: var(--radius-pill); background: rgba(22,199,154,.14); }
+.coming-badge {
+  font-size: var(--fs-xs);
+  font-weight: 800;
+  color: var(--teal);
+  padding: 4px 10px;
+  border-radius: var(--radius-pill);
+  background: rgba(22, 199, 154, 0.14);
+  white-space: nowrap;
+}
+.coming-domains { display: flex; flex-wrap: wrap; gap: 6px; margin-top: var(--sp-3); }
+.coming-domain {
+  font-size: var(--fs-xs);
+  color: var(--text-muted);
+  padding: 4px 10px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--border);
+}
+.coming-domain em { font-style: normal; color: var(--text-dim); }
+
+/* ---- Per-deck progress rows in settings ---- */
+.deck-progress-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-3);
+  padding: var(--sp-3);
+  border-radius: var(--radius-sm);
+  background: var(--surface-2);
+}
+.deck-progress-info { display: grid; }
+.deck-progress-name { font-weight: 700; font-size: var(--fs-sm); }
+.deck-progress-sub { font-size: var(--fs-xs); color: var(--text-muted); }
+.deck-reset {
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  color: var(--danger);
+  padding: 8px 12px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--danger);
+  min-height: 36px;
+}

@@ -1,14 +1,17 @@
 import { Link, useNavigate } from 'react-router-dom';
-import { deck, domains } from '../content/deck';
+import { useDeck } from '../content/DeckContext';
+import { getDeckMeta, deckList } from '../content/decks';
 import { deckCompletion, domainStats } from '../domain/progress';
 import type { AppState } from '../storage/useAppState';
 
-export function Home({ app }: { app: AppState }) {
+export function CertHome({ app }: { app: AppState }) {
+  const { meta, questions } = useDeck();
   const { progress, session } = app;
+  const deckId = meta.deckId;
   const navigate = useNavigate();
-  const completion = deckCompletion(deck.questions, progress);
+  const completion = deckCompletion(questions, progress);
   const pct = Math.round(completion.ratio * 100);
-  const stats = domainStats(deck.questions, progress, Date.now());
+  const stats = domainStats(questions, progress, Date.now());
   const dueCount = stats.reduce((a, s) => a + s.due, 0);
 
   const greeting = () => {
@@ -30,12 +33,17 @@ export function Home({ app }: { app: AppState }) {
           </span>
           <div>
             <div className="brand-name">The Claude Cert Game</div>
-            <div className="brand-sub">Architect · Foundations</div>
+            <div className="brand-sub">{meta.shortName}</div>
           </div>
         </div>
-        <Link to="/settings" className="icon-btn" aria-label="Settings">
-          ⚙️
-        </Link>
+        <div style={{ display: 'flex', gap: 'var(--sp-2)' }}>
+          <Link to="/c" className="icon-btn" aria-label="Switch certification" title="Switch certification">
+            ⇄
+          </Link>
+          <Link to="/settings" className="icon-btn" aria-label="Settings">
+            ⚙️
+          </Link>
+        </div>
       </header>
 
       <section className="hero">
@@ -61,7 +69,7 @@ export function Home({ app }: { app: AppState }) {
         <button
           type="button"
           className="resume-card"
-          onClick={() => navigate(`/session/${session!.config.mode}`)}
+          onClick={() => navigate(`/c/${deckId}/session/${session!.config.mode}`)}
           data-testid="resume"
         >
           <div>
@@ -79,7 +87,7 @@ export function Home({ app }: { app: AppState }) {
       <h2 style={{ marginTop: 'var(--sp-6)', marginBottom: 'var(--sp-3)' }}>Choose a session</h2>
 
       <div className="session-list">
-        <Link to="/session/discover" className="session-card session-purple" data-testid="start-discover">
+        <Link to={`/c/${deckId}/session/discover`} className="session-card session-purple" data-testid="start-discover">
           <span className="session-icon" aria-hidden="true">
             ⚡
           </span>
@@ -92,7 +100,7 @@ export function Home({ app }: { app: AppState }) {
           </span>
         </Link>
 
-        <Link to="/session/challenge" className="session-card session-teal" data-testid="start-challenge">
+        <Link to={`/c/${deckId}/session/challenge`} className="session-card session-teal" data-testid="start-challenge">
           <span className="session-icon" aria-hidden="true">
             🎯
           </span>
@@ -105,7 +113,7 @@ export function Home({ app }: { app: AppState }) {
           </span>
         </Link>
 
-        <Link to="/review" className="session-card session-amber" data-testid="start-recall">
+        <Link to={`/c/${deckId}/review`} className="session-card session-amber" data-testid="start-recall">
           <span className="session-icon" aria-hidden="true">
             🔁
           </span>
@@ -123,11 +131,11 @@ export function Home({ app }: { app: AppState }) {
 
       <h2 style={{ marginTop: 'var(--sp-6)', marginBottom: 'var(--sp-3)' }}>Domains</h2>
       <div className="domain-mini-grid">
-        {domains.map((d) => {
+        {meta.domains.map((d) => {
           const s = stats.find((x) => x.domain === d.id);
           const p = s && s.accuracy != null ? Math.round(s.accuracy * 100) : 0;
           return (
-            <Link key={d.id} to={`/stats`} className="domain-mini card">
+            <Link key={d.id} to={`/c/${deckId}/stats`} className="domain-mini card">
               <div className="domain-mini-name">{d.name}</div>
               <div className="domain-mini-weight">{d.weight}% of exam</div>
               <div className="progress-track" style={{ height: 6, marginTop: 'var(--sp-2)' }}>
@@ -138,17 +146,30 @@ export function Home({ app }: { app: AppState }) {
         })}
       </div>
 
-      <section className="soon-card card">
-        <div className="soon-title">Coming soon</div>
-        <div className="soon-list">
-          <div>Architect · Professional (CCAR-P)</div>
-          <div>Developer · Foundations (CCDV-F)</div>
-        </div>
-      </section>
+      {deckList.filter((d) => d.deckId !== deckId).length > 0 && (
+        <section className="soon-card card">
+          <div className="soon-title">Other certifications</div>
+          <div className="soon-list">
+            {deckList
+              .filter((d) => d.deckId !== deckId)
+              .map((d) => (
+                <div key={d.deckId}>
+                  {d.shortName}{' '}
+                  <span className="soon-code">
+                    {d.examCode} · {getDeckMeta(d.deckId)?.available ? 'available' : 'planned'}
+                  </span>
+                </div>
+              ))}
+          </div>
+          <Link to="/c" className="soon-link">
+            Switch certification
+          </Link>
+        </section>
+      )}
 
       <p className="disclaimer">
-        Practice questions authored from the official {deck.examCode} exam guide. These are study aids,
-        not official exam items.
+        Practice questions authored from the official {meta.examCode} exam guide. These are study
+        aids, not official exam items.
       </p>
     </div>
   );

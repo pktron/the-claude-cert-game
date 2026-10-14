@@ -1,9 +1,14 @@
 import type { ProgressState, SessionState } from '../domain/types';
 import { emptyProgress, PROGRESS_VERSION } from '../domain/progress';
 
-const PROGRESS_KEY = 'ccg:progress';
-const SESSION_KEY = 'ccg:session';
 const SETTINGS_KEY = 'ccg:settings';
+
+/**
+ * Progress and the active session are stored per certification, so studying
+ * CCAR-P never touches the learner's CCAR-F history. Settings stay global.
+ */
+const progressKey = (deckId: string) => `ccg:progress:${deckId}`;
+const sessionKey = (deckId: string) => `ccg:session:${deckId}`;
 
 export interface Settings {
   reduceMotion: boolean;
@@ -41,29 +46,27 @@ function safeWrite(key: string, value: unknown): boolean {
   }
 }
 
-/** Load progress, guarding against corrupt or older-version data. */
-export function loadProgress(): ProgressState {
-  const data = safeParse<ProgressState>(localStorage.getItem(PROGRESS_KEY));
+/** Load progress for a certification, guarding against corrupt or older-version data. */
+export function loadProgress(deckId: string): ProgressState {
+  const data = safeParse<ProgressState>(localStorage.getItem(progressKey(deckId)));
   if (!data || typeof data !== 'object') return emptyProgress();
   if (data.version !== PROGRESS_VERSION) {
-    // Future: add migrations here. For now, a version mismatch is safer to drop
-    // than to misinterpret, but we preserve nothing to lose in the MVP.
     return { ...emptyProgress(), ...data, version: PROGRESS_VERSION };
   }
   return { ...emptyProgress(), ...data, questions: data.questions ?? {}, flagged: data.flagged ?? {} };
 }
 
-export function saveProgress(progress: ProgressState): void {
-  safeWrite(PROGRESS_KEY, progress);
+export function saveProgress(deckId: string, progress: ProgressState): void {
+  safeWrite(progressKey(deckId), progress);
 }
 
-export function loadSession(): SessionState | null {
-  return safeParse<SessionState>(localStorage.getItem(SESSION_KEY));
+export function loadSession(deckId: string): SessionState | null {
+  return safeParse<SessionState>(localStorage.getItem(sessionKey(deckId)));
 }
 
-export function saveSession(session: SessionState | null): void {
-  if (session === null) localStorage.removeItem(SESSION_KEY);
-  else safeWrite(SESSION_KEY, session);
+export function saveSession(deckId: string, session: SessionState | null): void {
+  if (session === null) localStorage.removeItem(sessionKey(deckId));
+  else safeWrite(sessionKey(deckId), session);
 }
 
 export function loadSettings(): Settings {
@@ -87,6 +90,9 @@ export function importProgress(json: string): ProgressState | null {
 }
 
 export function clearAll(): void {
-  localStorage.removeItem(PROGRESS_KEY);
-  localStorage.removeItem(SESSION_KEY);
+  for (const key of Object.keys(localStorage)) {
+    if (key.startsWith('ccg:progress:') || key.startsWith('ccg:session:')) {
+      localStorage.removeItem(key);
+    }
+  }
 }
