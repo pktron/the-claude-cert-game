@@ -176,11 +176,39 @@ function validateQuestion(file, q, seenIds, deck) {
 
 // cross-question position/length bias (aggregate within a file)
 function checkAggregateBias(file, questions) {
-  const firstCount = questions.filter((q) => q.type === 'single' && q.options?.find((o) => o.isCorrect)?.id === q.options?.[0]?.id).length;
-  const lastCount = questions.filter((q) => q.type === 'single' && (() => { const o = q.options; const i = o.findIndex((x) => x.isCorrect); return i === o.length - 1; })()).length;
-  const singles = questions.filter((q) => q.type === 'single').length || 1;
-  if (firstCount / singles > 0.4) warn(file, `aggregate: correct answer first in ${firstCount}/${singles} items (>40%)`);
-  if (lastCount / singles > 0.4) warn(file, `aggregate: correct answer last in ${lastCount}/${singles} items (>40%)`);
+  const singles = questions.filter((q) => q.type === 'single');
+  if (!singles.length) return;
+  const n = singles.length;
+
+  // Distribution of the correct answer across array positions. A key that piles up
+  // on one position is a pattern a learner could learn. Small samples are noisy, so
+  // only flag when the concentration is clear.
+  const perIndex = {};
+  let longer = 0;
+  for (const q of singles) {
+    const i = q.options.findIndex((o) => o.isCorrect);
+    perIndex[i] = (perIndex[i] || 0) + 1;
+    const c = q.options[i].text.length;
+    const avg = q.options
+      .filter((o) => !o.isCorrect)
+      .reduce((a, o) => a + o.text.length, 0) / Math.max(1, q.options.length - 1);
+    if (c > avg * 1.5 + 10 || c < avg * 0.6) longer += 1;
+  }
+  for (const [idx, count] of Object.entries(perIndex)) {
+    const share = count / n;
+    // Needs enough items for the distribution to mean anything. Below ~10 items a
+    // >50% share is reachable by chance alone, especially once items are grouped by
+    // option count, so only flag where the pattern is real.
+    if (n >= 10 && share > 0.5) {
+      warn(
+        file,
+        `aggregate: the correct answer sits at index ${idx} in ${count}/${n} single-answer items (${Math.round(share * 100)}%). Keys should be spread across positions.`,
+      );
+    }
+  }
+  if (longer / n > 0.3) {
+    warn(file, `aggregate: ${longer}/${n} single-answer items have a correct option notably longer or shorter than its distractors.`);
+  }
 }
 
 function checkCoverage(file, questions, deck) {

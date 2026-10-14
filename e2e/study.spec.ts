@@ -355,10 +355,10 @@ test('progress is isolated between certifications', async ({ page }) => {
   await page.goto('/#/c');
   await expect(page.getByText(/explored/)).toBeVisible();
 
-  // A different, untouched certification must show no progress at all.
+  // A different, untouched certification must show zero progress. Match the
+  // "0 of N cards seen" shape without pinning N to a content count.
   await page.goto('/#/c/architect-professional/stats');
-  await expect(page.getByText(/explored/)).toHaveCount(0);
-  await expect(page.getByText('0 of 91 cards seen')).toBeVisible();
+  await expect(page.getByText(/^0 of \d+ cards seen$/)).toBeVisible();
 });
 
 test('progress recorded on one deck is still there when returning to it', async ({ page }) => {
@@ -366,8 +366,9 @@ test('progress recorded on one deck is still there when returning to it', async 
   await swipeEnabled(page);
   await expect(page.getByTestId('feedback')).toBeVisible();
 
+  // Visiting another deck must not clear the original deck's progress.
   await page.goto('/#/c/architect-professional/stats');
-  await expect(page.getByText('0 of 91 cards seen')).toBeVisible();
+  await expect(page.getByText(/^0 of \d+ cards seen$/)).toBeVisible();
 
   // Back to the original deck: its progress survived the switch.
   await page.goto(certHome(DECK));

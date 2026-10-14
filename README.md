@@ -14,8 +14,8 @@ you have not seen in a while.
 | Exam | Name | Domains | Objectives | Questions |
 |---|---|---|---|---|
 | CCAR-F | Architect · Foundations | 5 | 30 | 98 |
-| CCAR-P | Architect · Professional | 7 | 38 | 91 |
-| CCDV-F | Developer · Foundations | 8 | 25 | 62 |
+| CCAR-P | Architect · Professional | 7 | 38 | 85 |
+| CCDV-F | Developer · Foundations | 8 | 25 | 60 |
 
 Pick a certification on the home screen. Progress is stored **per certification**, so studying
 one exam never touches another's history.
@@ -24,11 +24,18 @@ one exam never touches another's history.
 |---|---|---|
 | CCAR-F | Rich | The guide states "knowledge of" and "skills in" per task statement |
 | CCAR-P | Medium | Objectives are one line each; items test scope and objective boundaries |
-| CCDV-F | Thin | Skills are a name plus one weighted sentence; 1 flagged item |
+| CCDV-F | Thin | Skills are a name plus one weighted sentence |
 
 Some items are marked `"reviewStatus": "needs-review"` where the guide is too thin to support
 a defensible correct answer. Those flag a gap in the source rather than invent content, and
 they are the right place to look first if you want to extend a deck.
+
+### Content review
+
+Every question was written by an independent agent and then reviewed by *other* agents working
+cold against the source slice, with defects fixed and re-verified over three rounds
+(`content/AUDIT_FINDINGS.md`). The rules are in `content/AUDIT_RULES.md`. Roughly a dozen
+questions were removed rather than repaired where the guide supports no defensible key.
 
 
 ---
@@ -54,7 +61,9 @@ pnpm test:e2e     # Playwright e2e against the production build
 | `pnpm typecheck` | `tsc -b` |
 | `pnpm test` | Vitest unit + component tests |
 | `pnpm test:e2e` | Playwright end-to-end tests |
-| `pnpm validate:content` | Validates the question bank |
+| `pnpm validate:content` | Validates the question bank against the schema and manifest |
+| `pnpm audit:content` | Mechanical deck QA (encoding, ids, answer-position bias, provenance) |
+| `pnpm shuffle:keys` | Redistributes which array position holds the correct answer |
 | `pnpm extract:pdf` | Re-extract source text from the PDFs |
 | `pnpm verify` | Everything CI runs |
 
@@ -97,19 +106,40 @@ content/
     architect-foundations.json
     architect-professional.json
     developer-foundations.json
-    partials/                 per-domain drafts (gitignored)
+    partials/                 per-domain drafts
   schema/README.md            the Question schema
   AUTHORING_RULES.md          canonical authoring brief
+  AUDIT_RULES.md              canonical review brief
+  AUDIT_FINDINGS.md           round-1 audit findings and their resolutions
 scripts/
   extract-pdf.ps1             PDFs -> text -> per-domain slices
   slice_sources.py            slices + manifest for all three guides
   validate-content.mjs        schema + quality gate, manifest-driven coverage
+  audit-decks.mjs             mechanical QA (encoding, ids, bias, provenance)
+  shuffle-keys.mjs            redistributes which array position holds the answer
   merge-deck.mjs              partials -> shipped decks
 ```
 
 `manifest.json` is generated from the guides and is the single source of truth for domains,
 exam weights, and the objectives each domain is measured against. Both the app and the
 validator read it, so a deck and its coverage expectations can never drift apart.
+
+### Quality gates
+
+`pnpm verify` runs lint, typecheck, tests, **content validation** and a **mechanical deck
+audit** before building. The validator enforces schema rules and objective coverage from the
+manifest, and flags answer-revealing signals. The auditor additionally catches encoding
+damage, id drift, duplicate options, provenance mismatches, and aggregate position bias.
+
+### A note on option order
+
+The correct answer's **array index** is not what the learner sees: `presentationRows()` derives
+the displayed order from a per-presentation randomised direction assignment, so option order is
+re-shuffled every time a card appears. The array index is still kept free of a learnable
+pattern in the stored data, because a correct answer that piles up on one index across a file
+is a pattern someone could learn. `pnpm shuffle:keys` redistributes it deterministically without
+touching a single word of the content.
+
 
 A question records its `domain`, `taskStatement`, `concept`, `prompt`, `options`,
 `correctCount`, `optionCountRationale`, a `distractorRationale` for **every** wrong option, a

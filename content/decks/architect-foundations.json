@@ -95,14 +95,14 @@
       "prompt": "A team's agent loop ends the run whenever the assistant's text contains a phrase like \"I have completed the task.\" How does the exam guide classify this pattern?",
       "options": [
         {
-          "id": "b",
-          "text": "Acceptable, provided the model is told to use that exact phrase",
-          "isCorrect": false
-        },
-        {
           "id": "a",
           "text": "An anti-pattern; termination should key off stop_reason instead",
           "isCorrect": true
+        },
+        {
+          "id": "b",
+          "text": "Acceptable, provided the model is told to use that exact phrase",
+          "isCorrect": false
         },
         {
           "id": "c",
@@ -144,14 +144,14 @@
       "prompt": "A customer-support agent looks up an order with one tool call, then must decide what to do next. Why is the tool result appended to the conversation history?",
       "options": [
         {
-          "id": "b",
-          "text": "To let the application display the raw tool output in the chat transcript",
-          "isCorrect": false
-        },
-        {
           "id": "a",
           "text": "To let the model factor the new information into its next decision",
           "isCorrect": true
+        },
+        {
+          "id": "b",
+          "text": "To let the application display the raw tool output in the chat transcript",
+          "isCorrect": false
         },
         {
           "id": "c",
@@ -281,14 +281,14 @@
       "prompt": "A coordinator launches three research subagents and expects each to reason about what the other two already found. What goes wrong?",
       "options": [
         {
-          "id": "b",
-          "text": "Subagents share one context window, so each new finding overwrites the last",
-          "isCorrect": false
-        },
-        {
           "id": "a",
           "text": "Subagents have isolated context and do not inherit the coordinator's history",
           "isCorrect": true
+        },
+        {
+          "id": "b",
+          "text": "Subagents share one context window, so each new finding overwrites the last",
+          "isCorrect": false
         },
         {
           "id": "c",
@@ -334,14 +334,14 @@
           "isCorrect": false
         },
         {
-          "id": "c",
-          "text": "Give each subagent the full topic but tell it to work at a different depth",
-          "isCorrect": false
-        },
-        {
           "id": "b",
           "text": "Assign each subagent a distinct subtopic or class of source to cover",
           "isCorrect": true
+        },
+        {
+          "id": "c",
+          "text": "Give each subagent the full topic but tell it to work at a different depth",
+          "isCorrect": false
         },
         {
           "id": "d",
@@ -389,14 +389,14 @@
           "isCorrect": false
         },
         {
-          "id": "a",
-          "text": "Re-delegate targeted queries to search and analysis subagents, then re-synthesize",
-          "isCorrect": true
-        },
-        {
           "id": "c",
           "text": "Append a disclaimer to the report noting the recent data was unavailable",
           "isCorrect": false
+        },
+        {
+          "id": "a",
+          "text": "Re-delegate targeted queries to search and analysis subagents, then re-synthesize",
+          "isCorrect": true
         }
       ],
       "correctCount": 1,
@@ -480,14 +480,14 @@
       "prompt": "A coordinator needs three independent subagents to work at the same time. How should it be done?",
       "options": [
         {
-          "id": "a",
-          "text": "Issue three separate coordinator turns, one Task call in each turn",
-          "isCorrect": false
-        },
-        {
           "id": "b",
           "text": "Emit all three Task tool calls in a single coordinator response",
           "isCorrect": true
+        },
+        {
+          "id": "a",
+          "text": "Issue three separate coordinator turns, one Task call in each turn",
+          "isCorrect": false
         },
         {
           "id": "c",
@@ -533,14 +533,14 @@
           "isCorrect": false
         },
         {
-          "id": "b",
-          "text": "The complete findings in a structured form separating content from metadata",
-          "isCorrect": true
-        },
-        {
           "id": "c",
           "text": "Nothing, since subagents inherit the coordinator's context automatically",
           "isCorrect": false
+        },
+        {
+          "id": "b",
+          "text": "The complete findings in a structured form separating content from metadata",
+          "isCorrect": true
         },
         {
           "id": "d",
@@ -628,46 +628,45 @@
       "concept": "agent-tool-restrictions",
       "mode": "swipe",
       "type": "single",
-      "prompt": "Task is in a coordinator's allowedTools. Under the guide, may a spawned subagent go on to spawn further subagents of its own?",
+      "prompt": "You are defining a new subagent type that a coordinator will invoke. What does objective 1.3 say the AgentDefinition for that type supplies?",
       "options": [
         {
           "id": "a",
-          "text": "Yes, Task stays available to every agent once it is enabled for the coordinator",
+          "text": "A description of the type plus the findings from prior agents, so each invocation resumes the investigation",
+          "isCorrect": false
+        },
+        {
+          "id": "c",
+          "text": "A description only - the system prompt and tool restrictions are inherited from the coordinator at spawn time",
           "isCorrect": false
         },
         {
           "id": "b",
-          "text": "The guide states the coordinator requirement but is silent on nesting",
+          "text": "A description, a system prompt, and the tool restrictions that apply to that subagent type",
           "isCorrect": true
-        },
-        {
-          "id": "c",
-          "text": "No, subagents can never spawn subagents under any tool configuration",
-          "isCorrect": false
         }
       ],
       "correctCount": 1,
-      "optionCountRationale": "Three options: the guide's silence, plus the two confident overreaches in opposite directions. Adding more options would only produce further guesses, since the underlying rule is not specified in the source.",
+      "optionCountRationale": "Three options: the AgentDefinition contents objective 1.3 names, plus the two placement errors teams actually make - assuming findings carry over between invocations, and assuming the system prompt and tool restrictions come from the coordinator.",
       "distractorRationale": {
-        "a": "Probes the over-generalisation that a tool enabled anywhere in the tree is enabled everywhere, which is not what a tool-restriction list guarantees.",
-        "c": "Probes the over-correction to a blanket prohibition. Asserting nesting is impossible is as unsupported as asserting it is automatic."
+        "a": "Probes treating a subagent definition as a checkpoint in a shared investigation. Objective 1.3 states that subagents do not share memory between invocations.",
+        "c": "Probes assuming a subagent runs on the coordinator's instructions. Objective 1.3 puts the system prompt and the tool restrictions in the AgentDefinition for the type itself."
       },
       "explanation": {
-        "correct": "The guide specifies that allowedTools must include Task for a coordinator to invoke subagents, and that AgentDefinitions carry tool restrictions for each subagent type. It does not state whether nesting is permitted or how restrictions propagate. Treat this as open rather than guessing.",
+        "correct": "Objective 1.3 names the AgentDefinition configuration as descriptions, system prompts, and tool restrictions for each subagent type. Each type therefore carries its own instructions and its own tool boundaries.",
         "whyWrong": {
-          "a": "Nothing in the guide says tool access propagates to every agent in the tree. Tool restrictions are defined per agent type, so inheritance is an assumption, not a documented behaviour.",
-          "c": "Equally, the guide never states that nesting is impossible. Declaring a hard prohibition reads specific authority into a topic the source leaves unaddressed."
+          "a": "Objective 1.3 states that subagents do not share memory between invocations. Findings from earlier agents have to be placed explicitly in the new subagent's prompt, which is what the definition itself does not supply.",
+          "c": "Descriptions, system prompts, and tool restrictions all live in the AgentDefinition for the type. Nothing in 1.3 has the subagent inheriting instructions or tool access from the coordinator."
         },
-        "takeaway": "Coordinator delegation requires Task in allowedTools; the guide does not settle nested delegation either way.",
-        "deepDive": "The honest answer here is a scope limit, not a rule. In an exam context, treat the guide's stated requirements as exhaustive and avoid building an answer on nested subagent spawning."
+        "takeaway": "An AgentDefinition carries a description, a system prompt, and tool restrictions for one subagent type - nothing more is inherited.",
+        "deepDive": "Objective 1.3 splits the configuration in two places: allowedTools must include Task on the coordinator for subagents to be invoked at all, and each subagent type's own AgentDefinition says what it is for, how it behaves, and which tools it may use."
       },
       "source": {
         "document": "Claude-Certified-Architect-Foundations-Exam-Guide.pdf",
         "section": "Task Statement 1.3",
         "page": 6
       },
-      "reviewStatus": "needs-review",
-      "reviewNote": "The domain slice states the Task/allowedTools requirement for a coordinator and mentions per-subagent tool restrictions in AgentDefinitions, but says nothing about whether a subagent may itself invoke Task to spawn nested subagents, nor how tool restrictions inherit. The defensible answer is that the guide is silent, which is an unusual exam answer. Flagged rather than inventing a rule; verify against the full guide or product documentation before publishing."
+      "reviewStatus": "verified"
     },
     {
       "id": "d1-4-014",
@@ -685,14 +684,14 @@
           "isCorrect": false
         },
         {
-          "id": "b",
-          "text": "Programmatic gates block downstream calls; prompt guidance can still fail",
-          "isCorrect": true
-        },
-        {
           "id": "c",
           "text": "Programmatic gates enforce ordering; prompt instructions enforce business policy",
           "isCorrect": false
+        },
+        {
+          "id": "b",
+          "text": "Programmatic gates block downstream calls; prompt guidance can still fail",
+          "isCorrect": true
         }
       ],
       "correctCount": 1,
@@ -728,6 +727,11 @@
       "prompt": "Identity must be verified before any refund runs. Which implementation gives a real guarantee?",
       "options": [
         {
+          "id": "b",
+          "text": "Block process_refund until get_customer has returned a verified customer ID",
+          "isCorrect": true
+        },
+        {
           "id": "a",
           "text": "Tell the model in the system prompt to call get_customer before refunds",
           "isCorrect": false
@@ -736,11 +740,6 @@
           "id": "c",
           "text": "Let the model decide the order, then audit the transcript after payment",
           "isCorrect": false
-        },
-        {
-          "id": "b",
-          "text": "Block process_refund until get_customer has returned a verified customer ID",
-          "isCorrect": true
         },
         {
           "id": "d",
@@ -783,14 +782,14 @@
       "prompt": "A support case must escalate to a human agent who has no access to the conversation transcript. What belongs in the handoff?",
       "options": [
         {
-          "id": "b",
-          "text": "The customer's verbatim messages, pasted in order with no analysis",
-          "isCorrect": false
-        },
-        {
           "id": "a",
           "text": "Customer ID, root cause, refund amount, and a recommended action",
           "isCorrect": true
+        },
+        {
+          "id": "b",
+          "text": "The customer's verbatim messages, pasted in order with no analysis",
+          "isCorrect": false
         },
         {
           "id": "c",
@@ -831,14 +830,14 @@
       "prompt": "When does a PostToolUse hook run relative to the model seeing a tool result?",
       "options": [
         {
-          "id": "b",
-          "text": "After the model has replied, so the exchange can be logged for audit",
-          "isCorrect": false
-        },
-        {
           "id": "a",
           "text": "Before the model processes it, so the returned data can be transformed",
           "isCorrect": true
+        },
+        {
+          "id": "b",
+          "text": "After the model has replied, so the exchange can be logged for audit",
+          "isCorrect": false
         }
       ],
       "correctCount": 1,
@@ -869,7 +868,7 @@
       "concept": "post-tool-use-normalization",
       "mode": "swipe",
       "type": "single",
-      "prompt": "Three MCP tools return timestamps as Unix seconds, ISO 8601, and raw numeric codes. What actually fixes this?",
+      "prompt": "Three MCP tools report state as Unix timestamps, ISO 8601 strings, and numeric status codes. What actually fixes this?",
       "options": [
         {
           "id": "b",
@@ -925,14 +924,14 @@
           "isCorrect": false
         },
         {
-          "id": "b",
-          "text": "An interception hook that blocks the call and redirects to escalation",
-          "isCorrect": true
-        },
-        {
           "id": "c",
           "text": "An extra coordinator pass that re-checks the amount before paying out",
           "isCorrect": false
+        },
+        {
+          "id": "b",
+          "text": "An interception hook that blocks the call and redirects to escalation",
+          "isCorrect": true
         }
       ],
       "correctCount": 1,
@@ -1021,11 +1020,6 @@
           "isCorrect": false
         },
         {
-          "id": "b",
-          "text": "It keeps each step focused and avoids diluting attention across the diff",
-          "isCorrect": true
-        },
-        {
           "id": "c",
           "text": "A model cannot read two different files in the same conversation",
           "isCorrect": false
@@ -1034,6 +1028,11 @@
           "id": "d",
           "text": "Per-file passes let the model skip the integration stage afterwards",
           "isCorrect": false
+        },
+        {
+          "id": "b",
+          "text": "It keeps each step focused and avoids diluting attention across the diff",
+          "isCorrect": true
         }
       ],
       "correctCount": 1,
@@ -1082,21 +1081,21 @@
         },
         {
           "id": "c",
-          "text": "Resume the original session and append a note that some files were modified",
+          "text": "Treat the resumed session's stored tool results as the authoritative record of what the code did at the time",
           "isCorrect": false
         }
       ],
       "correctCount": 1,
-      "optionCountRationale": "Three options place the fresh-session-with-summary answer between the two ways people try to preserve context. Keeping the resume options separate matters because one preserves stale data and the other annotates it.",
+      "optionCountRationale": "Three options place the fresh-session-with-summary answer between two ways of leaning on the resumed session's history: keeping it, and treating it as the authoritative record.",
       "distractorRationale": {
-        "a": "Probes valuing the appeal of a full history over the fact that the history itself is the problem. Every stale result stays in context and can be reasoned over.",
-        "c": "Probes believing a note repairs stale data. The stale tool results remain in the session regardless of what the prompt says about them."
+        "a": "Probes valuing the appeal of a full history over the freshness of what that history contains. The decision turns on how valid the prior results still are.",
+        "c": "Probes elevating a stale record to ground truth. The prior tool results describe the code as it was before the refactor, not as it is."
       },
       "explanation": {
         "correct": "Starting a new session with a structured summary is more reliable than resuming with stale tool results. The clean session carries forward conclusions, not superseded data.",
         "whyWrong": {
-          "a": "Resuming restores exactly the stale results that are now misleading. Keeping history for reference means the model can reason over output that no longer describes the code.",
-          "c": "Appending a warning does not delete the stale results sitting earlier in the context. The misleading data is still there to be cited."
+          "a": "The choice turns on how valid the prior tool results are, not on how much history the session holds. The prompt states those results are stale after the refactor, which is the case for starting fresh with an injected summary.",
+          "c": "Objective 1.7 states that starting a new session with a structured summary is more reliable than resuming with stale tool results. A record the prompt has just declared stale cannot serve as the authoritative account."
         },
         "takeaway": "Prior context mostly valid means resume; stale tool results mean start fresh with a summary.",
         "deepDive": "The decision rule is about the freshness of the prior tool results, not about how much effort the session represents. Sessions full of stale data are worth summarizing; sessions full of still-valid findings are worth resuming."
@@ -1119,14 +1118,14 @@
       "prompt": "After a shared codebase analysis, two refactoring strategies look equally plausible. Which tool fits?",
       "options": [
         {
-          "id": "a",
-          "text": "Two coordinator turns in one session, each undoing the other's edits",
-          "isCorrect": false
-        },
-        {
           "id": "b",
           "text": "fork_session, branching both strategies from the same baseline analysis",
           "isCorrect": true
+        },
+        {
+          "id": "a",
+          "text": "Two coordinator turns in one session, each undoing the other's edits",
+          "isCorrect": false
         },
         {
           "id": "c",
@@ -1172,14 +1171,14 @@
           "isCorrect": false
         },
         {
-          "id": "b",
-          "text": "Which files changed, so the session re-analyzes those instead of everything",
-          "isCorrect": true
-        },
-        {
           "id": "c",
           "text": "A full restatement of the original research question to re-anchor the agent",
           "isCorrect": false
+        },
+        {
+          "id": "b",
+          "text": "Which files changed, so the session re-analyzes those instead of everything",
+          "isCorrect": true
         }
       ],
       "correctCount": 1,
@@ -1261,14 +1260,14 @@
           "isCorrect": false
         },
         {
-          "id": "b",
-          "text": "Rewrite each description to state its purpose, expected inputs and outputs, and when to prefer it over the other",
-          "isCorrect": true
-        },
-        {
           "id": "c",
           "text": "Rename both tools so they share a common analyze_ prefix and a single combined description",
           "isCorrect": false
+        },
+        {
+          "id": "b",
+          "text": "Rewrite each description to state its purpose, expected inputs and outputs, and when to prefer it over the other",
+          "isCorrect": true
         }
       ],
       "correctCount": 1,
@@ -1405,14 +1404,14 @@
       "prompt": "In MCP, how does a server tell the agent that a tool call failed rather than returned a result?",
       "options": [
         {
-          "id": "a",
-          "text": "By returning an empty payload, so the agent treats the call as completed with no data",
-          "isCorrect": false
-        },
-        {
           "id": "b",
           "text": "By setting the isError flag on the response and describing what went wrong",
           "isCorrect": true
+        },
+        {
+          "id": "a",
+          "text": "By returning an empty payload, so the agent treats the call as completed with no data",
+          "isCorrect": false
         }
       ],
       "correctCount": 1,
@@ -1544,14 +1543,14 @@
           "isCorrect": false
         },
         {
-          "id": "b",
-          "text": "Return the empty result set as a success, and flag access failures with isError plus a category",
-          "isCorrect": true
-        },
-        {
           "id": "c",
           "text": "Return a retryable error, since an empty result set may mean the query failed silently",
           "isCorrect": false
+        },
+        {
+          "id": "b",
+          "text": "Return the empty result set as a success, and flag access failures with isError plus a category",
+          "isCorrect": true
         }
       ],
       "correctCount": 1,
@@ -1633,6 +1632,11 @@
       "prompt": "A synthesis agent that should only combine findings keeps running its own web searches and returning raw results. What is the best fix?",
       "options": [
         {
+          "id": "c",
+          "text": "Restrict it to its role's tools, plus limited cross-role tools such as verify_fact for frequent needs",
+          "isCorrect": true
+        },
+        {
           "id": "a",
           "text": "Add a system prompt instruction telling it to stop searching and synthesize what it has",
           "isCorrect": false
@@ -1641,11 +1645,6 @@
           "id": "b",
           "text": "Add more web and fetch tools so it can double-check its own results before synthesizing",
           "isCorrect": false
-        },
-        {
-          "id": "c",
-          "text": "Restrict it to its role's tools, plus limited cross-role tools such as verify_fact for frequent needs",
-          "isCorrect": true
         },
         {
           "id": "d",
@@ -1687,16 +1686,6 @@
       "prompt": "Which of these are the tool_choice configurations the guide lists? Select all that apply.",
       "options": [
         {
-          "id": "a",
-          "text": "\"auto\", which leaves the decision to call a tool to the model",
-          "isCorrect": true
-        },
-        {
-          "id": "b",
-          "text": "\"any\", which guarantees the model calls a tool instead of replying in text",
-          "isCorrect": true
-        },
-        {
           "id": "c",
           "text": "Forced selection using {\"type\": \"tool\", \"name\": \"...\"} to pin the first call",
           "isCorrect": true
@@ -1705,6 +1694,16 @@
           "id": "d",
           "text": "\"none\", which blocks all tool calls for that turn until the setting is changed",
           "isCorrect": false
+        },
+        {
+          "id": "a",
+          "text": "\"auto\", which leaves the decision to call a tool to the model",
+          "isCorrect": true
+        },
+        {
+          "id": "b",
+          "text": "\"any\", which guarantees the model calls a tool instead of replying in text",
+          "isCorrect": true
         }
       ],
       "correctCount": 3,
@@ -1737,14 +1736,14 @@
       "prompt": "An extraction pipeline must gather document metadata before any enrichment step runs. How should tool_choice be set?",
       "options": [
         {
-          "id": "a",
-          "text": "Set \"any\" so the model picks an appropriate tool in each of the two steps",
-          "isCorrect": false
-        },
-        {
           "id": "b",
           "text": "Force extract_metadata, then process the remaining enrichment steps in follow-up turns",
           "isCorrect": true
+        },
+        {
+          "id": "a",
+          "text": "Set \"any\" so the model picks an appropriate tool in each of the two steps",
+          "isCorrect": false
         },
         {
           "id": "c",
@@ -1838,14 +1837,14 @@
       "prompt": "Agents burn exploratory tool calls just to discover which issues, documents, or schemas exist. What does the guide recommend?",
       "options": [
         {
-          "id": "a",
-          "text": "Give agents a generic list_all tool and let them call it until the catalog is mapped out",
-          "isCorrect": false
-        },
-        {
           "id": "b",
           "text": "Expose the catalogs as MCP resources so the agent can see available data without exploratory calls",
           "isCorrect": true
+        },
+        {
+          "id": "a",
+          "text": "Give agents a generic list_all tool and let them call it until the catalog is mapped out",
+          "isCorrect": false
         },
         {
           "id": "c",
@@ -1980,14 +1979,14 @@
       "prompt": "Edit reports that its anchor text matches multiple places in the file. What is the reliable next step?",
       "options": [
         {
-          "id": "a",
-          "text": "Repeat Edit with a shorter fragment of the same text until it matches only one place",
-          "isCorrect": false
-        },
-        {
           "id": "b",
           "text": "Read the file to load full context, then Write the corrected contents back to disk",
           "isCorrect": true
+        },
+        {
+          "id": "a",
+          "text": "Repeat Edit with a shorter fragment of the same text until it matches only one place",
+          "isCorrect": false
         },
         {
           "id": "c",
@@ -2027,14 +2026,14 @@
       "prompt": "What does the guide describe as the right way to build understanding of an unfamiliar codebase?",
       "options": [
         {
-          "id": "a",
-          "text": "Read every file up front, then trace the flows once the whole picture is loaded",
-          "isCorrect": false
-        },
-        {
           "id": "b",
           "text": "Start with Grep to find entry points, then Read to follow imports and trace flows from there",
           "isCorrect": true
+        },
+        {
+          "id": "a",
+          "text": "Read every file up front, then trace the flows once the whole picture is loaded",
+          "isCorrect": false
         },
         {
           "id": "c",
@@ -2075,14 +2074,14 @@
       "prompt": "A team standard ('every service method returns a typed Result') lives in ~/.claude/CLAUDE.md. Only the developer who wrote it reports Claude following it; teammates on the same repository do not. Why?",
       "options": [
         {
-          "id": "a",
-          "text": "The standard belongs in a .claude/rules/ file instead, because CLAUDE.md is never loaded for team-wide use.",
-          "isCorrect": false
-        },
-        {
           "id": "b",
           "text": "User-level instructions apply only to that user and are not shared with teammates through version control.",
           "isCorrect": true
+        },
+        {
+          "id": "a",
+          "text": "The standard belongs in a .claude/rules/ file instead, because CLAUDE.md is never loaded for team-wide use.",
+          "isCorrect": false
         },
         {
           "id": "c",
@@ -2269,45 +2268,45 @@
       "concept": "skill-frontmatter-controls",
       "mode": "swipe",
       "type": "single",
-      "prompt": "You are writing a skill that analyzes the codebase and prints a long report. Which frontmatter configuration matches the guide's guidance?",
+      "prompt": "A skill takes a target directory as a required argument, writes generated files under it, and must not be able to do anything outside that directory. Which frontmatter configuration matches the guide's guidance?",
       "options": [
         {
           "id": "a",
-          "text": "context: fork only - the skill already runs in an isolated sub-agent, so allowed-tools can stay unrestricted.",
+          "text": "context: fork only - running the skill in an isolated sub-agent means it needs no other frontmatter configuration.",
           "isCorrect": false
         },
         {
           "id": "b",
-          "text": "allowed-tools: Write with context: inline - limiting tool access is enough to keep output out of the main session.",
+          "text": "allowed-tools: Write, and nothing else - restricting tool access is the only configuration a skill's frontmatter carries.",
           "isCorrect": false
-        },
-        {
-          "id": "c",
-          "text": "context: fork, plus argument-hint so required parameters are prompted for when the skill is invoked bare.",
-          "isCorrect": true
         },
         {
           "id": "d",
           "text": "A description field only - frontmatter configuration is limited to descriptive text about the skill.",
           "isCorrect": false
+        },
+        {
+          "id": "c",
+          "text": "allowed-tools limited to file write operations, plus argument-hint so the required directory is prompted for when the skill is invoked bare.",
+          "isCorrect": true
         }
       ],
       "correctCount": 1,
-      "optionCountRationale": "Four options, one per supported frontmatter capability the guide names (fork, allowed-tools, argument-hint) plus a 'frontmatter is only metadata' misconception.",
+      "optionCountRationale": "Four options, one per combination the scenario makes thinkable: isolate only, restrict only, restrict and prompt, and the 'frontmatter is only metadata' misconception. Both forced capabilities, allowed-tools and argument-hint, have to be in the same option, and the distractors each drop or replace one of them.",
       "distractorRationale": {
-        "a": "Probes treating context: fork as if it also governed permissions; tool restriction is a separate frontmatter concern.",
-        "b": "Probes swapping the roles of allowed-tools and context, and inventing an 'inline' context value the guide does not list.",
+        "a": "Probes treating context: fork as a substitute for the rest of the configuration; it decides where the skill's output goes, not what it needs or may do.",
+        "b": "Probes restricting tools but ignoring the required argument, and the belief that allowed-tools is the only field frontmatter offers.",
         "d": "Probes the belief that SKILL.md frontmatter is documentation-only rather than executable configuration."
       },
       "explanation": {
-        "correct": "Skills in .claude/skills/ use SKILL.md files with frontmatter configuration including context: fork, allowed-tools, and argument-hint. context: fork runs the skill in an isolated sub-agent context so its verbose output - such as codebase analysis or brainstorming alternatives - does not pollute the main conversation, and argument-hint prompts developers for required parameters when they invoke the skill without arguments.",
+        "correct": "Objective 3.2 gives the two capabilities this skill needs. allowed-tools restricts tool access during skill execution, for example limiting it to file write operations to prevent destructive actions, which is what keeps the skill inside its directory. argument-hint prompts developers for required parameters when they invoke the skill without arguments, which is what supplies the directory.",
         "whyWrong": {
-          "a": "context: fork controls where output goes, not what the skill may do. Restricting tool access is what allowed-tools is for, and the guide pairs the two concerns separately.",
-          "b": "allowed-tools restricts which tools a skill can use - for example limiting it to file write operations to prevent destructive actions - but it does not move output out of the main session. 'inline' is not a context value the guide lists; it names context: fork.",
-          "d": "Frontmatter is configuration, not just documentation: the guide explicitly supports context: fork, allowed-tools, and argument-hint as frontmatter options in SKILL.md."
+          "a": "context: fork runs the skill in an isolated sub-agent context so its output does not pollute the main conversation. It neither prompts for a missing required parameter nor restricts which tools the skill may call, so it cannot deliver this skill's two requirements.",
+          "b": "allowed-tools is right about the tool boundary but stops there. Without argument-hint a developer who invokes the skill without arguments gets no prompt for the required directory, and the guide supports context: fork and argument-hint alongside allowed-tools.",
+          "d": "Frontmatter is configuration, not just documentation: objective 3.2 supports context: fork, allowed-tools, and argument-hint as frontmatter options in SKILL.md."
         },
         "takeaway": "context: fork isolates a skill's noisy output, allowed-tools limits what it can do, argument-hint asks for missing parameters.",
-        "deepDive": "A well-configured skill combines all three: fork for verbose or exploratory output (codebase analysis, brainstorming alternatives), allowed-tools to bound damage (for example file writes only), and argument-hint so the skill never has to guess a required input."
+        "deepDive": "Objective 3.2 names three frontmatter options with three different jobs: context: fork for skills that produce verbose output or exploratory context such as codebase analysis or brainstorming alternatives, allowed-tools to bound what a skill can do, and argument-hint so the skill never has to guess a required input. A well-configured skill uses the ones its use case calls for, which is not necessarily all three."
       },
       "source": {
         "document": "Claude-Certified-Architect-Foundations-Exam-Guide.pdf",
@@ -2326,14 +2325,14 @@
       "prompt": "Which statement correctly distinguishes skills from CLAUDE.md, as the guide presents them?",
       "options": [
         {
-          "id": "a",
-          "text": "CLAUDE.md is invoked on demand for task-specific workflows, while skills load automatically on every request.",
-          "isCorrect": false
-        },
-        {
           "id": "b",
           "text": "Skills are invoked on demand for task-specific workflows; CLAUDE.md supplies always-loaded universal standards.",
           "isCorrect": true
+        },
+        {
+          "id": "a",
+          "text": "CLAUDE.md is invoked on demand for task-specific workflows, while skills load automatically on every request.",
+          "isCorrect": false
         }
       ],
       "correctCount": 1,
@@ -2366,14 +2365,14 @@
       "prompt": "Test files are spread across packages/web, packages/api, and packages/worker, and all of them must follow the same conventions. What does the guide recommend?",
       "options": [
         {
-          "id": "a",
-          "text": "Add a separate CLAUDE.md file inside each of the three directories so the test conventions load per folder.",
-          "isCorrect": false
-        },
-        {
           "id": "b",
           "text": "Create a .claude/rules/ file with YAML frontmatter paths such as [\"**/*.test.tsx\"] so it loads for test files.",
           "isCorrect": true
+        },
+        {
+          "id": "a",
+          "text": "Add a separate CLAUDE.md file inside each of the three directories so the test conventions load per folder.",
+          "isCorrect": false
         },
         {
           "id": "c",
@@ -2465,14 +2464,14 @@
           "isCorrect": false
         },
         {
-          "id": "b",
-          "text": "Choosing between integration approaches that carry different infrastructure requirements.",
-          "isCorrect": true
-        },
-        {
           "id": "c",
           "text": "Fixing a single-file bug where the stack trace already points at the failing line.",
           "isCorrect": false
+        },
+        {
+          "id": "b",
+          "text": "Choosing between integration approaches that carry different infrastructure requirements.",
+          "isCorrect": true
         }
       ],
       "correctCount": 1,
@@ -2539,7 +2538,7 @@
         "whyWrong": {
           "a": "Recording raw discovery output in CLAUDE.md means every later session pays to re-read it. The guide's answer to verbose output is isolation, not storage.",
           "b": "Skipping discovery removes the safe exploration and design step, which is how a migration ends up needing rework. Plan mode exists precisely to explore before committing to changes.",
-          "d": "context: fork runs a skill in an isolated sub-agent context so its output does not pollute the main conversation. Delivering that output back into the main session does not preserve context."
+          "d": "context: fork runs a skill in an isolated sub-agent context, preventing skill outputs from polluting the main conversation - which means a forked skill's output stays out of the main session rather than being delivered into it. Returning summaries to the main conversation is what the Explore subagent does."
         },
         "takeaway": "Verbose discovery belongs in the Explore subagent, and the plan belongs before the edits.",
         "deepDive": "Context isolation is a recurring theme in this domain: the Explore subagent for discovery phases, and context: fork for skills that produce verbose output such as codebase analysis or exploratory brainstorming."
@@ -2601,14 +2600,14 @@
       "prompt": "A developer describes a data transformation in prose and receives three slightly different implementations. What is the most effective fix, according to the guide?",
       "options": [
         {
-          "id": "a",
-          "text": "Write the test suite first, then iterate by sharing each test failure back to Claude one run at a time.",
-          "isCorrect": false
-        },
-        {
           "id": "b",
           "text": "Provide 2-3 concrete input/output examples so the expected transformation is pinned down unambiguously.",
           "isCorrect": true
+        },
+        {
+          "id": "a",
+          "text": "Write the test suite first, then iterate by sharing each test failure back to Claude one run at a time.",
+          "isCorrect": false
         },
         {
           "id": "c",
@@ -2648,6 +2647,11 @@
       "prompt": "A review turned up several bugs. Which grouping matches the guide's guidance on how to deliver them?",
       "options": [
         {
+          "id": "c",
+          "text": "Send interacting fixes together in one detailed message, and address independent issues sequentially.",
+          "isCorrect": true
+        },
+        {
           "id": "a",
           "text": "Send every issue in a single message regardless of interaction, to minimize the number of turns.",
           "isCorrect": false
@@ -2656,11 +2660,6 @@
           "id": "b",
           "text": "Send one issue per message in every case, even when several fixes must agree on the same code.",
           "isCorrect": false
-        },
-        {
-          "id": "c",
-          "text": "Send interacting fixes together in one detailed message, and address independent issues sequentially.",
-          "isCorrect": true
         },
         {
           "id": "d",
@@ -2707,14 +2706,14 @@
           "isCorrect": false
         },
         {
-          "id": "b",
-          "text": "Have Claude ask questions first, so considerations such as cache invalidation and failure modes surface.",
-          "isCorrect": true
-        },
-        {
           "id": "c",
           "text": "Skip the design phase and implement the simplest approach, then refine it later using test failures.",
           "isCorrect": false
+        },
+        {
+          "id": "b",
+          "text": "Have Claude ask questions first, so considerations such as cache invalidation and failure modes surface.",
+          "isCorrect": true
         }
       ],
       "correctCount": 1,
@@ -2754,14 +2753,14 @@
           "isCorrect": false
         },
         {
-          "id": "b",
-          "text": "Remove CLAUDE.md from the repository so the run starts from a clean, empty context.",
-          "isCorrect": false
-        },
-        {
           "id": "c",
           "text": "Invoke Claude Code with the -p (or --print) flag so it runs in non-interactive mode.",
           "isCorrect": true
+        },
+        {
+          "id": "b",
+          "text": "Remove CLAUDE.md from the repository so the run starts from a clean, empty context.",
+          "isCorrect": false
         },
         {
           "id": "d",
@@ -2803,14 +2802,14 @@
       "prompt": "A CI job must turn Claude Code's findings into automated inline PR comments. Which mechanism does the guide give?",
       "options": [
         {
-          "id": "a",
-          "text": "-p alone, so the review runs without waiting for interactive input before producing comments.",
-          "isCorrect": false
-        },
-        {
           "id": "b",
           "text": "--output-format json together with --json-schema, to produce machine-parseable structured findings.",
           "isCorrect": true
+        },
+        {
+          "id": "a",
+          "text": "-p alone, so the review runs without waiting for interactive input before producing comments.",
+          "isCorrect": false
         },
         {
           "id": "c",
@@ -2944,14 +2943,14 @@
       "prompt": "A code-review prompt tells Claude to \"check that comments are accurate.\" Which revision applies the guidance the guide recommends most directly?",
       "options": [
         {
-          "id": "a",
-          "text": "Be conservative: only report comments you are highly confident are wrong.",
-          "isCorrect": false
-        },
-        {
           "id": "b",
           "text": "Flag comments only when the claimed behavior contradicts the actual code behavior.",
           "isCorrect": true
+        },
+        {
+          "id": "a",
+          "text": "Be conservative: only report comments you are highly confident are wrong.",
+          "isCorrect": false
         },
         {
           "id": "c",
@@ -2997,14 +2996,14 @@
           "isCorrect": false
         },
         {
-          "id": "b",
-          "text": "It makes the model report every issue it notices, so that nothing is silently dropped.",
-          "isCorrect": false
-        },
-        {
           "id": "c",
           "text": "It filters findings by the model's own confidence rather than defining which issue categories to report versus skip.",
           "isCorrect": true
+        },
+        {
+          "id": "b",
+          "text": "It makes the model report every issue it notices, so that nothing is silently dropped.",
+          "isCorrect": false
         },
         {
           "id": "d",
@@ -3051,14 +3050,14 @@
           "isCorrect": false
         },
         {
-          "id": "b",
-          "text": "Temporarily disable that category while its prompt is improved, then bring it back.",
-          "isCorrect": true
-        },
-        {
           "id": "c",
           "text": "Leave it enabled but attach a confidence score to each finding and filter on that score.",
           "isCorrect": false
+        },
+        {
+          "id": "b",
+          "text": "Temporarily disable that category while its prompt is improved, then bring it back.",
+          "isCorrect": true
         }
       ],
       "correctCount": 1,
@@ -3092,14 +3091,14 @@
       "prompt": "According to the guide, when is few-shot prompting the most effective technique?",
       "options": [
         {
-          "id": "a",
-          "text": "When a task is fully deterministic and the same output can be computed without a model.",
-          "isCorrect": false
-        },
-        {
           "id": "b",
           "text": "When detailed instructions alone yield inconsistent formatting and the output must be reliably actionable.",
           "isCorrect": true
+        },
+        {
+          "id": "a",
+          "text": "When a task is fully deterministic and the same output can be computed without a model.",
+          "isCorrect": false
         },
         {
           "id": "c",
@@ -3143,14 +3142,14 @@
           "isCorrect": false
         },
         {
-          "id": "b",
-          "text": "The ambiguous request, the chosen action, and the reasoning for why it beat plausible alternatives.",
-          "isCorrect": true
-        },
-        {
           "id": "c",
           "text": "The final answer only, so the model copies the output shape without inheriting any reasoning.",
           "isCorrect": false
+        },
+        {
+          "id": "b",
+          "text": "The ambiguous request, the chosen action, and the reasoning for why it beat plausible alternatives.",
+          "isCorrect": true
         }
       ],
       "correctCount": 1,
@@ -3231,16 +3230,6 @@
       "prompt": "Select all that apply. Which statements about tool_choice match the guide?",
       "options": [
         {
-          "id": "a",
-          "text": "\"auto\" lets the model return text instead of calling any tool.",
-          "isCorrect": true
-        },
-        {
-          "id": "b",
-          "text": "\"any\" requires the model to call a tool but leaves the choice of which one open.",
-          "isCorrect": true
-        },
-        {
           "id": "c",
           "text": "A forced choice such as {\"type\": \"tool\", \"name\": \"extract_metadata\"} ensures that specific tool runs.",
           "isCorrect": true
@@ -3249,6 +3238,16 @@
           "id": "d",
           "text": "\"any\" also pins the response to one named tool, the same way a forced tool choice does.",
           "isCorrect": false
+        },
+        {
+          "id": "a",
+          "text": "\"auto\" lets the model return text instead of calling any tool.",
+          "isCorrect": true
+        },
+        {
+          "id": "b",
+          "text": "\"any\" requires the model to call a tool but leaves the choice of which one open.",
+          "isCorrect": true
         }
       ],
       "correctCount": 3,
@@ -3282,14 +3281,14 @@
       "prompt": "Extraction runs through a tool with a strict JSON schema, yet invoices arrive where line items sum to $400 while the total field says $500. What did the schema actually guarantee?",
       "options": [
         {
-          "id": "a",
-          "text": "That every required field holds a value actually extracted from the source document.",
-          "isCorrect": false
-        },
-        {
           "id": "b",
           "text": "Only the syntax and shape: strict schemas remove JSON syntax errors but not semantic errors.",
           "isCorrect": true
+        },
+        {
+          "id": "a",
+          "text": "That every required field holds a value actually extracted from the source document.",
+          "isCorrect": false
         },
         {
           "id": "c",
@@ -3377,14 +3376,14 @@
       "prompt": "A triage schema sorts findings into a fixed set of categories, and new categories keep appearing that the enum does not cover. Which change does the guide recommend?",
       "options": [
         {
-          "id": "a",
-          "text": "Extend the enum each time a new category appears and redeploy the schema after every update.",
-          "isCorrect": false
-        },
-        {
           "id": "b",
           "text": "Add enum values such as \"unclear\" for ambiguous cases and \"other\" plus a detail field.",
           "isCorrect": true
+        },
+        {
+          "id": "a",
+          "text": "Extend the enum each time a new category appears and redeploy the schema after every update.",
+          "isCorrect": false
         },
         {
           "id": "c",
@@ -3405,7 +3404,7 @@
         "d": "Probes the idea that overloading a finding across buckets solves the missing-category problem."
       },
       "explanation": {
-        "correct": "The guide calls for enum fields with \"other\" plus a detail string patterns for extensible categories, and enum values like \"unclear\" for ambiguous cases, so the schema absorbs categories you did not anticipate.",
+        "correct": "The guide calls for enum fields with \"other\" plus a detail string for extensible categories, and enum values like \"unclear\" for ambiguous cases, so the schema absorbs categories you did not anticipate.",
         "whyWrong": {
           "a": "Continuously extending the enum turns every surprise into a schema change; the \"other\" plus detail pattern is the extensibility mechanism.",
           "c": "Free text removes the structured guarantee that motivated using a schema at all.",
@@ -3440,14 +3439,14 @@
           "isCorrect": false
         },
         {
-          "id": "c",
-          "text": "Resend the original document, the failed extraction, and the specific validation errors.",
-          "isCorrect": true
-        },
-        {
           "id": "d",
           "text": "Resend the request several times and accept the first result that satisfies the schema.",
           "isCorrect": false
+        },
+        {
+          "id": "c",
+          "text": "Resend the original document, the failed extraction, and the specific validation errors.",
+          "isCorrect": true
         }
       ],
       "correctCount": 1,
@@ -3589,6 +3588,11 @@
       "prompt": "Which description matches the Message Batches API as this guide characterizes it?",
       "options": [
         {
+          "id": "c",
+          "text": "A 50% cheaper path with an up-to-24-hour processing window and no guaranteed latency SLA.",
+          "isCorrect": true
+        },
+        {
           "id": "a",
           "text": "A 50% cheaper path that commits to a guaranteed completion time, so pipelines can rely on it.",
           "isCorrect": false
@@ -3597,11 +3601,6 @@
           "id": "b",
           "text": "A 50% cheaper path that supports multi-turn tool calling inside a single request, returning tool results mid-request.",
           "isCorrect": false
-        },
-        {
-          "id": "c",
-          "text": "A 50% cheaper path with an up-to-24-hour processing window and no guaranteed latency SLA.",
-          "isCorrect": true
         },
         {
           "id": "d",
@@ -3648,14 +3647,14 @@
           "isCorrect": false
         },
         {
-          "id": "b",
-          "text": "Synchronous API, because a blocking check cannot wait on an up-to-24-hour batch window.",
-          "isCorrect": true
-        },
-        {
           "id": "c",
           "text": "Message Batches API submitted every 4 hours, to guarantee a 30-hour SLA across the merge timeout.",
           "isCorrect": false
+        },
+        {
+          "id": "b",
+          "text": "Synchronous API, because a blocking check cannot wait on an up-to-24-hour batch window.",
+          "isCorrect": true
         },
         {
           "id": "d",
@@ -3706,14 +3705,14 @@
           "isCorrect": false
         },
         {
-          "id": "c",
-          "text": "Resubmit only the failed documents, identified by custom_id, chunking any that exceeded context limits.",
-          "isCorrect": true
-        },
-        {
           "id": "d",
           "text": "Wait for the next scheduled run, since failed items cannot be identified after a batch completes.",
           "isCorrect": false
+        },
+        {
+          "id": "c",
+          "text": "Resubmit only the failed documents, identified by custom_id, chunking any that exceeded context limits.",
+          "isCorrect": true
         }
       ],
       "correctCount": 1,
@@ -3801,14 +3800,14 @@
           "isCorrect": false
         },
         {
-          "id": "b",
-          "text": "A second instance reviewing only the generator's final answer text, without opening the files.",
-          "isCorrect": false
-        },
-        {
           "id": "c",
           "text": "Per-file local analysis passes plus separate cross-file integration passes for data flow.",
           "isCorrect": true
+        },
+        {
+          "id": "b",
+          "text": "A second instance reviewing only the generator's final answer text, without opening the files.",
+          "isCorrect": false
         },
         {
           "id": "d",
@@ -3849,6 +3848,11 @@
       "prompt": "A team adds a verification pass in which Claude reports a confidence score alongside each finding and routes low-confidence findings to humans. How does the guide view this?",
       "options": [
         {
+          "id": "c",
+          "text": "It is a supported pattern for calibrated review routing, but it does not replace explicit criteria.",
+          "isCorrect": true
+        },
+        {
           "id": "a",
           "text": "It is the recommended replacement for explicit report-versus-skip criteria, because scores are more objective.",
           "isCorrect": false
@@ -3857,11 +3861,6 @@
           "id": "b",
           "text": "It is invalid: the guide permits confidence only inside few-shot examples, never in review output.",
           "isCorrect": false
-        },
-        {
-          "id": "c",
-          "text": "It is a supported pattern for calibrated review routing, but it does not replace explicit criteria.",
-          "isCorrect": true
         },
         {
           "id": "d",
@@ -3902,14 +3901,14 @@
       "prompt": "A support agent summarizes earlier turns before each new prompt. What is the primary risk of that practice?",
       "options": [
         {
-          "id": "a",
-          "text": "The summary keeps shrinking until the agent can no longer follow the thread.",
-          "isCorrect": false
-        },
-        {
           "id": "b",
           "text": "Condensing turns drops exact details such as amounts, dates, and order numbers.",
           "isCorrect": true
+        },
+        {
+          "id": "a",
+          "text": "The summary keeps shrinking until the agent can no longer follow the thread.",
+          "isCorrect": false
         },
         {
           "id": "c",
@@ -4002,14 +4001,14 @@
           "isCorrect": false
         },
         {
-          "id": "b",
-          "text": "Place key findings summaries at the start and label detail sections explicitly.",
-          "isCorrect": true
-        },
-        {
           "id": "c",
           "text": "Keep one continuous block and trust the model's preference for recent input.",
           "isCorrect": false
+        },
+        {
+          "id": "b",
+          "text": "Place key findings summaries at the start and label detail sections explicitly.",
+          "isCorrect": true
         },
         {
           "id": "d",
@@ -4051,14 +4050,14 @@
       "prompt": "An order-lookup tool returns more than forty fields per order, but only about five matter to the customer's question. What does the guide recommend?",
       "options": [
         {
-          "id": "a",
-          "text": "Trim each tool output to the relevant fields before it accumulates in context.",
-          "isCorrect": true
-        },
-        {
           "id": "b",
           "text": "Store the full field set on disk and re-inject all of it into every prompt.",
           "isCorrect": false
+        },
+        {
+          "id": "a",
+          "text": "Trim each tool output to the relevant fields before it accumulates in context.",
+          "isCorrect": true
         },
         {
           "id": "c",
@@ -4103,7 +4102,7 @@
         },
         {
           "id": "b",
-          "text": "The case has several steps, even though policy clearly covers the request.",
+          "text": "The case is complex, but policy clearly covers the request and the agent can complete it.",
           "isCorrect": false
         },
         {
@@ -4118,17 +4117,17 @@
         }
       ],
       "correctCount": 1,
-      "optionCountRationale": "Four options are warranted because escalation triggers are the core distinction here, and sentiment, step count, and model confidence are the three signals teams most often use in error.",
+      "optionCountRationale": "Four options are warranted because escalation triggers are the core distinction here, and sentiment, case complexity, and model confidence are the three signals teams most often use in error.",
       "distractorRationale": {
         "a": "Probes sentiment-based escalation; frustration is acknowledged and resolved while the issue remains in scope.",
-        "b": "Probes the belief that complexity alone warrants escalation when policy is clear and the agent can act.",
+        "b": "Probes treating complexity as the trigger. Objective 5.2 lists a customer request for a human, policy exceptions and gaps, and inability to make meaningful progress; a clear policy is not a gap.",
         "d": "Probes reliance on self-reported confidence as a stand-in for genuine case complexity or policy risk."
       },
       "explanation": {
         "correct": "The guide names policy exceptions and gaps as legitimate escalation triggers — not only complex cases. Its example is competitor price matching when policy only addresses own-site adjustments, i.e. policy is silent on the specific request.",
         "whyWrong": {
           "a": "Frustration is acknowledged rather than escalated when the issue is within the agent's capability; sentiment is not a complexity signal.",
-          "b": "Step count is a proxy for difficulty, not a trigger. Clear policy plus a capable agent means resolve autonomously.",
+          "b": "Complexity is not the trigger: objective 5.2 names a customer request for a human, policy exceptions and gaps, and inability to make meaningful progress. Policy here is clear, so there is no gap, and the guide ties offering to resolve rather than escalate to an issue that is straightforward.",
           "d": "Self-reported confidence is called out as an unreliable proxy for actual case complexity and is not a trigger on its own."
         },
         "takeaway": "Escalate on policy gaps and inability to make progress, not on emotion or step count.",
@@ -4151,14 +4150,14 @@
       "prompt": "A team wants to route hard cases using customer sentiment and the agent's self-reported confidence. What does the guide say?",
       "options": [
         {
-          "id": "a",
-          "text": "Used together they are a dependable proxy for actual case complexity.",
-          "isCorrect": false
-        },
-        {
           "id": "b",
           "text": "Both are unreliable proxies, so neither should drive the routing decision.",
           "isCorrect": true
+        },
+        {
+          "id": "a",
+          "text": "Used together they are a dependable proxy for actual case complexity.",
+          "isCorrect": false
         },
         {
           "id": "c",
@@ -4203,14 +4202,14 @@
           "isCorrect": false
         },
         {
-          "id": "b",
-          "text": "Rank the matches and proceed with the top-ranked account to save a turn.",
-          "isCorrect": false
-        },
-        {
           "id": "c",
           "text": "Ask the customer for an additional identifier to disambiguate the matches.",
           "isCorrect": true
+        },
+        {
+          "id": "b",
+          "text": "Rank the matches and proceed with the top-ranked account to save a turn.",
+          "isCorrect": false
         }
       ],
       "correctCount": 1,
@@ -4244,14 +4243,14 @@
       "prompt": "A subagent's lookup returns zero rows. Which report correctly describes what happened?",
       "options": [
         {
-          "id": "a",
-          "text": "Report a failure and state that the search service was unavailable.",
-          "isCorrect": false
-        },
-        {
           "id": "b",
           "text": "Report a successful query that returned no matching results.",
           "isCorrect": true
+        },
+        {
+          "id": "a",
+          "text": "Report a failure and state that the search service was unavailable.",
+          "isCorrect": false
         },
         {
           "id": "c",
@@ -4291,6 +4290,11 @@
       "prompt": "A research subagent's search times out. What must its error report contain for the coordinator to recover intelligently?",
       "options": [
         {
+          "id": "c",
+          "text": "Failure type, what was attempted, partial results, and possible alternatives.",
+          "isCorrect": true
+        },
+        {
           "id": "a",
           "text": "A failure flag, the tool name, and the subagent's identifier.",
           "isCorrect": false
@@ -4299,11 +4303,6 @@
           "id": "b",
           "text": "The full stack trace together with the subagent's complete reasoning chain.",
           "isCorrect": false
-        },
-        {
-          "id": "c",
-          "text": "Failure type, what was attempted, partial results, and possible alternatives.",
-          "isCorrect": true
         },
         {
           "id": "d",
@@ -4344,14 +4343,14 @@
       "prompt": "When should a subagent propagate a failure up to the coordinator?",
       "options": [
         {
-          "id": "a",
-          "text": "Only after it has attempted local recovery for a transient failure it cannot resolve.",
-          "isCorrect": true
-        },
-        {
           "id": "b",
           "text": "Immediately, so the coordinator owns every transient retry decision itself.",
           "isCorrect": false
+        },
+        {
+          "id": "a",
+          "text": "Only after it has attempted local recovery for a transient failure it cannot resolve.",
+          "isCorrect": true
         },
         {
           "id": "c",
@@ -4396,14 +4395,14 @@
           "isCorrect": false
         },
         {
-          "id": "b",
-          "text": "Evidence that the repository changed between exploration phases.",
-          "isCorrect": false
-        },
-        {
           "id": "c",
           "text": "Context degradation: the model is answering from priors, not from its findings.",
           "isCorrect": true
+        },
+        {
+          "id": "b",
+          "text": "Evidence that the repository changed between exploration phases.",
+          "isCorrect": false
         }
       ],
       "correctCount": 1,
@@ -4437,14 +4436,14 @@
       "prompt": "What is the guide's mechanism for keeping key findings usable as an exploration session's context fills up?",
       "options": [
         {
-          "id": "a",
-          "text": "Retain every discovery verbatim so nothing is ever dropped from the session.",
-          "isCorrect": false
-        },
-        {
           "id": "b",
           "text": "Maintain a scratchpad file of key findings and reference it in later questions.",
           "isCorrect": true
+        },
+        {
+          "id": "a",
+          "text": "Retain every discovery verbatim so nothing is ever dropped from the session.",
+          "isCorrect": false
         },
         {
           "id": "c",
@@ -4495,14 +4494,14 @@
           "isCorrect": false
         },
         {
-          "id": "b",
-          "text": "Run /compact beforehand so the earlier exploration survives the restart.",
-          "isCorrect": false
-        },
-        {
           "id": "c",
           "text": "Load each agent's exported state manifest and inject it into the agent prompts.",
           "isCorrect": true
+        },
+        {
+          "id": "b",
+          "text": "Run /compact beforehand so the earlier exploration survives the restart.",
+          "isCorrect": false
         },
         {
           "id": "d",
@@ -4614,7 +4613,7 @@
       "correctCount": 1,
       "optionCountRationale": "Three options contrast the guide's sampling target (the high-confidence band, sampled at random) with the two intuitive review targets teams default to.",
       "distractorRationale": {
-        "a": "Probes the belief that errors live at the low-confidence end, which is exactly the band the guide says must be sampled to detect them.",
+        "a": "Probes the belief that errors concentrate at the low-confidence end. The guide's point is that the trusted, rarely-inspected high-confidence band is where undetected errors hide.",
         "b": "Probes a closed loop over already-reviewed cases, which cannot surface novel error patterns in un-reviewed traffic."
       },
       "explanation": {
@@ -4699,14 +4698,14 @@
           "isCorrect": false
         },
         {
-          "id": "b",
-          "text": "The claim-source mappings, because compression discards source attribution.",
-          "isCorrect": true
-        },
-        {
           "id": "c",
           "text": "Nothing, as long as the compressed text stays factually accurate.",
           "isCorrect": false
+        },
+        {
+          "id": "b",
+          "text": "The claim-source mappings, because compression discards source attribution.",
+          "isCorrect": true
         }
       ],
       "correctCount": 1,
@@ -4740,11 +4739,6 @@
       "prompt": "Two credible sources report different figures for the same metric. What should the synthesis agent do?",
       "options": [
         {
-          "id": "a",
-          "text": "Report both figures with source attribution and annotate the conflict.",
-          "isCorrect": true
-        },
-        {
           "id": "b",
           "text": "Report only the value from whichever source looks more authoritative.",
           "isCorrect": false
@@ -4758,6 +4752,11 @@
           "id": "d",
           "text": "Report only the newer value, since the older figure is superseded.",
           "isCorrect": false
+        },
+        {
+          "id": "a",
+          "text": "Report both figures with source attribution and annotate the conflict.",
+          "isCorrect": true
         }
       ],
       "correctCount": 1,
@@ -4794,6 +4793,11 @@
       "prompt": "Two sources describe the same company at different points in time. What prevents a false contradiction?",
       "options": [
         {
+          "id": "c",
+          "text": "Requiring publication or data collection dates in every structured output.",
+          "isCorrect": true
+        },
+        {
           "id": "a",
           "text": "Reporting both statements without dates and letting readers judge.",
           "isCorrect": false
@@ -4802,11 +4806,6 @@
           "id": "b",
           "text": "Discarding whichever statement is clearly the older of the two.",
           "isCorrect": false
-        },
-        {
-          "id": "c",
-          "text": "Requiring publication or data collection dates in every structured output.",
-          "isCorrect": true
         }
       ],
       "correctCount": 1,

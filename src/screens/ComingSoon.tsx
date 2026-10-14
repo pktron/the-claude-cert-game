@@ -30,7 +30,7 @@ export function ComingSoon({ deckId }: { deckId?: string }) {
             <div>
               <div className="coming-name">{meta.domains.length} domains</div>
               <div className="coming-code">
-                {meta.objectiveCount} objectives · {meta.items} exam items
+                {meta.objectiveCount} objectives · {meta.items} items on the real exam
               </div>
             </div>
             <span className="coming-badge">Planned</span>
