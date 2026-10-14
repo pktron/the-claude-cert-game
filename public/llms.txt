@@ -1,0 +1,24 @@
+# The Claude Cert Game
+
+> A swipe-to-learn study app for the Claude Certified Architect — Foundations certification (CCAR-F).
+> Practice questions authored from the official Anthropic exam guide. These are study aids, not official exam items.
+
+## What this is
+
+An interactive study tool covering the five exam domains:
+- Agentic Architecture & Orchestration
+- Tool Design & MCP Integration
+- Claude Code Configuration & Workflows
+- Prompt Engineering & Structured Output
+- Context Management & Reliability
+
+## Modes
+
+- **Swipe & Discover** — core concept cards, answered by swiping toward the right option
+- **Challenge** — certification-style questions, including select-all-that-apply
+- **Recall** — spaced repetition over concepts you have not seen in a while
+
+## Notes
+
+- Progress is stored locally in the browser only; there is no account or server.
+- [About this project](https://github.com/)

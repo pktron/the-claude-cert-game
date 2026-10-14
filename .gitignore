@@ -1,0 +1,17 @@
+node_modules/
+dist/
+dist-ssr/
+screenshots/
+test-results/
+playwright-report/
+.DS_Store
+*.local
+*.log
+.vite/
+coverage/
+*.tsbuildinfo
+
+# Extracted source text is derived from the PDFs at build time; regenerate with
+# `pnpm extract:pdf`. The authored deck IS committed.
+content/source/*.txt
+content/decks/partials/

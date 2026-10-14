@@ -1,0 +1,99 @@
+/* Design tokens extracted from the mocks/ reference screenshots. */
+:root {
+  /* Surfaces */
+  --bg: #0a1633;
+  --bg-deep: #060f24;
+  --surface: #16255a;
+  --surface-2: #22366f;
+  --surface-3: #2b418a;
+  --border: rgba(255, 255, 255, 0.1);
+  --border-strong: rgba(255, 255, 255, 0.18);
+
+  /* Direction accents (from the mock answer pills) */
+  --dir-left: #e8456b;
+  --dir-right: #22c55e;
+  --dir-up: #f59e0b;
+  --dir-down: #3b82f6;
+
+  /* Semantics */
+  --success: #22c55e;
+  --success-dim: rgba(34, 197, 94, 0.14);
+  --danger: #f0444d;
+  --danger-dim: rgba(240, 68, 77, 0.14);
+  --warning: #f59e0b;
+
+  /* Accents (session cards, highlights) */
+  --purple: #6c5ce7;
+  --teal: #16c79a;
+  --amber: #f4c430;
+  --blue: #3b82f6;
+  --pink: #ff8fab;
+
+  /* Text */
+  --text: #ffffff;
+  --text-muted: #a9b4d0;
+  --text-dim: #7c88a8;
+
+  /* Shape */
+  --radius-sm: 10px;
+  --radius: 16px;
+  --radius-lg: 24px;
+  --radius-pill: 999px;
+
+  /* Spacing scale */
+  --sp-1: 4px;
+  --sp-2: 8px;
+  --sp-3: 12px;
+  --sp-4: 16px;
+  --sp-5: 20px;
+  --sp-6: 24px;
+  --sp-8: 32px;
+  --sp-10: 40px;
+
+  /* Typography */
+  --font: -apple-system, BlinkMacSystemFont, 'Segoe UI', Inter, Roboto, Helvetica, Arial, sans-serif;
+  --fs-xs: 11px;
+  --fs-sm: 13px;
+  --fs-base: 15px;
+  --fs-md: 17px;
+  --fs-lg: 20px;
+  --fs-xl: 26px;
+  --fs-2xl: 32px;
+
+  /* Layout */
+  --maxw: 480px;
+  --nav-h: 68px;
+  --safe-b: env(safe-area-inset-bottom, 0px);
+
+  /* Motion - overridden by prefers-reduced-motion / setting */
+  --dur-fast: 140ms;
+  --dur: 220ms;
+  --dur-slow: 380ms;
+  --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+/* Reduced motion: kill transitions/animations globally. */
+.reduce-motion,
+.reduce-motion * {
+  animation-duration: 0.001ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.001ms !important;
+  scroll-behavior: auto !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --dur-fast: 0.001ms;
+    --dur: 0.001ms;
+    --dur-slow: 0.001ms;
+  }
+}
+
+/* Higher contrast accessibility variant */
+.high-contrast {
+  --bg: #000208;
+  --surface: #0d1b40;
+  --surface-2: #16255a;
+  --text-muted: #d6ddf0;
+  --border: rgba(255, 255, 255, 0.35);
+}
