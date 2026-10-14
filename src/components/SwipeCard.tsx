@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 import type { Direction, Question } from '../domain/types';
-import { directionRows } from '../domain/rng';
+import { presentationRows } from '../domain/presentation';
 import { useSwipe, swipeTransform } from '../hooks/useSwipe';
 import { OptionRow, type OptionVisualState } from './OptionRow';
 import { DIRECTION_LABEL, directionColor } from './directions';
@@ -38,8 +38,14 @@ export function SwipeCard({
     [directionAssignment],
   );
   const rows = useMemo(
-    () => (multi ? [] : directionRows(directionAssignment, presentationSeed)),
-    [multi, directionAssignment, presentationSeed],
+    () =>
+      presentationRows(
+        question.options.map((o) => o.id),
+        directionAssignment,
+        presentationSeed,
+        multi,
+      ),
+    [question, directionAssignment, presentationSeed, multi],
   );
 
   const handleSwipe = (dir: Direction) => onSwipe(dir);
@@ -48,8 +54,6 @@ export function SwipeCard({
     onSwipe: handleSwipe,
     disabled: multi || revealed,
   });
-
-  const letters = ['A', 'B', 'C', 'D'];
 
   function visualState(optionId: string): OptionVisualState {
     const opt = question.options.find((o) => o.id === optionId);
@@ -61,11 +65,6 @@ export function SwipeCard({
     if (multi && selectedOptionIds.includes(optionId)) return 'selected';
     return 'idle';
   }
-
-  // For multiple-response we need every option row, not just assigned directions.
-  const multiRows = multi
-    ? question.options.map((o) => ({ direction: undefined as Direction | undefined, optionId: o.id }))
-    : [];
 
   const transform = reduceMotion ? undefined : swipeTransform(swipe.dx, swipe.dy);
   const isDragging = !multi && !revealed && (swipe.dx !== 0 || swipe.dy !== 0);
@@ -119,31 +118,18 @@ export function SwipeCard({
         role="group"
         aria-label="Answer options"
       >
-        {multi
-          ? multiRows.map((r, i) => (
+        {rows.map((r) => (
               <OptionRow
-                key={r.optionId}
+                key={`${r.direction ?? 'opt'}-${r.optionId}`}
                 optionId={r.optionId}
-                letter={letters[i]}
-                text={question.options.find((o) => o.id === r.optionId)!.text}
-                state={visualState(r.optionId)}
-                showDirectionHint={false}
-                onSelect={onTapSelect}
-                disabled={revealed}
-                multi
-              />
-            ))
-          : rows.map((r, i) => (
-              <OptionRow
-                key={`${r.direction}-${r.optionId}`}
-                optionId={r.optionId}
-                letter={letters[i]}
+                letter={r.letter}
                 text={question.options.find((o) => o.id === r.optionId)!.text}
                 state={visualState(r.optionId)}
                 direction={r.direction}
                 showDirectionHint={showDirectionHints && !revealed}
                 onSelect={onTapSelect}
                 disabled={revealed}
+                multi={multi}
               />
             ))}
       </div>

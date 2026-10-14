@@ -1,5 +1,5 @@
 import type { Direction } from '../domain/types';
-import { DIRECTION_LABEL, directionColor } from './directions';
+import { DIRECTION_ARROW, DIRECTION_LABEL, directionColor } from './directions';
 
 export type OptionVisualState = 'idle' | 'selected' | 'correct' | 'incorrect' | 'missed';
 
@@ -34,7 +34,8 @@ export function OptionRow({
   disabled = false,
   multi = false,
 }: Props) {
-  const accent = state === 'idle' || state === 'selected' ? directionColor(direction!) : STATE_BORDER[state];
+  // Once the answer is committed the row takes the verdict colour; while it is
+  // still live it carries its swipe direction's colour.
   const pillBg =
     state === 'correct'
       ? 'var(--success)'
@@ -42,14 +43,17 @@ export function OptionRow({
         ? 'var(--danger)'
         : state === 'missed'
           ? 'var(--warning)'
-          : directionColor(direction!);
+          : direction
+            ? directionColor(direction)
+            : 'var(--surface-2)';
 
-  const dirWord = direction ? DIRECTION_LABEL[direction].replace('Swipe ', '') : '';
-
-  const dirHint = direction && showDirectionHint ? DIRECTION_LABEL[direction] : '';
-  // Keep the accessible name aligned with the visible label text (the pill letter
-  // and the accent bar are decorative) so screen readers and voice control agree.
-  const accessibleName = dirHint ? `${text}. ${dirHint}` : text;
+  const hint = direction && showDirectionHint ? DIRECTION_LABEL[direction] : '';
+  const labelled = `${letter}. ${text}`;
+  // The pill glyph is decorative, so the accessible name mirrors the visible
+  // text exactly (letter, answer, and the direction hint). Avoid doubling up
+  // sentence punctuation when the answer already ends in a full stop.
+  const separator = /[.!?:]$/.test(text.trim()) ? ' ' : '. ';
+  const accessibleName = hint ? `${labelled}${separator}${hint}` : labelled;
 
   return (
     <button
@@ -96,15 +100,16 @@ export function OptionRow({
           alignItems: 'center',
           justifyContent: 'center',
           fontWeight: 800,
-          fontSize: multi ? 18 : 20,
+          fontSize: 22,
+          lineHeight: 1,
         }}
       >
-        {multi ? (state === 'selected' ? '✓' : letter) : letter}
+        {multi ? (state === 'selected' ? '✓' : letter) : direction ? DIRECTION_ARROW[direction] : letter}
       </span>
 
       <span style={{ flex: 1, minWidth: 0 }}>
-        <span style={{ display: 'block', fontWeight: 600, fontSize: 'var(--fs-md)' }}>{text}</span>
-        {direction && showDirectionHint && (
+        <span style={{ display: 'block', fontWeight: 600, fontSize: 'var(--fs-md)' }}>{labelled}</span>
+        {hint && (
           <span
             style={{
               display: 'block',
@@ -113,18 +118,10 @@ export function OptionRow({
               marginTop: 2,
             }}
           >
-            {DIRECTION_LABEL[direction]}
-          </span>
-        )}
-        {direction && !showDirectionHint && state === 'idle' && (
-          <span style={{ display: 'block', fontSize: 'var(--fs-xs)', color: 'var(--text-dim)', marginTop: 2 }}>
-            <span aria-hidden="true">{'{'} {dirWord} {'}'}</span>
+            {hint}
           </span>
         )}
       </span>
-
-      {/* Focusable tap target parity: the whole row is a button, this is decorative accent */}
-      <span aria-hidden="true" style={{ width: 4, alignSelf: 'stretch', background: accent, borderRadius: 4, opacity: 0.5 }} />
     </button>
   );
 }

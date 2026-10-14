@@ -5,6 +5,7 @@ import { questions, getQuestion, domainName } from '../content/deck';
 import { createSession, currentQuestionId, isSessionComplete, makeCard } from '../domain/session';
 import { gradeAnswer } from '../domain/grade';
 import { recordAnswer, flagQuestion } from '../domain/progress';
+import { letterMap, presentationRows } from '../domain/presentation';
 import { xpForAnswer, updateStreak, milestoneReached } from '../domain/scoring';
 import type { AppState } from '../storage/useAppState';
 import { SwipeCard } from '../components/SwipeCard';
@@ -53,10 +54,30 @@ export function SessionScreen({ app }: { app: AppState }) {
 
   // Persist the derived card so it survives a reload / resume.
   useEffect(() => {
-    if (!session || !question || !card) return;
-    if (session.cards[question.id]) return;
+    if (!session || !question || !card) return;    if (session.cards[question.id]) return;
     setSession((s) => (s ? { ...s, cards: { ...s.cards, [question.id]: card } } : s));
   }, [session, question, card, setSession]);
+
+  // The card's display order (and therefore its letters) is re-randomised per
+  // presentation; the feedback screen reuses the same seed so the letter the
+  // learner tapped is the letter they see again.
+  const presentationSeed = session && question
+    ? `${session.id}:${question.id}:${Object.keys(session.cards).length}`
+    : '';
+  const cardLetters = useMemo(
+    () =>
+      question && card
+        ? letterMap(
+            presentationRows(
+              question.options.map((o) => o.id),
+              card.directionAssignment,
+              presentationSeed,
+              question.type === 'multiple',
+            ),
+          )
+        : {},
+    [question, card, presentationSeed],
+  );
 
   const commit = useCallback(
     (selectedOptionIds: string[]) => {
@@ -213,6 +234,7 @@ export function SessionScreen({ app }: { app: AppState }) {
           question={question}
           correct={card.correct === true}
           committedIds={card.selectedOptionIds}
+          letters={cardLetters}
           reduceMotion={reduceMotion}
           soundOn={settings.sound}
           flagged={!!progress.flagged[question.id]}
@@ -224,7 +246,7 @@ export function SessionScreen({ app }: { app: AppState }) {
         <>
           <SwipeCard
             question={question}
-            presentationSeed={`${session.id}:${question.id}:${Object.keys(session.cards).length}`}
+            presentationSeed={presentationSeed}
             directionAssignment={card.directionAssignment}
             selectedOptionIds={card.selectedOptionIds}
             revealed={false}

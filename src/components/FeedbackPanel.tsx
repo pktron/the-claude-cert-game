@@ -5,6 +5,8 @@ interface Props {
   question: Question;
   correct: boolean;
   committedIds: string[];
+  /** optionId -> the letter the card displayed, so feedback matches what was tapped. */
+  letters?: Record<string, string>;
   reduceMotion: boolean;
   soundOn: boolean;
   onContinue: () => void;
@@ -17,6 +19,7 @@ export function FeedbackPanel({
   question,
   correct,
   committedIds,
+  letters = {},
   reduceMotion,
   onContinue,
   onTryAgain,
@@ -31,6 +34,10 @@ export function FeedbackPanel({
   const missed = correctIds.filter((id) => !committedIds.includes(id));
 
   const opt = (id: string) => question.options.find((o) => o.id === id)!;
+  const label = (id: string) => {
+    const letter = letters[id];
+    return letter ? `${letter}. ${opt(id).text}` : opt(id).text;
+  };
 
   return (
     <div
@@ -77,7 +84,7 @@ export function FeedbackPanel({
             <div>
               <div className="picked-label">Your answer</div>
               <div className="picked-text">
-                {committedIds.map((id) => opt(id).text).join(' + ')}
+                {committedIds.map((id) => label(id)).join(' + ')}
               </div>
             </div>
           </div>
@@ -95,7 +102,7 @@ export function FeedbackPanel({
               <div className="picked-label">
                 {question.type === 'multiple' ? 'Also correct' : 'The correct answer'}
               </div>
-              <div className="picked-text">{missed.map((id) => opt(id).text).join(' + ')}</div>
+              <div className="picked-text">{missed.map((id) => label(id)).join(' + ')}</div>
             </div>
           </div>
         </div>
