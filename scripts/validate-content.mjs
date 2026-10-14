@@ -42,8 +42,10 @@ function loadExpectations() {
 const EXPECTATIONS = loadExpectations();
 
 function deckIdFromFile(file) {
-  const base = basename(file).replace(/\.json$/, '');
-  return base.replace(/\.partial$/, '');
+  let id = basename(file).replace(/\.json$/, '');
+  // Partials are named "<deckId>-d<N>.json"; map them back to their deck.
+  id = id.replace(/-d\d+$/, '');
+  return id.replace(/\.partial$/, '');
 }
 
 function gatherPaths() {

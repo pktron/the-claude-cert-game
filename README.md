@@ -1,13 +1,35 @@
 # The Claude Cert Game
 
-A swipe-to-learn study app for the **Claude Certified Architect — Foundations** exam (CCAR-F).
+A swipe-to-learn study app for the **Claude** certifications.
 
 Short questions, adaptive 2/3/4 answer options, gestures in four directions, immediate
 explanations that address the *misconception*, and spaced repetition that brings back what
 you have not seen in a while.
 
-> **Practice material.** Every question is authored from the official Anthropic exam guide
+> **Practice material.** Every question is authored from the official Anthropic exam guides
 > in this repository. These are study aids, not official exam items.
+
+## Certifications
+
+| Exam | Name | Domains | Objectives | Questions |
+|---|---|---|---|---|
+| CCAR-F | Architect · Foundations | 5 | 30 | 98 |
+| CCAR-P | Architect · Professional | 7 | 38 | 91 |
+| CCDV-F | Developer · Foundations | 8 | 25 | 62 |
+
+Pick a certification on the home screen. Progress is stored **per certification**, so studying
+one exam never touches another's history.
+
+| Certification | Source depth | Notes |
+|---|---|---|
+| CCAR-F | Rich | The guide states "knowledge of" and "skills in" per task statement |
+| CCAR-P | Medium | Objectives are one line each; items test scope and objective boundaries |
+| CCDV-F | Thin | Skills are a name plus one weighted sentence; 1 flagged item |
+
+Some items are marked `"reviewStatus": "needs-review"` where the guide is too thin to support
+a defensible correct answer. Those flag a gap in the source rather than invent content, and
+they are the right place to look first if you want to extend a deck.
+
 
 ---
 
@@ -65,19 +87,29 @@ Educational content is fully separated from application logic.
 
 ```
 content/
-  source/                     extracted from the PDFs (gitignored except the guide text)
-    Claude-...-Exam-Guide.txt
-    domain-d1.md ... d5.md    one slice per exam domain
+  source/                     extracted from the PDFs (gitignored)
+    <guide>.txt               full guide text
+    ccarf-d1.md ... d5.md     one slice per domain, per certification
+    ccarp-d1.md ... d7.md
+    ccdvf-d1.md ... d8.md
   decks/
-    architect-foundations.json the shipped deck
+    manifest.json             deck metadata: domains, exam weights, objectives
+    architect-foundations.json
+    architect-professional.json
+    developer-foundations.json
     partials/                 per-domain drafts (gitignored)
   schema/README.md            the Question schema
   AUTHORING_RULES.md          canonical authoring brief
 scripts/
   extract-pdf.ps1             PDFs -> text -> per-domain slices
-  validate-content.mjs        schema + quality gate
-  merge-deck.mjs              partials -> architect-foundations.json
+  slice_sources.py            slices + manifest for all three guides
+  validate-content.mjs        schema + quality gate, manifest-driven coverage
+  merge-deck.mjs              partials -> shipped decks
 ```
+
+`manifest.json` is generated from the guides and is the single source of truth for domains,
+exam weights, and the objectives each domain is measured against. Both the app and the
+validator read it, so a deck and its coverage expectations can never drift apart.
 
 A question records its `domain`, `taskStatement`, `concept`, `prompt`, `options`,
 `correctCount`, `optionCountRationale`, a `distractorRationale` for **every** wrong option, a
@@ -96,18 +128,21 @@ pnpm extract:pdf
 
 ```
 src/
+  content/     deck registry (manifest + shipped decks), DeckProvider context
   domain/      pure TypeScript, no framework: types, rng, schedule, session,
-               scoring, grade, progress, labels  (+ unit tests)
-  content/     deck loading
-  storage/     versioned localStorage persistence, settings, export/import
+               scoring, grade, progress, presentation, labels  (+ unit tests)
+  storage/     versioned per-deck localStorage persistence, settings, export/import
   hooks/       useSwipe (pointer events), useReducedMotion
   components/  SwipeCard, OptionRow, FeedbackPanel, BottomNav
-  screens/     Home, SessionScreen, Summary, Review, Stats, Settings, ComingSoon
+  screens/     Certifications, CertHome, SessionScreen, Summary, Review,
+               Stats, Settings, ComingSoon
 e2e/           Playwright specs
 ```
 
-All progress lives in the browser's `localStorage`. There is no account, no server, and no
-network call. Settings export/import to JSON for backup.
+Routes are nested per certification (`/#/c/:deckId/...`) so the tab bar and session state stay
+scoped to the chosen exam. Progress and the in-flight session are stored under per-deck keys;
+settings are global. All progress lives in the browser's `localStorage`. There is no account,
+no server, and no network call. Settings export/import to JSON for backup.
 
 ## Accessibility
 
@@ -128,5 +163,5 @@ in-app route will not 404.
 
 ## Roadmap
 
-- Architect · Professional (CCAR-P) and Developer · Foundations (CCDV-F) decks, authored the
-  same way from their exam guides (shown as "Coming soon" in the app).
+- Revisit the flagged `needs-review` items when richer source material is available.
+- Add a way to browse a certification's full question list with your answer history.

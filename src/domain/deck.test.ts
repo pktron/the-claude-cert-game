@@ -59,6 +59,69 @@ describe('deck registry', () => {
   });
 });
 
+describe('every available deck', () => {
+  const available = deckList.filter((d) => d.available);
+  expect(available.length).toBeGreaterThan(0);
+
+  for (const meta of available) {
+    const questions = getDeckQuestions(meta.deckId);
+
+    describe(`${meta.examCode} (${meta.shortName})`, () => {
+      it('has questions in every domain', () => {
+        for (const d of meta.domains) {
+          expect(questions.filter((q) => q.domain === d.id).length, d.id).toBeGreaterThan(0);
+        }
+      });
+
+      it('covers every objective the manifest lists for the deck', () => {
+        for (const d of meta.domains) {
+          const seen = new Set(questions.filter((q) => q.domain === d.id).map((q) => q.taskStatement));
+          for (const o of d.objectives) {
+            expect(seen.has(o.id), `${d.id} objective ${o.id}`).toBe(true);
+          }
+        }
+      });
+
+      it('uses 2, 3 and 4 option questions so the adaptive option count is exercised', () => {
+        const counts = new Set(questions.map((q) => q.options.length));
+        expect([...counts].every((n) => [2, 3, 4].includes(n))).toBe(true);
+        expect(counts.size).toBeGreaterThanOrEqual(2);
+      });
+
+      it('has at least one multiple-response item so Challenge mode is meaningful', () => {
+        const multi = questions.filter((q) => q.type === 'multiple');
+        expect(multi.length).toBeGreaterThan(0);
+        for (const m of multi) {
+          expect(m.mode).toBe('challenge');
+          expect(m.options.filter((o) => o.isCorrect).length).toBe(m.correctCount);
+        }
+      });
+
+      it('only allows multiple-response in challenge mode', () => {
+        for (const q of questions) {
+          if (q.type === 'multiple') expect(q.mode).toBe('challenge');
+        }
+      });
+
+      it('draws every question from this certification source document', () => {
+        expect(new Set(questions.map((q) => q.source.document))).toEqual(new Set([meta.source]));
+      });
+
+      it('gives every option a justification and every distractor a rationale', () => {
+        for (const q of questions) {
+          expect(q.optionCountRationale.length).toBeGreaterThan(10);
+          expect(q.explanation.takeaway.length).toBeGreaterThan(5);
+          expect(q.explanation.correct.length).toBeGreaterThan(5);
+          for (const o of q.options.filter((x) => !x.isCorrect)) {
+            expect(q.distractorRationale?.[o.id]?.length ?? 0).toBeGreaterThan(10);
+            expect(q.explanation.whyWrong?.[o.id]?.length ?? 0).toBeGreaterThan(10);
+          }
+        }
+      });
+    });
+  }
+});
+
 describe('real deck - question pools', () => {
   const deckId = defaultDeckId()!;
   const questions = getDeckQuestions(deckId);

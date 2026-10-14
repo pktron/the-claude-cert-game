@@ -1,6 +1,7 @@
 {
   "deckId": "architect-foundations",
   "title": "Claude Certified Architect — Foundations",
+  "shortName": "Architect · Foundations",
   "examCode": "CCAR-F",
   "generatedFrom": [
     "Claude-Certified-Architect-Foundations-Exam-Guide.pdf"

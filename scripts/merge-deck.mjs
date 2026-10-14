@@ -1,65 +1,87 @@
 #!/usr/bin/env node
-// Merges content/decks/partials/d*.json into content/decks/architect-foundations.json.
-// Run: node scripts/merge-deck.mjs
+// Merges content/decks/partials/<deckId>-d<N>.json into content/decks/<deckId>.json
+// for every deck that has authored partials. Run: node scripts/merge-deck.mjs
 import { readFileSync, writeFileSync, readdirSync, existsSync } from 'node:fs';
 import { join, resolve } from 'node:path';
 
 const ROOT = resolve(new URL('..', import.meta.url).pathname.replace(/^\/([A-Za-z]:)/, '$1'));
 const partialsDir = join(ROOT, 'content', 'decks', 'partials');
-const outPath = join(ROOT, 'content', 'decks', 'architect-foundations.json');
-
-const domains = [
-  { id: 'd1', name: 'Agentic Architecture & Orchestration', weight: 27 },
-  { id: 'd2', name: 'Tool Design & MCP Integration', weight: 18 },
-  { id: 'd3', name: 'Claude Code Configuration & Workflows', weight: 20 },
-  { id: 'd4', name: 'Prompt Engineering & Structured Output', weight: 20 },
-  { id: 'd5', name: 'Context Management & Reliability', weight: 15 },
-];
+const decksDir = join(ROOT, 'content', 'decks');
+const manifestPath = join(decksDir, 'manifest.json');
 
 if (!existsSync(partialsDir)) {
   console.error('No partials directory. Run the content authors first.');
   process.exit(1);
 }
+if (!existsSync(manifestPath)) {
+  console.error('No manifest.json. Run: python scripts/slice_sources.py');
+  process.exit(1);
+}
 
-const questions = [];
-const files = readdirSync(partialsDir).filter((f) => /^d\d\.json$/.test(f)).sort();
+const manifest = JSON.parse(readFileSync(manifestPath, 'utf8'));
+const byDeck = new Map(manifest.decks.map((d) => [d.deckId, d]));
+
+const files = readdirSync(partialsDir).filter((f) => f.endsWith('.json')).sort();
+
+// Group partials by deck.
+const groups = new Map();
 for (const f of files) {
-  const arr = JSON.parse(readFileSync(join(partialsDir, f), 'utf8'));
-  questions.push(...arr);
-  console.log(`+ ${f}: ${arr.length}`);
+  const deckId = f.replace(/\.json$/, '').replace(/-d\d+$/, '');
+  if (!groups.has(deckId)) groups.set(deckId, []);
+  groups.get(deckId).push(join(partialsDir, f));
 }
 
-// Stable order: domain, then task statement, then id.
-questions.sort((a, b) => {
-  if (a.domain !== b.domain) return a.domain.localeCompare(b.domain);
-  const ta = parseFloat(a.taskStatement);
-  const tb = parseFloat(b.taskStatement);
-  if (ta !== tb) return ta - tb;
-  return a.id.localeCompare(b.id);
-});
+let anyMerged = false;
 
-// Global id uniqueness check.
-const ids = new Set();
-for (const q of questions) {
-  if (ids.has(q.id)) {
-    console.error(`Duplicate id across partials: ${q.id}`);
-    process.exit(1);
+for (const [deckId, paths] of groups) {
+  const meta = byDeck.get(deckId);
+  if (!meta) {
+    console.error(`SKIP unknown deck "${deckId}" (not in manifest.json)`);
+    continue;
   }
-  ids.add(q.id);
+
+  const questions = [];
+  const seenIds = new Set();
+  for (const p of paths) {
+    const arr = JSON.parse(readFileSync(p, 'utf8'));
+    for (const q of arr) {
+      if (seenIds.has(q.id)) {
+        console.error(`Duplicate id ${q.id} in ${deckId}`);
+        process.exit(1);
+      }
+      seenIds.add(q.id);
+      questions.push(q);
+    }
+    console.log(`  + ${p.split(/[\\/]/).pop()}: ${arr.length}`);
+  }
+
+  // Stable order: domain, then objective, then id.
+  questions.sort((a, b) => {
+    if (a.domain !== b.domain) return a.domain.localeCompare(b.domain);
+    const ta = parseFloat(a.taskStatement);
+    const tb = parseFloat(b.taskStatement);
+    if (ta !== tb) return ta - tb;
+    return a.id.localeCompare(b.id);
+  });
+
+  const deck = {
+    deckId,
+    title: meta.title,
+    shortName: meta.shortName,
+    examCode: meta.examCode,
+    generatedFrom: [meta.source],
+    disclaimer:
+      'Practice questions authored from the official exam guide. These are NOT official exam items.',
+    domains: meta.domains.map((d) => ({ id: d.id, name: d.name, weight: d.weight })),
+    questions,
+  };
+
+  writeFileSync(join(decksDir, `${deckId}.json`), JSON.stringify(deck, null, 2), 'utf8');
+  console.log(`Merged ${questions.length} questions -> content/decks/${deckId}.json\n`);
+  anyMerged = true;
 }
 
-const deck = {
-  deckId: 'architect-foundations',
-  title: 'Claude Certified Architect — Foundations',
-  examCode: 'CCAR-F',
-  generatedFrom: [
-    'Claude-Certified-Architect-Foundations-Exam-Guide.pdf',
-  ],
-  disclaimer:
-    'Practice questions authored from the official exam guide. These are NOT official exam items.',
-  domains,
-  questions,
-};
-
-writeFileSync(outPath, JSON.stringify(deck, null, 2), 'utf8');
-console.log(`\nMerged ${questions.length} questions -> ${outPath}`);
+if (!anyMerged) {
+  console.log('No partials found to merge.');
+  process.exit(1);
+}

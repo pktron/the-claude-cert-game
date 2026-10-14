@@ -2,6 +2,7 @@ import { test, expect, type Page } from '@playwright/test';
 
 const DECK = 'architect-foundations';
 const cert = (path = '') => `/#/c/${DECK}${path}`;
+const certHome = (deckId: string) => `/#/c/${deckId}`;
 
 /** Drive a real pointer drag on the card. */
 async function swipe(page: Page, dir: 'left' | 'right' | 'up' | 'down') {
@@ -306,27 +307,37 @@ test('the certification picker lists every certification and separates available
   await page.goto('/#/c');
   await expect(page.getByRole('heading', { name: 'Choose a certification' })).toBeVisible();
 
-  // The deck that has content is enterable.
-  await expect(page.getByTestId(`cert-${DECK}`)).toBeVisible();
-
-  // The others are visibly planned, not broken links.
-  await expect(page.getByTestId('cert-planned-architect-professional')).toBeVisible();
-  await expect(page.getByTestId('cert-planned-developer-foundations')).toBeVisible();
+  // Every shipped certification is enterable.
+  for (const id of ['architect-foundations', 'architect-professional', 'developer-foundations']) {
+    await expect(page.getByTestId(`cert-${id}`)).toBeVisible();
+  }
 });
 
-test('a planned certification opens an informational screen, not a broken session', async ({ page }) => {
-  await page.goto('/#/c');
-  await page.getByTestId('cert-planned-architect-professional').click();
-  await expect(page.getByRole('heading', { name: /coming soon/i })).toBeVisible();
-  await expect(page.getByTestId('swipe-card')).toHaveCount(0);
-  // Still offers a way back into what is available.
-  await expect(page.getByRole('link', { name: /All certifications/ })).toBeVisible();
+test('each certification opens its own deck with its own questions', async ({ page }) => {
+  for (const [id, marker] of [
+    ['architect-foundations', 'Agentic Architecture & Orchestration'],
+    ['architect-professional', 'Solution Design & Architecture'],
+    ['developer-foundations', 'Agents and Workflows'],
+  ] as const) {
+    await page.goto(certHome(id));
+    await expect(page.getByText(marker).first()).toBeVisible();
+
+    await page.goto(`${certHome(id)}/stats`);
+    await expect(page.getByText(marker).first()).toBeVisible();
+  }
 });
 
-test('a session route for a planned certification does not start a session', async ({ page }) => {
-  await page.goto('/#/c/architect-professional/session/discover');
-  await expect(page.getByTestId('swipe-card')).toHaveCount(0);
-  await expect(page.getByRole('heading', { name: /coming soon/i })).toBeVisible();
+test('a deck built from a thin guide still serves a full session', async ({ page }) => {
+  await page.goto('/#/c/developer-foundations/session/discover');
+  const card = page.getByTestId('swipe-card');
+  await expect(card).toBeVisible();
+
+  const options = page.locator('[data-option-id]');
+  expect(await options.count()).toBeGreaterThanOrEqual(2);
+
+  await options.first().click();
+  await expect(page.getByTestId('feedback')).toBeVisible();
+  await expect(page.getByTestId('feedback-title')).toBeVisible();
 });
 
 test('an unknown certification falls back to the picker', async ({ page }) => {
@@ -334,18 +345,31 @@ test('an unknown certification falls back to the picker', async ({ page }) => {
   await expect(page.getByRole('heading', { name: 'Choose a certification' })).toBeVisible();
 });
 
-test('switching certification keeps progress separate per certification', async ({ page }) => {
-  // Make progress on the available deck.
+test('progress is isolated between certifications', async ({ page }) => {
+  // Make progress on one deck.
   await gotoSession(page);
   await swipeEnabled(page);
   await expect(page.getByTestId('feedback')).toBeVisible();
   await page.getByTestId('continue').click();
 
   await page.goto('/#/c');
-  // The available certification should now show that it has been explored.
   await expect(page.getByText(/explored/)).toBeVisible();
 
-  // The planned certification must not show any of the other deck's progress.
-  await page.getByTestId('cert-planned-architect-professional').click();
+  // A different, untouched certification must show no progress at all.
+  await page.goto('/#/c/architect-professional/stats');
   await expect(page.getByText(/explored/)).toHaveCount(0);
+  await expect(page.getByText('0 of 91 cards seen')).toBeVisible();
+});
+
+test('progress recorded on one deck is still there when returning to it', async ({ page }) => {
+  await gotoSession(page);
+  await swipeEnabled(page);
+  await expect(page.getByTestId('feedback')).toBeVisible();
+
+  await page.goto('/#/c/architect-professional/stats');
+  await expect(page.getByText('0 of 91 cards seen')).toBeVisible();
+
+  // Back to the original deck: its progress survived the switch.
+  await page.goto(certHome(DECK));
+  await expect(page.getByTestId('overall-progress')).not.toHaveText('0%');
 });
