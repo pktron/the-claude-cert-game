@@ -44,7 +44,10 @@ A deck is a JSON object. A question is embedded in `questions`.
   "source": {
     "document": "Claude-Certified-Architect-Foundations-Exam-Guide.pdf",
     "section": "Task Statement 1.1",
-    "page": 5                       // optional int
+    "page": 5,                       // optional int
+    "quotes": [                      // optional: verbatim guide sentence(s) that ground this item
+      "Implementing agentic loop control flow that continues when stop_reason is \"tool_use\""
+    ]
   },
   "reviewStatus": "verified"         // "verified" | "needs-review"
 }
@@ -62,6 +65,16 @@ A deck is a JSON object. A question is embedded in `questions`.
 7. `source.document` and `source.section` are non-empty.
 8. Answer-revealing heuristics: the correct option must not be systematically longer, must not be the first/last position in the authored array, and `reviewStatus` flags anything suspicious. (Direction/position randomization happens in the app; the authored array order must still not encode correctness.)
 9. `id` is unique across the deck.
+
+## Grounding (enforced by `scripts/check-grounding.mjs`)
+
+Every `verified` question must carry at least one verbatim `source.quotes` sentence taken
+from the official exam guide text in `content/source/`. The quote is shown to the learner
+under the feedback, so a claim can always be checked against the guide. `needs-review`
+items are exempt - that flag exists precisely for items the guide does not fully support.
+
+Populate or refresh quotes with `pnpm quotes` (deterministic; matches the guide sentence
+whose vocabulary best fits each item's keyed answer, scoped to the item's own domain).
 
 ## Scenario slugs
 

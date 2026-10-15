@@ -98,6 +98,12 @@ export function SwipeCard({
         {question.scenario ? SCENARIO_EMOJI[question.scenario] ?? '🧠' : '🧠'}
       </div>
 
+      {question.reviewStatus === 'needs-review' && (
+        <span className="review-chip" data-testid="review-chip" title="The exam guide does not fully support this item">
+          ⚠ under review
+        </span>
+      )}
+
       <h2 className="q-prompt">{question.prompt}</h2>
 
       {!multi && (

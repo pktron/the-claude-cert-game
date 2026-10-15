@@ -199,7 +199,22 @@ export function FeedbackPanel({
         </button>
       </div>
 
-      <p style={{ marginTop: 'var(--sp-4)', fontSize: 'var(--fs-xs)', color: 'var(--text-dim)', textAlign: 'center' }}>
+      {question.reviewStatus === 'needs-review' && (
+        <p className="review-flag" data-testid="review-flag">
+          ⚠ Under review — the guide does not fully support this item
+        </p>
+      )}
+
+      {question.source.quotes && question.source.quotes.length > 0 && (
+        <blockquote className="source-quote" data-testid="source-quote">
+          <span className="source-quote-label">From the guide</span>
+          {question.source.quotes.map((q, i) => (
+            <p key={i}>{q}</p>
+          ))}
+        </blockquote>
+      )}
+
+      <p className="source-line">
         Source: {question.source.section} · practice question, not an official exam item
       </p>
     </div>

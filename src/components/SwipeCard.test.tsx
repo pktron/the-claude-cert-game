@@ -267,6 +267,30 @@ describe('SwipeCard gestures', () => {
     expect(onSwipe).not.toHaveBeenCalled();
   });
 
+  it('shows an under-review chip only for needs-review questions', () => {
+    const assignment = buildDirectionAssignment(['a', 'b', 'c'], 'seed');
+    const renderCard = (reviewStatus: Question['reviewStatus']) =>
+      render(
+        <SwipeCard
+          question={makeQ({ reviewStatus })}
+          presentationSeed="seed"
+          directionAssignment={assignment}
+          selectedOptionIds={[]}
+          revealed={false}
+          committedIds={[]}
+          reduceMotion
+          showDirectionHints
+          onSwipe={() => {}}
+          onTapSelect={() => {}}
+        />,
+      );
+    const { unmount } = renderCard('needs-review');
+    expect(screen.getByTestId('review-chip')).toBeInTheDocument();
+    unmount();
+    renderCard('verified');
+    expect(screen.queryByTestId('review-chip')).not.toBeInTheDocument();
+  });
+
   it('renders every option and a direction hint for a 3-option question', () => {
     const q = makeQ();
     const assignment = buildDirectionAssignment(q.options.map((o) => o.id), 'seed');

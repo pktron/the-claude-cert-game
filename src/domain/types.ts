@@ -35,6 +35,8 @@ export interface Source {
   document: string;
   section: string;
   page?: number;
+  /** Verbatim sentence(s) from the official guide that ground this question. */
+  quotes?: string[];
 }
 
 export interface Question {

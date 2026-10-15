@@ -145,6 +145,56 @@
   margin-bottom: 4px;
 }
 
+.source-quote {
+  margin: var(--sp-5) 0 0;
+  text-align: left;
+  padding: var(--sp-3) var(--sp-4);
+  border-radius: var(--radius);
+  background: var(--surface-2);
+  border-left: 3px solid var(--text-dim);
+  font-size: var(--fs-sm);
+  color: var(--text-dim);
+}
+.source-quote p {
+  margin: 4px 0 0;
+  font-style: italic;
+}
+.source-quote-label {
+  display: block;
+  font-size: var(--fs-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-weight: 800;
+  opacity: 0.85;
+}
+
+.review-flag {
+  margin-top: var(--sp-5);
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  text-align: center;
+  color: #b8860b;
+}
+
+.source-line {
+  margin-top: var(--sp-4);
+  font-size: var(--fs-xs);
+  color: var(--text-dim);
+  text-align: center;
+}
+
+.review-chip {
+  display: inline-block;
+  margin-top: var(--sp-2);
+  padding: 2px 10px;
+  border-radius: 999px;
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  color: #b8860b;
+  background: rgba(184, 134, 11, 0.14);
+  border: 1px solid rgba(184, 134, 11, 0.4);
+}
+
 .confidence-row {
   margin-top: var(--sp-5);
   display: flex;

@@ -80,7 +80,10 @@
       "source": {
         "document": "Claude-Certified-Architect-Foundations-Exam-Guide.pdf",
         "section": "Task Statement 1.1",
-        "page": 5
+        "page": 5,
+        "quotes": [
+          "The agentic loop lifecycle: sending requests to Claude, inspecting stop_reason (\"tool_use\" vs \"end_turn\"), executing requested tools, and returning results for the next iteration"
+        ]
       },
       "reviewStatus": "verified"
     },
@@ -129,7 +132,10 @@
       "source": {
         "document": "Claude-Certified-Architect-Foundations-Exam-Guide.pdf",
         "section": "Task Statement 1.1",
-        "page": 5
+        "page": 5,
+        "quotes": [
+          "Avoiding anti-patterns such as parsing natural language signals to determine loop termination, setting arbitrary iteration caps as the primary stopping mechanism, or checking for assistant text content as a completion indicator"
+        ]
       },
       "reviewStatus": "verified"
     },
@@ -184,7 +190,10 @@
       "source": {
         "document": "Claude-Certified-Architect-Foundations-Exam-Guide.pdf",
         "section": "Task Statement 1.1",
-        "page": 5
+        "page": 5,
+        "quotes": [
+          "How tool results are appended to conversation history so the model can reason about the next action"
+        ]
       },
       "reviewStatus": "verified"
     },
@@ -225,7 +234,10 @@
       "source": {
         "document": "Claude-Certified-Architect-Foundations-Exam-Guide.pdf",
         "section": "Task Statement 1.1",
-        "page": 5
+        "page": 5,
+        "quotes": [
+          "The distinction between model-driven decision-making (Claude reasons about which tool to call next based on context) and pre-configured decision trees or tool sequences"
+        ]
       },
       "reviewStatus": "verified"
     },
@@ -266,7 +278,10 @@
       "source": {
         "document": "Claude-Certified-Architect-Foundations-Exam-Guide.pdf",
         "section": "Task Statement 1.2",
-        "page": 5
+        "page": 5,
+        "quotes": [
+          "Hub-and-spoke architecture where a coordinator agent manages all inter-subagent communication, error handling, and information routing"
+        ]
       },
       "reviewStatus": "verified"
     },
@@ -314,7 +329,11 @@
       "source": {
         "document": "Claude-Certified-Architect-Foundations-Exam-Guide.pdf",
         "section": "Task Statement 1.2",
-        "page": 5
+        "page": 5,
+        "quotes": [
+          "How subagents operate with isolated context - they do not inherit the coordinator's conversation history automatically",
+          "That subagent context must be explicitly provided in the prompt - subagents do not automatically inherit parent context or share memory between invocations"
+        ]
       },
       "reviewStatus": "verified"
     },
@@ -369,7 +388,10 @@
       "source": {
         "document": "Claude-Certified-Architect-Foundations-Exam-Guide.pdf",
         "section": "Task Statement 1.2",
-        "page": 5
+        "page": 5,
+        "quotes": [
+          "Partitioning research scope across subagents to minimize duplication (e.g., assigning distinct subtopics or source types to each agent)"
+        ]
       },
       "reviewStatus": "verified"
     },
@@ -417,7 +439,10 @@
       "source": {
         "document": "Claude-Certified-Architect-Foundations-Exam-Guide.pdf",
         "section": "Task Statement 1.2",
-        "page": 5
+        "page": 5,
+        "quotes": [
+          "Implementing iterative refinement loops where the coordinator evaluates synthesis output for gaps, re-delegates to search and analysis subagents with targeted queries, and re-invokes synthesis until coverage is sufficient"
+        ]
       },
       "reviewStatus": "verified"
     },
@@ -465,7 +490,10 @@
       "source": {
         "document": "Claude-Certified-Architect-Foundations-Exam-Guide.pdf",
         "section": "Task Statement 1.3",
-        "page": 6
+        "page": 6,
+        "quotes": [
+          "The Task tool as the mechanism for spawning subagents, and the requirement that allowedTools must include \"Task\" for a coordinator to invoke subagents"
+        ]
       },
       "reviewStatus": "verified"
     },
@@ -513,7 +541,10 @@
       "source": {
         "document": "Claude-Certified-Architect-Foundations-Exam-Guide.pdf",
         "section": "Task Statement 1.3",
-        "page": 6
+        "page": 6,
+        "quotes": [
+          "Spawning parallel subagents by emitting multiple Task tool calls in a single coordinator response rather than across separate turns"
+        ]
       },
       "reviewStatus": "verified"
     },
@@ -568,7 +599,10 @@
       "source": {
         "document": "Claude-Certified-Architect-Foundations-Exam-Guide.pdf",
         "section": "Task Statement 1.3",
-        "page": 6
+        "page": 6,
+        "quotes": [
+          "Using structured data formats to separate content from metadata (source URLs, document names, page numbers) when passing context between agents to preserve attribution"
+        ]
       },
       "reviewStatus": "verified"
     },
@@ -616,7 +650,10 @@
       "source": {
         "document": "Claude-Certified-Architect-Foundations-Exam-Guide.pdf",
         "section": "Task Statement 1.3",
-        "page": 6
+        "page": 6,
+        "quotes": [
+          "Designing coordinator agents that analyze query requirements and dynamically select which subagents to invoke rather than always routing through the full pipeline"
+        ]
       },
       "reviewStatus": "verified"
     },
@@ -664,7 +701,10 @@
       "source": {
         "document": "Claude-Certified-Architect-Foundations-Exam-Guide.pdf",
         "section": "Task Statement 1.3",
-        "page": 6
+        "page": 6,
+        "quotes": [
+          "The AgentDefinition configuration including descriptions, system prompts, and tool restrictions for each subagent type"
+        ]
       },
       "reviewStatus": "verified"
     },
@@ -712,7 +752,11 @@
       "source": {
         "document": "Claude-Certified-Architect-Foundations-Exam-Guide.pdf",
         "section": "Task Statement 1.4",
-        "page": 7
+        "page": 7,
+        "quotes": [
+          "The difference between programmatic enforcement (hooks, prerequisite gates) and prompt-based guidance for workflow ordering",
+          "Implementing programmatic prerequisites that block downstream tool calls until prerequisite steps have completed (e.g., blocking process_refund until get_customer has returned a verified customer"
+        ]
       },
       "reviewStatus": "verified"
     },
@@ -767,7 +811,10 @@
       "source": {
         "document": "Claude-Certified-Architect-Foundations-Exam-Guide.pdf",
         "section": "Task Statement 1.4",
-        "page": 7
+        "page": 7,
+        "quotes": [
+          "Implementing programmatic prerequisites that block downstream tool calls until prerequisite steps have completed (e.g., blocking process_refund until get_customer has returned a verified customer"
+        ]
       },
       "reviewStatus": "verified"
     },
@@ -815,7 +862,10 @@
       "source": {
         "document": "Claude-Certified-Architect-Foundations-Exam-Guide.pdf",
         "section": "Task Statement 1.4",
-        "page": 7
+        "page": 7,
+        "quotes": [
+          "Compiling structured handoff summaries (customer ID, root cause, refund amount, recommended action) when escalating to human agents who lack access to the conversation transcript"
+        ]
       },
       "reviewStatus": "verified"
     },
@@ -856,7 +906,11 @@
       "source": {
         "document": "Claude-Certified-Architect-Foundations-Exam-Guide.pdf",
         "section": "Task Statement 1.5",
-        "page": 7
+        "page": 7,
+        "quotes": [
+          "Hook patterns (e.g., PostToolUse) that intercept tool results for transformation before the model processes them",
+          "Implementing tool call interception hooks that block policy-violating actions (e.g., refunds exceeding $500) and redirect to alternative workflows (e.g., human escalation)"
+        ]
       },
       "reviewStatus": "verified"
     },
@@ -904,7 +958,11 @@
       "source": {
         "document": "Claude-Certified-Architect-Foundations-Exam-Guide.pdf",
         "section": "Task Statement 1.5",
-        "page": 7
+        "page": 7,
+        "quotes": [
+          "8601, numeric status codes) from different MCP tools before the agent processes them",
+          "Implementing PostToolUse hooks to normalize heterogeneous data formats (Unix timestamps, ISO"
+        ]
       },
       "reviewStatus": "verified"
     },
@@ -952,7 +1010,10 @@
       "source": {
         "document": "Claude-Certified-Architect-Foundations-Exam-Guide.pdf",
         "section": "Task Statement 1.5",
-        "page": 7
+        "page": 7,
+        "quotes": [
+          "Implementing tool call interception hooks that block policy-violating actions (e.g., refunds exceeding $500) and redirect to alternative workflows (e.g., human escalation)"
+        ]
       },
       "reviewStatus": "verified"
     },
@@ -1000,7 +1061,11 @@
       "source": {
         "document": "Claude-Certified-Architect-Foundations-Exam-Guide.pdf",
         "section": "Task Statement 1.6",
-        "page": 8
+        "page": 8,
+        "quotes": [
+          "Selecting task decomposition patterns appropriate to the workflow: prompt chaining for predictable multi-aspect reviews, dynamic decomposition for open-ended investigation tasks",
+          "Prompt chaining patterns that break reviews into sequential steps (e.g., analyze each file individually, then run a cross-file integration pass)"
+        ]
       },
       "reviewStatus": "verified"
     },
@@ -1055,7 +1120,10 @@
       "source": {
         "document": "Claude-Certified-Architect-Foundations-Exam-Guide.pdf",
         "section": "Task Statement 1.6",
-        "page": 8
+        "page": 8,
+        "quotes": [
+          "Decomposing open-ended tasks (e.g., \"add comprehensive tests to a legacy codebase\") by first mapping structure, identifying high-impact areas, then creating a prioritized plan that adapts as dependencies are discovered"
+        ]
       },
       "reviewStatus": "verified"
     },
@@ -1103,7 +1171,10 @@
       "source": {
         "document": "Claude-Certified-Architect-Foundations-Exam-Guide.pdf",
         "section": "Task Statement 1.7",
-        "page": 8
+        "page": 8,
+        "quotes": [
+          "Why starting a new session with a structured summary is more reliable than resuming with stale tool results"
+        ]
       },
       "reviewStatus": "verified"
     },
@@ -1151,7 +1222,11 @@
       "source": {
         "document": "Claude-Certified-Architect-Foundations-Exam-Guide.pdf",
         "section": "Task Statement 1.7",
-        "page": 8
+        "page": 8,
+        "quotes": [
+          "Using fork_session to create parallel exploration branches (e.g., comparing two testing strategies or refactoring approaches from a shared codebase analysis)",
+          "Named session resumption using --resume <session-name> to continue a specific prior conversation fork_session for creating independent branches from a shared analysis baseline to explore divergent approaches"
+        ]
       },
       "reviewStatus": "verified"
     },
@@ -1199,7 +1274,10 @@
       "source": {
         "document": "Claude-Certified-Architect-Foundations-Exam-Guide.pdf",
         "section": "Task Statement 1.7",
-        "page": 8
+        "page": 8,
+        "quotes": [
+          "Informing a resumed session about specific file changes for targeted re-analysis rather than requiring full re-exploration"
+        ]
       },
       "reviewStatus": "verified"
     },
@@ -1240,7 +1318,11 @@
       },
       "source": {
         "document": "Claude-Certified-Architect-Foundations-Exam-Guide.pdf",
-        "section": "Task Statement 2.1"
+        "section": "Task Statement 2.1",
+        "quotes": [
+          "The importance of including input formats, example queries, edge cases, and boundary explanations in tool descriptions",
+          "Writing tool descriptions that clearly differentiate each tool's purpose, expected inputs, outputs, and when to use it versus similar alternatives"
+        ]
       },
       "reviewStatus": "verified"
     },
@@ -1288,7 +1370,11 @@
       },
       "source": {
         "document": "Claude-Certified-Architect-Foundations-Exam-Guide.pdf",
-        "section": "Task Statement 2.1"
+        "section": "Task Statement 2.1",
+        "quotes": [
+          "Writing tool descriptions that clearly differentiate each tool's purpose, expected inputs, outputs, and when to use it versus similar alternatives",
+          "Renaming tools and updating descriptions to eliminate functional overlap (e.g., renaming analyze_content to extract_web_results with a web-specific description)"
+        ]
       },
       "reviewStatus": "verified"
     },
@@ -1342,7 +1428,10 @@
       },
       "source": {
         "document": "Claude-Certified-Architect-Foundations-Exam-Guide.pdf",
-        "section": "Task Statement 2.1"
+        "section": "Task Statement 2.1",
+        "quotes": [
+          "Splitting generic tools into purpose-specific tools with defined input/output contracts (e.g., splitting a generic analyze_document into extract_data_points, summarize_content, and verify_claim_against_source)"
+        ]
       },
       "reviewStatus": "verified"
     },
@@ -1389,7 +1478,10 @@
       },
       "source": {
         "document": "Claude-Certified-Architect-Foundations-Exam-Guide.pdf",
-        "section": "Task Statement 2.1"
+        "section": "Task Statement 2.1",
+        "quotes": [
+          "The impact of system prompt wording on tool selection: keyword-sensitive instructions can create unintended tool associations"
+        ]
       },
       "reviewStatus": "verified"
     },
@@ -1429,7 +1521,10 @@
       },
       "source": {
         "document": "Claude-Certified-Architect-Foundations-Exam-Guide.pdf",
-        "section": "Task Statement 2.2"
+        "section": "Task Statement 2.2",
+        "quotes": [
+          "The MCP isError flag pattern for communicating tool failures back to the agent"
+        ]
       },
       "reviewStatus": "verified"
     },
@@ -1476,7 +1571,10 @@
       },
       "source": {
         "document": "Claude-Certified-Architect-Foundations-Exam-Guide.pdf",
-        "section": "Task Statement 2.2"
+        "section": "Task Statement 2.2",
+        "quotes": [
+          "The distinction between transient errors (timeouts, service unavailability), validation errors (invalid input), business errors (policy violations), and permission errors"
+        ]
       },
       "reviewStatus": "verified"
     },
@@ -1523,7 +1621,11 @@
       },
       "source": {
         "document": "Claude-Certified-Architect-Foundations-Exam-Guide.pdf",
-        "section": "Task Statement 2.2"
+        "section": "Task Statement 2.2",
+        "quotes": [
+          "Why uniform error responses (generic \"Operation failed\") prevent the agent from making appropriate recovery decisions",
+          "Returning structured error metadata including errorCategory (transient/validation/permission), isRetryable boolean, and human-readable descriptions"
+        ]
       },
       "reviewStatus": "verified"
     },
@@ -1570,7 +1672,10 @@
       },
       "source": {
         "document": "Claude-Certified-Architect-Foundations-Exam-Guide.pdf",
-        "section": "Task Statement 2.2"
+        "section": "Task Statement 2.2",
+        "quotes": [
+          "Distinguishing between access failures (needing retry decisions) and valid empty results (representing successful queries with no matches)"
+        ]
       },
       "reviewStatus": "verified"
     },
@@ -1617,7 +1722,10 @@
       },
       "source": {
         "document": "Claude-Certified-Architect-Foundations-Exam-Guide.pdf",
-        "section": "Task Statement 2.3"
+        "section": "Task Statement 2.3",
+        "quotes": [
+          "The principle that giving an agent access to too many tools (e.g., 18 instead of 4-5) degrades tool selection reliability by increasing decision complexity"
+        ]
       },
       "reviewStatus": "verified"
     },
@@ -1671,7 +1779,10 @@
       },
       "source": {
         "document": "Claude-Certified-Architect-Foundations-Exam-Guide.pdf",
-        "section": "Task Statement 2.3"
+        "section": "Task Statement 2.3",
+        "quotes": [
+          "Providing scoped cross-role tools for high-frequency needs (e.g., a verify_fact tool for the synthesis agent) while routing complex cases through the coordinator"
+        ]
       },
       "reviewStatus": "verified"
     },
@@ -1721,7 +1832,11 @@
       },
       "source": {
         "document": "Claude-Certified-Architect-Foundations-Exam-Guide.pdf",
-        "section": "Task Statement 2.3"
+        "section": "Task Statement 2.3",
+        "quotes": [
+          "Setting tool_choice: \"any\" to guarantee the model calls a tool rather than returning conversational text",
+          "Using tool_choice forced selection to ensure a specific tool is called first (e.g., forcing extract_metadata before enrichment tools), then processing subsequent steps in follow-up turns"
+        ]
       },
       "reviewStatus": "verified"
     },
@@ -1768,7 +1883,10 @@
       },
       "source": {
         "document": "Claude-Certified-Architect-Foundations-Exam-Guide.pdf",
-        "section": "Task Statement 2.3"
+        "section": "Task Statement 2.3",
+        "quotes": [
+          "Using tool_choice forced selection to ensure a specific tool is called first (e.g., forcing extract_metadata before enrichment tools), then processing subsequent steps in follow-up turns"
+        ]
       },
       "reviewStatus": "verified"
     },
@@ -1822,7 +1940,11 @@
       },
       "source": {
         "document": "Claude-Certified-Architect-Foundations-Exam-Guide.pdf",
-        "section": "Task Statement 2.4"
+        "section": "Task Statement 2.4",
+        "quotes": [
+          "Environment variable expansion in .mcp.json (e.g., ${GITHUB_TOKEN}) for credential management without committing secrets",
+          "That tools from all configured MCP servers are discovered at connection time and available simultaneously to the agent"
+        ]
       },
       "reviewStatus": "verified"
     },
@@ -1869,7 +1991,11 @@
       },
       "source": {
         "document": "Claude-Certified-Architect-Foundations-Exam-Guide.pdf",
-        "section": "Task Statement 2.4"
+        "section": "Task Statement 2.4",
+        "quotes": [
+          "MCP resources as a mechanism for exposing content catalogs (e.g., issue summaries, documentation hierarchies, database schemas) to reduce exploratory tool calls",
+          "Enhancing MCP tool descriptions to explain capabilities and outputs in detail, preventing the agent from preferring built-in tools (like Grep) over more capable MCP tools"
+        ]
       },
       "reviewStatus": "verified"
     },
@@ -1916,7 +2042,10 @@
       },
       "source": {
         "document": "Claude-Certified-Architect-Foundations-Exam-Guide.pdf",
-        "section": "Task Statement 2.4"
+        "section": "Task Statement 2.4",
+        "quotes": [
+          "Choosing existing community MCP servers over custom implementations for standard integrations (e.g., Jira), reserving custom servers for team-specific workflows"
+        ]
       },
       "reviewStatus": "verified"
     },
@@ -1964,7 +2093,10 @@
       },
       "source": {
         "document": "Claude-Certified-Architect-Foundations-Exam-Guide.pdf",
-        "section": "Task Statement 2.5"
+        "section": "Task Statement 2.5",
+        "quotes": [
+          "Grep for content search (searching file contents for patterns like function names, error messages, or import statements)"
+        ]
       },
       "reviewStatus": "verified"
     },
@@ -2011,7 +2143,11 @@
       },
       "source": {
         "document": "Claude-Certified-Architect-Foundations-Exam-Guide.pdf",
-        "section": "Task Statement 2.5"
+        "section": "Task Statement 2.5",
+        "quotes": [
+          "Using Read to load full file contents followed by Write when Edit cannot find unique anchor text",
+          "When Edit fails due to non-unique text matches, using Read + Write as a fallback for reliable file modifications"
+        ]
       },
       "reviewStatus": "verified"
     },
@@ -2059,7 +2195,11 @@
       },
       "source": {
         "document": "Claude-Certified-Architect-Foundations-Exam-Guide.pdf",
-        "section": "Task Statement 2.5"
+        "section": "Task Statement 2.5",
+        "quotes": [
+          "Read to follow imports and trace flows, rather than reading all files upfront",
+          "Tracing function usage across wrapper modules by first identifying all exported names, then searching for each name across the codebase"
+        ]
       },
       "reviewStatus": "verified"
     },
@@ -2107,7 +2247,11 @@
       },
       "source": {
         "document": "Claude-Certified-Architect-Foundations-Exam-Guide.pdf",
-        "section": "Task Statement 3.1"
+        "section": "Task Statement 3.1",
+        "quotes": [
+          "The CLAUDE.md configuration hierarchy: user-level (~/.claude/CLAUDE.md), project-level (.claude/CLAUDE.md or root CLAUDE.md), and directory-level (subdirectory CLAUDE.md files)",
+          "That user-level settings apply only to that user - instructions in ~/.claude/CLAUDE.md are not shared with teammates via version control"
+        ]
       },
       "reviewStatus": "verified"
     },
@@ -2162,7 +2306,10 @@
       },
       "source": {
         "document": "Claude-Certified-Architect-Foundations-Exam-Guide.pdf",
-        "section": "Task Statement 3.1"
+        "section": "Task Statement 3.1",
+        "quotes": [
+          "The @import syntax for referencing external files to keep CLAUDE.md modular (e.g., importing specific standards files relevant to each package) .claude/rules/ directory for organizing topic-specific rule files as an alternative to a monolithic"
+        ]
       },
       "reviewStatus": "verified"
     },
@@ -2209,7 +2356,10 @@
       },
       "source": {
         "document": "Claude-Certified-Architect-Foundations-Exam-Guide.pdf",
-        "section": "Task Statement 3.1"
+        "section": "Task Statement 3.1",
+        "quotes": [
+          "Splitting large CLAUDE.md files into focused topic-specific files in .claude/rules/ (e.g., testing.md, api-conventions.md, deployment.md)"
+        ]
       },
       "reviewStatus": "verified"
     },
@@ -2256,7 +2406,11 @@
       },
       "source": {
         "document": "Claude-Certified-Architect-Foundations-Exam-Guide.pdf",
-        "section": "Task Statement 3.2"
+        "section": "Task Statement 3.2",
+        "quotes": [
+          "Project-scoped commands in .claude/commands/ (shared via version control) vs user-scoped commands in ~/.claude/commands/ (personal)",
+          "Personal skill customization: creating personal variants in ~/.claude/skills/ with different names to avoid affecting teammates"
+        ]
       },
       "reviewStatus": "verified"
     },
@@ -2310,7 +2464,10 @@
       },
       "source": {
         "document": "Claude-Certified-Architect-Foundations-Exam-Guide.pdf",
-        "section": "Task Statement 3.2"
+        "section": "Task Statement 3.2",
+        "quotes": [
+          "Configuring allowed-tools in skill frontmatter to restrict tool access during skill execution (e.g., limiting to file write operations to prevent destructive actions)"
+        ]
       },
       "reviewStatus": "verified"
     },
@@ -2350,7 +2507,10 @@
       },
       "source": {
         "document": "Claude-Certified-Architect-Foundations-Exam-Guide.pdf",
-        "section": "Task Statement 3.2"
+        "section": "Task Statement 3.2",
+        "quotes": [
+          "Choosing between skills (on-demand invocation for task-specific workflows) and CLAUDE.md (always-loaded universal standards)"
+        ]
       },
       "reviewStatus": "verified"
     },
@@ -2397,7 +2557,11 @@
       },
       "source": {
         "document": "Claude-Certified-Architect-Foundations-Exam-Guide.pdf",
-        "section": "Task Statement 3.3"
+        "section": "Task Statement 3.3",
+        "quotes": [
+          "Using glob patterns in path-specific rules to apply conventions to files by type regardless of directory location (e.g., **/*.test.tsx for all test files)",
+          ".claude/rules/ files with YAML frontmatter paths fields containing glob patterns for conditional rule activation"
+        ]
       },
       "reviewStatus": "verified"
     },
@@ -2444,7 +2608,10 @@
       },
       "source": {
         "document": "Claude-Certified-Architect-Foundations-Exam-Guide.pdf",
-        "section": "Task Statement 3.3"
+        "section": "Task Statement 3.3",
+        "quotes": [
+          "How path-scoped rules load only when editing matching files, reducing irrelevant context and token usage"
+        ]
       },
       "reviewStatus": "verified"
     },
@@ -2491,7 +2658,10 @@
       },
       "source": {
         "document": "Claude-Certified-Architect-Foundations-Exam-Guide.pdf",
-        "section": "Task Statement 3.4"
+        "section": "Task Statement 3.4",
+        "quotes": [
+          "Plan mode is designed for complex tasks involving large-scale changes, multiple valid approaches, architectural decisions, and multi-file modifications"
+        ]
       },
       "reviewStatus": "verified"
     },
@@ -2545,7 +2715,11 @@
       },
       "source": {
         "document": "Claude-Certified-Architect-Foundations-Exam-Guide.pdf",
-        "section": "Task Statement 3.4"
+        "section": "Task Statement 3.4",
+        "quotes": [
+          "The Explore subagent for isolating verbose discovery output and returning summaries to preserve main conversation context",
+          "Using context: fork to isolate skills that produce verbose output (e.g., codebase analysis) or exploratory context (e.g., brainstorming alternatives) from the main session"
+        ]
       },
       "reviewStatus": "verified"
     },
@@ -2585,7 +2759,10 @@
       },
       "source": {
         "document": "Claude-Certified-Architect-Foundations-Exam-Guide.pdf",
-        "section": "Task Statement 3.4"
+        "section": "Task Statement 3.4",
+        "quotes": [
+          "Selecting direct execution for well-understood changes with clear scope (e.g., a single-file bug fix with a clear stack trace, adding a date validation conditional)"
+        ]
       },
       "reviewStatus": "verified"
     },
@@ -2632,7 +2809,11 @@
       },
       "source": {
         "document": "Claude-Certified-Architect-Foundations-Exam-Guide.pdf",
-        "section": "Task Statement 3.5"
+        "section": "Task Statement 3.5",
+        "quotes": [
+          "Concrete input/output examples as the most effective way to communicate expected transformations when prose descriptions are interpreted inconsistently",
+          "Providing specific test cases with example input and expected output to fix edge case handling (e.g., null values in migration scripts)"
+        ]
       },
       "reviewStatus": "verified"
     },
@@ -2686,7 +2867,11 @@
       },
       "source": {
         "document": "Claude-Certified-Architect-Foundations-Exam-Guide.pdf",
-        "section": "Task Statement 3.5"
+        "section": "Task Statement 3.5",
+        "quotes": [
+          "Test-driven iteration: writing test suites first, then iterating by sharing test failures to guide progressive improvement",
+          "When to provide all issues in a single message (interacting problems) versus fixing them sequentially (independent problems)"
+        ]
       },
       "reviewStatus": "verified"
     },
@@ -2733,7 +2918,11 @@
       },
       "source": {
         "document": "Claude-Certified-Architect-Foundations-Exam-Guide.pdf",
-        "section": "Task Statement 3.5"
+        "section": "Task Statement 3.5",
+        "quotes": [
+          "The interview pattern: having Claude ask questions to surface considerations the developer may not have anticipated before implementing",
+          "Using the interview pattern to surface design considerations (e.g., cache invalidation strategies, failure modes) before implementing solutions in unfamiliar domains"
+        ]
       },
       "reviewStatus": "verified"
     },
@@ -2787,7 +2976,10 @@
       },
       "source": {
         "document": "Claude-Certified-Architect-Foundations-Exam-Guide.pdf",
-        "section": "Task Statement 3.6"
+        "section": "Task Statement 3.6",
+        "quotes": [
+          "Using --output-format json with --json-schema to produce machine-parseable structured findings for automated posting as inline PR comments"
+        ]
       },
       "reviewStatus": "verified"
     },
@@ -2834,7 +3026,11 @@
       },
       "source": {
         "document": "Claude-Certified-Architect-Foundations-Exam-Guide.pdf",
-        "section": "Task Statement 3.6"
+        "section": "Task Statement 3.6",
+        "quotes": [
+          "Documenting testing standards, valuable test criteria, and available fixtures in CLAUDE.md to improve test generation quality and reduce low-value test output",
+          "Using --output-format json with --json-schema to produce machine-parseable structured findings for automated posting as inline PR comments"
+        ]
       },
       "reviewStatus": "verified"
     },
@@ -2874,7 +3070,10 @@
       },
       "source": {
         "document": "Claude-Certified-Architect-Foundations-Exam-Guide.pdf",
-        "section": "Task Statement 3.6"
+        "section": "Task Statement 3.6",
+        "quotes": [
+          "Including prior review findings in context when re-running reviews after new commits, instructing"
+        ]
       },
       "reviewStatus": "verified"
     },
@@ -2928,7 +3127,10 @@
       },
       "source": {
         "document": "Claude-Certified-Architect-Foundations-Exam-Guide.pdf",
-        "section": "Task Statement 3.6"
+        "section": "Task Statement 3.6",
+        "quotes": [
+          "Session context isolation: why the same Claude session that generated code is less effective at reviewing its own changes compared to an independent review instance"
+        ]
       },
       "reviewStatus": "verified"
     },
@@ -2976,7 +3178,10 @@
       },
       "source": {
         "document": "Claude-Certified-Architect-Foundations-Exam-Guide.pdf",
-        "section": "Task Statement 4.1"
+        "section": "Task Statement 4.1",
+        "quotes": [
+          "Writing specific review criteria that define which issues to report (bugs, security) versus skip (minor style, local patterns) rather than relying on confidence-based filtering"
+        ]
       },
       "reviewStatus": "verified"
     },
@@ -3030,7 +3235,10 @@
       },
       "source": {
         "document": "Claude-Certified-Architect-Foundations-Exam-Guide.pdf",
-        "section": "Task Statement 4.1"
+        "section": "Task Statement 4.1",
+        "quotes": [
+          "How general instructions like \"be conservative\" or \"only report high-confidence findings\" fail to improve precision compared to specific categorical criteria"
+        ]
       },
       "reviewStatus": "verified"
     },
@@ -3076,7 +3284,10 @@
       },
       "source": {
         "document": "Claude-Certified-Architect-Foundations-Exam-Guide.pdf",
-        "section": "Task Statement 4.1"
+        "section": "Task Statement 4.1",
+        "quotes": [
+          "Temporarily disabling high false-positive categories to restore developer trust while improving prompts for those categories"
+        ]
       },
       "reviewStatus": "verified"
     },
@@ -3122,7 +3333,10 @@
       },
       "source": {
         "document": "Claude-Certified-Architect-Foundations-Exam-Guide.pdf",
-        "section": "Task Statement 4.2"
+        "section": "Task Statement 4.2",
+        "quotes": [
+          "Few-shot examples as the most effective technique for achieving consistently formatted, actionable output when detailed instructions alone produce inconsistent results"
+        ]
       },
       "reviewStatus": "verified"
     },
@@ -3168,7 +3382,10 @@
       },
       "source": {
         "document": "Claude-Certified-Architect-Foundations-Exam-Guide.pdf",
-        "section": "Task Statement 4.2"
+        "section": "Task Statement 4.2",
+        "quotes": [
+          "Creating 2-4 targeted few-shot examples for ambiguous scenarios that show reasoning for why one action was chosen over plausible alternatives"
+        ]
       },
       "reviewStatus": "verified"
     },
@@ -3215,7 +3432,11 @@
       },
       "source": {
         "document": "Claude-Certified-Architect-Foundations-Exam-Guide.pdf",
-        "section": "Task Statement 4.2"
+        "section": "Task Statement 4.2",
+        "quotes": [
+          "Using few-shot examples to demonstrate correct handling of varied document structures (inline citations vs bibliographies, methodology sections vs embedded details)",
+          "Adding few-shot examples showing correct extraction from documents with varied formats to address empty/null extraction of required fields"
+        ]
       },
       "reviewStatus": "verified"
     },
@@ -3262,7 +3483,10 @@
       },
       "source": {
         "document": "Claude-Certified-Architect-Foundations-Exam-Guide.pdf",
-        "section": "Task Statement 4.3"
+        "section": "Task Statement 4.3",
+        "quotes": [
+          "Setting tool_choice: \"any\" to guarantee structured output when multiple extraction schemas exist and the document type is unknown"
+        ]
       },
       "reviewStatus": "verified"
     },
@@ -3310,7 +3534,10 @@
       },
       "source": {
         "document": "Claude-Certified-Architect-Foundations-Exam-Guide.pdf",
-        "section": "Task Statement 4.3"
+        "section": "Task Statement 4.3",
+        "quotes": [
+          "That strict JSON schemas via tool use eliminate syntax errors but do not prevent semantic errors (e.g., line items that don't sum to total, values in wrong fields)"
+        ]
       },
       "reviewStatus": "verified"
     },
@@ -3357,7 +3584,10 @@
       },
       "source": {
         "document": "Claude-Certified-Architect-Foundations-Exam-Guide.pdf",
-        "section": "Task Statement 4.3"
+        "section": "Task Statement 4.3",
+        "quotes": [
+          "Designing schema fields as optional (nullable) when source documents may not contain the information, preventing the model from fabricating values to satisfy required fields"
+        ]
       },
       "reviewStatus": "verified"
     },
@@ -3410,7 +3640,10 @@
       },
       "source": {
         "document": "Claude-Certified-Architect-Foundations-Exam-Guide.pdf",
-        "section": "Task Statement 4.3"
+        "section": "Task Statement 4.3",
+        "quotes": [
+          "Adding enum values like \"unclear\" for ambiguous cases and \"other\" + detail fields for extensible categorization"
+        ]
       },
       "reviewStatus": "verified"
     },
@@ -3464,7 +3697,11 @@
       },
       "source": {
         "document": "Claude-Certified-Architect-Foundations-Exam-Guide.pdf",
-        "section": "Task Statement 4.4"
+        "section": "Task Statement 4.4",
+        "quotes": [
+          "Implementing follow-up requests that include the original document, the failed extraction, and specific validation errors for model self-correction",
+          "The limits of retry: retries are ineffective when the required information is simply absent from the source document (vs format or structural errors)"
+        ]
       },
       "reviewStatus": "verified"
     },
@@ -3517,7 +3754,11 @@
       },
       "source": {
         "document": "Claude-Certified-Architect-Foundations-Exam-Guide.pdf",
-        "section": "Task Statement 4.4"
+        "section": "Task Statement 4.4",
+        "quotes": [
+          "The limits of retry: retries are ineffective when the required information is simply absent from the source document (vs format or structural errors)",
+          "Identifying when retries will be ineffective (e.g., information exists only in an external document not provided) versus when they will succeed (format mismatches, structural output errors)"
+        ]
       },
       "reviewStatus": "verified"
     },
@@ -3569,7 +3810,10 @@
       },
       "source": {
         "document": "Claude-Certified-Architect-Foundations-Exam-Guide.pdf",
-        "section": "Task Statement 4.4"
+        "section": "Task Statement 4.4",
+        "quotes": [
+          "Designing self-correction validation flows: extracting \"calculated_total\" alongside \"stated_total\" to flag discrepancies, adding \"conflict_detected\" booleans for inconsistent source data"
+        ]
       },
       "reviewStatus": "verified"
     },
@@ -3623,7 +3867,10 @@
       },
       "source": {
         "document": "Claude-Certified-Architect-Foundations-Exam-Guide.pdf",
-        "section": "Task Statement 4.5"
+        "section": "Task Statement 4.5",
+        "quotes": [
+          "Calculating batch submission frequency based on SLA constraints (e.g., 4-hour windows to guarantee 30-hour SLA with 24-hour batch processing)"
+        ]
       },
       "reviewStatus": "verified"
     },
@@ -3676,7 +3923,10 @@
       },
       "source": {
         "document": "Claude-Certified-Architect-Foundations-Exam-Guide.pdf",
-        "section": "Task Statement 4.5"
+        "section": "Task Statement 4.5",
+        "quotes": [
+          "Matching API approach to workflow latency requirements: synchronous API for blocking pre-merge checks, batch API for overnight/weekly analysis"
+        ]
       },
       "reviewStatus": "verified"
     },
@@ -3729,7 +3979,10 @@
       },
       "source": {
         "document": "Claude-Certified-Architect-Foundations-Exam-Guide.pdf",
-        "section": "Task Statement 4.5"
+        "section": "Task Statement 4.5",
+        "quotes": [
+          "Handling batch failures: resubmitting only failed documents (identified by custom_id) with appropriate modifications (e.g., chunking documents that exceeded context limits)"
+        ]
       },
       "reviewStatus": "verified"
     },
@@ -3776,7 +4029,10 @@
       },
       "source": {
         "document": "Claude-Certified-Architect-Foundations-Exam-Guide.pdf",
-        "section": "Task Statement 4.6"
+        "section": "Task Statement 4.6",
+        "quotes": [
+          "Independent review instances (without prior reasoning context) are more effective at catching subtle issues than self-review instructions or extended thinking"
+        ]
       },
       "reviewStatus": "verified"
     },
@@ -3829,7 +4085,10 @@
       },
       "source": {
         "document": "Claude-Certified-Architect-Foundations-Exam-Guide.pdf",
-        "section": "Task Statement 4.6"
+        "section": "Task Statement 4.6",
+        "quotes": [
+          "Multi-pass review: splitting large reviews into per-file local analysis passes plus cross-file integration passes to avoid attention dilution and contradictory findings"
+        ]
       },
       "reviewStatus": "verified"
     },
@@ -3882,7 +4141,10 @@
       },
       "source": {
         "document": "Claude-Certified-Architect-Foundations-Exam-Guide.pdf",
-        "section": "Task Statement 4.6"
+        "section": "Task Statement 4.6",
+        "quotes": [
+          "Running verification passes where the model self-reports confidence alongside each finding to enable calibrated review routing"
+        ]
       },
       "reviewStatus": "verified"
     },
@@ -3930,7 +4192,10 @@
       },
       "source": {
         "document": "Claude-Certified-Architect-Foundations-Exam-Guide.pdf",
-        "section": "Task Statement 5.1"
+        "section": "Task Statement 5.1",
+        "quotes": [
+          "Progressive summarization risks: condensing numerical values, percentages, dates, and customer- stated expectations into vague summaries"
+        ]
       },
       "reviewStatus": "verified"
     },
@@ -3977,7 +4242,10 @@
       },
       "source": {
         "document": "Claude-Certified-Architect-Foundations-Exam-Guide.pdf",
-        "section": "Task Statement 5.1"
+        "section": "Task Statement 5.1",
+        "quotes": [
+          "Extracting transactional facts (amounts, dates, order numbers, statuses) into a persistent \"case facts\" block included in each prompt, outside summarized history"
+        ]
       },
       "reviewStatus": "verified"
     },
@@ -4031,7 +4299,10 @@
       },
       "source": {
         "document": "Claude-Certified-Architect-Foundations-Exam-Guide.pdf",
-        "section": "Task Statement 5.1"
+        "section": "Task Statement 5.1",
+        "quotes": [
+          "Modifying upstream agents to return structured data (key facts, citations, relevance scores) instead of verbose content and reasoning chains when downstream agents have limited context budgets"
+        ]
       },
       "reviewStatus": "verified"
     },
@@ -4077,7 +4348,10 @@
       },
       "source": {
         "document": "Claude-Certified-Architect-Foundations-Exam-Guide.pdf",
-        "section": "Task Statement 5.1"
+        "section": "Task Statement 5.1",
+        "quotes": [
+          "How tool results accumulate in context and consume tokens disproportionately to their relevance (e.g., 40+ fields per order lookup when only 5 are relevant)"
+        ]
       },
       "reviewStatus": "verified"
     },
@@ -4131,7 +4405,10 @@
       },
       "source": {
         "document": "Claude-Certified-Architect-Foundations-Exam-Guide.pdf",
-        "section": "Task Statement 5.2"
+        "section": "Task Statement 5.2",
+        "quotes": [
+          "Escalating when policy is ambiguous or silent on the customer's specific request (e.g., competitor price matching when policy only addresses own-site adjustments)"
+        ]
       },
       "reviewStatus": "verified"
     },
@@ -4178,7 +4455,10 @@
       },
       "source": {
         "document": "Claude-Certified-Architect-Foundations-Exam-Guide.pdf",
-        "section": "Task Statement 5.2"
+        "section": "Task Statement 5.2",
+        "quotes": [
+          "Why sentiment-based escalation and self-reported confidence scores are unreliable proxies for actual case complexity"
+        ]
       },
       "reviewStatus": "verified"
     },
@@ -4224,7 +4504,10 @@
       },
       "source": {
         "document": "Claude-Certified-Architect-Foundations-Exam-Guide.pdf",
-        "section": "Task Statement 5.2"
+        "section": "Task Statement 5.2",
+        "quotes": [
+          "Instructing the agent to ask for additional identifiers when tool results return multiple matches, rather than selecting based on heuristics"
+        ]
       },
       "reviewStatus": "verified"
     },
@@ -4278,7 +4561,10 @@
       },
       "source": {
         "document": "Claude-Certified-Architect-Foundations-Exam-Guide.pdf",
-        "section": "Task Statement 5.3"
+        "section": "Task Statement 5.3",
+        "quotes": [
+          "Structuring synthesis output with coverage annotations indicating which findings are well- supported versus which topic areas have gaps due to unavailable sources"
+        ]
       },
       "reviewStatus": "verified"
     },
@@ -4331,7 +4617,10 @@
       },
       "source": {
         "document": "Claude-Certified-Architect-Foundations-Exam-Guide.pdf",
-        "section": "Task Statement 5.3"
+        "section": "Task Statement 5.3",
+        "quotes": [
+          "Structured error context (failure type, attempted query, partial results, alternative approaches) as enabling intelligent coordinator recovery decisions"
+        ]
       },
       "reviewStatus": "verified"
     },
@@ -4378,7 +4667,10 @@
       },
       "source": {
         "document": "Claude-Certified-Architect-Foundations-Exam-Guide.pdf",
-        "section": "Task Statement 5.3"
+        "section": "Task Statement 5.3",
+        "quotes": [
+          "Having subagents implement local recovery for transient failures and only propagate errors they cannot resolve, including what was attempted and partial results"
+        ]
       },
       "reviewStatus": "verified"
     },
@@ -4424,7 +4716,10 @@
       },
       "source": {
         "document": "Claude-Certified-Architect-Foundations-Exam-Guide.pdf",
-        "section": "Task Statement 5.4"
+        "section": "Task Statement 5.4",
+        "quotes": [
+          "Context degradation in extended sessions: models start giving inconsistent answers and referencing \"typical patterns\" rather than specific classes discovered earlier"
+        ]
       },
       "reviewStatus": "verified"
     },
@@ -4477,7 +4772,10 @@
       },
       "source": {
         "document": "Claude-Certified-Architect-Foundations-Exam-Guide.pdf",
-        "section": "Task Statement 5.4"
+        "section": "Task Statement 5.4",
+        "quotes": [
+          "Having agents maintain scratchpad files recording key findings, referencing them for subsequent questions to counteract context degradation"
+        ]
       },
       "reviewStatus": "verified"
     },
@@ -4530,7 +4828,10 @@
       },
       "source": {
         "document": "Claude-Certified-Architect-Foundations-Exam-Guide.pdf",
-        "section": "Task Statement 5.4"
+        "section": "Task Statement 5.4",
+        "quotes": [
+          "Structured state persistence for crash recovery: each agent exports state to a known location, and the coordinator loads a manifest on resume"
+        ]
       },
       "reviewStatus": "verified"
     },
@@ -4583,7 +4884,11 @@
       },
       "source": {
         "document": "Claude-Certified-Architect-Foundations-Exam-Guide.pdf",
-        "section": "Task Statement 5.5"
+        "section": "Task Statement 5.5",
+        "quotes": [
+          "Analyzing accuracy by document type and field to verify consistent performance across all segments before reducing human review",
+          "The importance of validating accuracy by document type and field segment before automating high- confidence extractions"
+        ]
       },
       "reviewStatus": "verified"
     },
@@ -4629,7 +4934,10 @@
       },
       "source": {
         "document": "Claude-Certified-Architect-Foundations-Exam-Guide.pdf",
-        "section": "Task Statement 5.5"
+        "section": "Task Statement 5.5",
+        "quotes": [
+          "Implementing stratified random sampling of high-confidence extractions for ongoing error rate measurement and novel pattern detection"
+        ]
       },
       "reviewStatus": "verified"
     },
@@ -4681,7 +4989,11 @@
       },
       "source": {
         "document": "Claude-Certified-Architect-Foundations-Exam-Guide.pdf",
-        "section": "Task Statement 5.5"
+        "section": "Task Statement 5.5",
+        "quotes": [
+          "Routing extractions with low model confidence or ambiguous/contradictory source documents to human review, prioritizing limited reviewer capacity",
+          "Having models output field-level confidence scores, then calibrating review thresholds using labeled validation sets"
+        ]
       },
       "reviewStatus": "verified"
     },
@@ -4727,7 +5039,11 @@
       },
       "source": {
         "document": "Claude-Certified-Architect-Foundations-Exam-Guide.pdf",
-        "section": "Task Statement 5.6"
+        "section": "Task Statement 5.6",
+        "quotes": [
+          "How source attribution is lost during summarization steps when findings are compressed without preserving claim-source mappings",
+          "Requiring subagents to output structured claim-source mappings (source URLs, document names, relevant excerpts) that downstream agents preserve through synthesis"
+        ]
       },
       "reviewStatus": "verified"
     },
@@ -4781,7 +5097,11 @@
       },
       "source": {
         "document": "Claude-Certified-Architect-Foundations-Exam-Guide.pdf",
-        "section": "Task Statement 5.6"
+        "section": "Task Statement 5.6",
+        "quotes": [
+          "Structuring reports with explicit sections distinguishing well-established findings from contested ones, preserving original source characterizations and methodological context",
+          "Test with conflicting source data (e.g., two credible sources with different statistics) and verify the synthesis output preserves both values with source attribution rather than arbitrarily selecting one, and structures the report to distinguish well-established from contested findings."
+        ]
       },
       "reviewStatus": "verified"
     },
@@ -4827,7 +5147,10 @@
       },
       "source": {
         "document": "Claude-Certified-Architect-Foundations-Exam-Guide.pdf",
-        "section": "Task Statement 5.6"
+        "section": "Task Statement 5.6",
+        "quotes": [
+          "Temporal data: requiring publication/collection dates in structured outputs to prevent temporal differences from being misinterpreted as contradictions"
+        ]
       },
       "reviewStatus": "verified"
     }

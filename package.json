@@ -16,9 +16,11 @@
     "test:e2e": "playwright test",
     "validate:content": "node scripts/validate-content.mjs",
     "audit:content": "node scripts/audit-decks.mjs",
+    "grounding:content": "node scripts/check-grounding.mjs",
+    "quotes": "node scripts/add-quotes.mjs --apply",
     "shuffle:keys": "node scripts/shuffle-keys.mjs --apply",
     "extract:pdf": "powershell -ExecutionPolicy Bypass -File scripts/extract-pdf.ps1 -Slice",
-    "verify": "pnpm lint && pnpm typecheck && pnpm test && pnpm validate:content && pnpm audit:content && pnpm build"
+    "verify": "pnpm lint && pnpm typecheck && pnpm test && pnpm validate:content && pnpm audit:content && pnpm grounding:content && pnpm build"
   },
   "dependencies": {
     "react": "^18.3.1",

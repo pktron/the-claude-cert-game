@@ -89,7 +89,10 @@
       },
       "source": {
         "document": "Claude-Certified-Architect-Profesional-Exam-Guide.pdf",
-        "section": "1.1 Translate business problems into Claude-based AI solutions"
+        "section": "1.1 Translate business problems into Claude-based AI solutions",
+        "quotes": [
+          "Translate business problems into Claude-based AI solutions"
+        ]
       },
       "reviewStatus": "verified"
     },
@@ -137,7 +140,10 @@
       },
       "source": {
         "document": "Claude-Certified-Architect-Profesional-Exam-Guide.pdf",
-        "section": "1.2 Design end-to-end architectures (input → processing → output → feedback loops)"
+        "section": "1.2 Design end-to-end architectures (input → processing → output → feedback loops)",
+        "quotes": [
+          "Design end-to-end architectures (input  ->  processing  ->  output  ->  feedback loops)"
+        ]
       },
       "reviewStatus": "verified"
     },
@@ -191,7 +197,10 @@
       },
       "source": {
         "document": "Claude-Certified-Architect-Profesional-Exam-Guide.pdf",
-        "section": "1.2 Design end-to-end architectures (input → processing → output → feedback loops)"
+        "section": "1.2 Design end-to-end architectures (input → processing → output → feedback loops)",
+        "quotes": [
+          "Design end-to-end architectures (input  ->  processing  ->  output  ->  feedback loops)"
+        ]
       },
       "reviewStatus": "verified"
     },
@@ -241,7 +250,10 @@
       },
       "source": {
         "document": "Claude-Certified-Architect-Profesional-Exam-Guide.pdf",
-        "section": "1.3 Select appropriate architectural patterns (workflow, agentic, augmented LLM)"
+        "section": "1.3 Select appropriate architectural patterns (workflow, agentic, augmented LLM)",
+        "quotes": [
+          "Select appropriate architectural patterns (workflow, agentic, augmented LLM)"
+        ]
       },
       "reviewStatus": "verified"
     },
@@ -288,7 +300,10 @@
       },
       "source": {
         "document": "Claude-Certified-Architect-Profesional-Exam-Guide.pdf",
-        "section": "1.3 Select appropriate architectural patterns (workflow, agentic, augmented LLM)"
+        "section": "1.3 Select appropriate architectural patterns (workflow, agentic, augmented LLM)",
+        "quotes": [
+          "Design multi-agent systems and orchestration strategies"
+        ]
       },
       "reviewStatus": "verified"
     },
@@ -335,7 +350,10 @@
       },
       "source": {
         "document": "Claude-Certified-Architect-Profesional-Exam-Guide.pdf",
-        "section": "1.4 Design multi-agent systems and orchestration strategies"
+        "section": "1.4 Design multi-agent systems and orchestration strategies",
+        "quotes": [
+          "Design multi-agent systems and orchestration strategies"
+        ]
       },
       "reviewStatus": "verified"
     },
@@ -389,7 +407,10 @@
       },
       "source": {
         "document": "Claude-Certified-Architect-Profesional-Exam-Guide.pdf",
-        "section": "1.4 Design multi-agent systems and orchestration strategies"
+        "section": "1.4 Design multi-agent systems and orchestration strategies",
+        "quotes": [
+          "Design multi-agent systems and orchestration strategies"
+        ]
       },
       "reviewStatus": "needs-review",
       "reviewNote": "Objective 1.4 names orchestration strategies without enumerating any, so no specific strategy can be checked against the guide. The keyed option stays at the level of the design decision the wording implies; it does not name or require any particular coordination pattern."
@@ -437,7 +458,10 @@
       },
       "source": {
         "document": "Claude-Certified-Architect-Profesional-Exam-Guide.pdf",
-        "section": "1.5 Apply decomposition techniques for complex problem solving"
+        "section": "1.5 Apply decomposition techniques for complex problem solving",
+        "quotes": [
+          "Apply decomposition techniques for complex problem solving"
+        ]
       },
       "reviewStatus": "verified"
     },
@@ -487,7 +511,10 @@
       },
       "source": {
         "document": "Claude-Certified-Architect-Profesional-Exam-Guide.pdf",
-        "section": "1.6 Align solutions to business value pillars (efficiency, transformation, productivity, cost, performance SLAs)"
+        "section": "1.6 Align solutions to business value pillars (efficiency, transformation, productivity, cost, performance SLAs)",
+        "quotes": [
+          "Align solutions to business value pillars (efficiency, transformation, productivity, cost, performance"
+        ]
       },
       "reviewStatus": "verified"
     },
@@ -542,7 +569,10 @@
       },
       "source": {
         "document": "Claude-Certified-Architect-Profesional-Exam-Guide.pdf",
-        "section": "2.1 Select appropriate Claude models based on trade-offs"
+        "section": "2.1 Select appropriate Claude models based on trade-offs",
+        "quotes": [
+          "Select appropriate Claude models based on trade-offs"
+        ]
       },
       "reviewStatus": "verified"
     },
@@ -590,7 +620,10 @@
       },
       "source": {
         "document": "Claude-Certified-Architect-Profesional-Exam-Guide.pdf",
-        "section": "2.2 Design system prompts, templates, and guardrails"
+        "section": "2.2 Design system prompts, templates, and guardrails",
+        "quotes": [
+          "Design system prompts, templates, and guardrails"
+        ]
       },
       "reviewStatus": "verified"
     },
@@ -638,7 +671,10 @@
       },
       "source": {
         "document": "Claude-Certified-Architect-Profesional-Exam-Guide.pdf",
-        "section": "2.3 Apply prompt engineering techniques (zero-shot, few-shot, chain-of-thought)"
+        "section": "2.3 Apply prompt engineering techniques (zero-shot, few-shot, chain-of-thought)",
+        "quotes": [
+          "Apply prompt engineering techniques (zero-shot, few-shot, chain-of-thought)"
+        ]
       },
       "reviewStatus": "verified"
     },
@@ -692,7 +728,11 @@
       },
       "source": {
         "document": "Claude-Certified-Architect-Profesional-Exam-Guide.pdf",
-        "section": "2.3 Apply prompt engineering techniques (zero-shot, few-shot, chain-of-thought)"
+        "section": "2.3 Apply prompt engineering techniques (zero-shot, few-shot, chain-of-thought)",
+        "quotes": [
+          "Apply prompt engineering techniques (zero-shot, few-shot, chain-of-thought)",
+          "Implement prompt reuse strategies (caching, modular prompts, Skills)"
+        ]
       },
       "reviewStatus": "verified"
     },
@@ -740,7 +780,10 @@
       },
       "source": {
         "document": "Claude-Certified-Architect-Profesional-Exam-Guide.pdf",
-        "section": "2.4 Optimize context windows and manage token usage"
+        "section": "2.4 Optimize context windows and manage token usage",
+        "quotes": [
+          "Optimize context windows and manage token usage"
+        ]
       },
       "reviewStatus": "verified"
     },
@@ -788,7 +831,10 @@
       },
       "source": {
         "document": "Claude-Certified-Architect-Profesional-Exam-Guide.pdf",
-        "section": "2.5 Implement prompt reuse strategies (caching, modular prompts, Skills)"
+        "section": "2.5 Implement prompt reuse strategies (caching, modular prompts, Skills)",
+        "quotes": [
+          "Implement prompt reuse strategies (caching, modular prompts, Skills)"
+        ]
       },
       "reviewStatus": "verified"
     },
@@ -843,7 +889,10 @@
       },
       "source": {
         "document": "Claude-Certified-Architect-Profesional-Exam-Guide.pdf",
-        "section": "2.5 Implement prompt reuse strategies (caching, modular prompts, Skills)"
+        "section": "2.5 Implement prompt reuse strategies (caching, modular prompts, Skills)",
+        "quotes": [
+          "Implement prompt reuse strategies (caching, modular prompts, Skills)"
+        ]
       },
       "reviewStatus": "needs-review",
       "reviewNote": "Objective 2.5 names caching as a single word and defines none of the three strategies. The keyed option depends on prompt-caching mechanics — stable-prefix ordering and prefix reuse — that the guide does not state, and the cost and time-to-first-token effects are likewise unstated. Needs a fuller guide section or official Anthropic documentation before it can be presented as exam-aligned."
@@ -892,7 +941,10 @@
       },
       "source": {
         "document": "Claude-Certified-Architect-Profesional-Exam-Guide.pdf",
-        "section": "2.5 Implement prompt reuse strategies (caching, modular prompts, Skills)"
+        "section": "2.5 Implement prompt reuse strategies (caching, modular prompts, Skills)",
+        "quotes": [
+          "Implement prompt reuse strategies (caching, modular prompts, Skills)"
+        ]
       },
       "reviewStatus": "needs-review",
       "reviewNote": "Objective 2.5 names caching, modular prompts and Skills but defines none of them. The answer rests on the standard sense of 'modular' — shared sections kept in one place and composed into many prompts — and rejecting caching depends on a modular-versus-caching distinction the objective does not draw. The previous option text asserted prefix reuse semantics that the guide does not state; that has been removed. Needs a fuller guide section or official documentation."
@@ -948,7 +1000,10 @@
       },
       "source": {
         "document": "Claude-Certified-Architect-Profesional-Exam-Guide.pdf",
-        "section": "3.1 Evaluate tool/agent configuration for capability bloat"
+        "section": "3.1 Evaluate tool/agent configuration for capability bloat",
+        "quotes": [
+          "Evaluate tool/agent configuration for capability bloat"
+        ]
       },
       "reviewStatus": "needs-review",
       "reviewNote": "Objective 3.1 names 'capability bloat' but never defines it. The keyed option rests on an inference - capability the role does not require is the bloat - rather than on a definition the guide states. It deliberately makes no claim about the remedy: the objective names no fix, and the previous version of this item required removal as the only defensible response. Confirm against fuller source material before treating this framing as exam-aligned."
@@ -997,7 +1052,10 @@
       },
       "source": {
         "document": "Claude-Certified-Architect-Profesional-Exam-Guide.pdf",
-        "section": "3.1 Evaluate tool/agent configuration for capability bloat"
+        "section": "3.1 Evaluate tool/agent configuration for capability bloat",
+        "quotes": [
+          "Evaluate tool/agent configuration for capability bloat"
+        ]
       },
       "reviewStatus": "verified"
     },
@@ -1045,7 +1103,10 @@
       },
       "source": {
         "document": "Claude-Certified-Architect-Profesional-Exam-Guide.pdf",
-        "section": "3.2 Analyze authentication and authorization requirements to identify security gaps"
+        "section": "3.2 Analyze authentication and authorization requirements to identify security gaps",
+        "quotes": [
+          "Analyze authentication and authorization requirements to identify security gaps"
+        ]
       },
       "reviewStatus": "verified"
     },
@@ -1092,7 +1153,10 @@
       },
       "source": {
         "document": "Claude-Certified-Architect-Profesional-Exam-Guide.pdf",
-        "section": "3.2 Analyze authentication and authorization requirements to identify security gaps"
+        "section": "3.2 Analyze authentication and authorization requirements to identify security gaps",
+        "quotes": [
+          "Analyze authentication and authorization requirements to identify security gaps"
+        ]
       },
       "reviewStatus": "verified"
     },
@@ -1147,7 +1211,10 @@
       },
       "source": {
         "document": "Claude-Certified-Architect-Profesional-Exam-Guide.pdf",
-        "section": "3.3 Evaluate accuracy-latency trade-offs and justify configuration decisions"
+        "section": "3.3 Evaluate accuracy-latency trade-offs and justify configuration decisions",
+        "quotes": [
+          "Evaluate accuracy-latency trade-offs and justify configuration decisions"
+        ]
       },
       "reviewStatus": "verified"
     },
@@ -1195,7 +1262,10 @@
       },
       "source": {
         "document": "Claude-Certified-Architect-Profesional-Exam-Guide.pdf",
-        "section": "3.4 Analyze observability challenges and select monitoring strategies at scale"
+        "section": "3.4 Analyze observability challenges and select monitoring strategies at scale",
+        "quotes": [
+          "Analyze observability challenges and select monitoring strategies at scale"
+        ]
       },
       "reviewStatus": "verified"
     },
@@ -1243,7 +1313,10 @@
       },
       "source": {
         "document": "Claude-Certified-Architect-Profesional-Exam-Guide.pdf",
-        "section": "3.5 Design a RAG pipeline with appropriate chunking and indexing strategies"
+        "section": "3.5 Design a RAG pipeline with appropriate chunking and indexing strategies",
+        "quotes": [
+          "Design a RAG pipeline with appropriate chunking and indexing strategies"
+        ]
       },
       "reviewStatus": "verified"
     },
@@ -1291,7 +1364,10 @@
       },
       "source": {
         "document": "Claude-Certified-Architect-Profesional-Exam-Guide.pdf",
-        "section": "3.5 Design a RAG pipeline with appropriate chunking and indexing strategies"
+        "section": "3.5 Design a RAG pipeline with appropriate chunking and indexing strategies",
+        "quotes": [
+          "Design a RAG pipeline with appropriate chunking and indexing strategies"
+        ]
       },
       "reviewStatus": "needs-review",
       "reviewNote": "Objective 3.5 names chunking and indexing but states no chunk sizes, overlap rules, or index types. The correct option is a defensible reading of 'appropriate', not a guide-specified rule. Confirm against fuller source material before treating the phrasing as exam-aligned."
@@ -1340,7 +1416,10 @@
       },
       "source": {
         "document": "Claude-Certified-Architect-Profesional-Exam-Guide.pdf",
-        "section": "3.6 Apply retrieval strategies matched to data shape and query pattern"
+        "section": "3.6 Apply retrieval strategies matched to data shape and query pattern",
+        "quotes": [
+          "Apply retrieval strategies matched to data shape and query pattern"
+        ]
       },
       "reviewStatus": "verified"
     },
@@ -1388,7 +1467,10 @@
       },
       "source": {
         "document": "Claude-Certified-Architect-Profesional-Exam-Guide.pdf",
-        "section": "3.7 Evaluate connection protocols and select the appropriate integration mechanism (MCP, API/CLI, agent-to-agent)"
+        "section": "3.7 Evaluate connection protocols and select the appropriate integration mechanism (MCP, API/CLI, agent-to-agent)",
+        "quotes": [
+          "Evaluate connection protocols and select the appropriate integration mechanism (MCP, API/CLI, agent-to-agent)"
+        ]
       },
       "reviewStatus": "verified"
     },
@@ -1436,7 +1518,10 @@
       },
       "source": {
         "document": "Claude-Certified-Architect-Profesional-Exam-Guide.pdf",
-        "section": "3.8 Evaluate progressive discovery vs. monolithic context strategy"
+        "section": "3.8 Evaluate progressive discovery vs. monolithic context strategy",
+        "quotes": [
+          "Evaluate progressive discovery vs. monolithic context strategy"
+        ]
       },
       "reviewStatus": "verified"
     },
@@ -1491,7 +1576,10 @@
       },
       "source": {
         "document": "Claude-Certified-Architect-Profesional-Exam-Guide.pdf",
-        "section": "4.1 Define evaluation metrics (accuracy, latency, cost, safety, security)"
+        "section": "4.1 Define evaluation metrics (accuracy, latency, cost, safety, security)",
+        "quotes": [
+          "Define evaluation metrics (accuracy, latency, cost, safety, security)"
+        ]
       },
       "reviewStatus": "verified"
     },
@@ -1545,7 +1633,10 @@
       },
       "source": {
         "document": "Claude-Certified-Architect-Profesional-Exam-Guide.pdf",
-        "section": "4.2 Design evaluation datasets and test frameworks using mixed methodologies"
+        "section": "4.2 Design evaluation datasets and test frameworks using mixed methodologies",
+        "quotes": [
+          "Design evaluation datasets and test frameworks using mixed methodologies"
+        ]
       },
       "reviewStatus": "verified"
     },
@@ -1599,7 +1690,10 @@
       },
       "source": {
         "document": "Claude-Certified-Architect-Profesional-Exam-Guide.pdf",
-        "section": "4.2 Design evaluation datasets and test frameworks using mixed methodologies"
+        "section": "4.2 Design evaluation datasets and test frameworks using mixed methodologies",
+        "quotes": [
+          "Optimize token usage, latency, and cost-performance trade-offs"
+        ]
       },
       "reviewStatus": "verified"
     },
@@ -1653,7 +1747,10 @@
       },
       "source": {
         "document": "Claude-Certified-Architect-Profesional-Exam-Guide.pdf",
-        "section": "4.3 Conduct A/B testing and iterative improvements"
+        "section": "4.3 Conduct A/B testing and iterative improvements",
+        "quotes": [
+          "Conduct A/B testing and iterative improvements"
+        ]
       },
       "reviewStatus": "verified"
     },
@@ -1707,7 +1804,10 @@
       },
       "source": {
         "document": "Claude-Certified-Architect-Profesional-Exam-Guide.pdf",
-        "section": "4.4 Diagnose system issues (prompt failure, hallucinations, model mismatch)"
+        "section": "4.4 Diagnose system issues (prompt failure, hallucinations, model mismatch)",
+        "quotes": [
+          "Diagnose system issues (prompt failure, hallucinations, model mismatch)"
+        ]
       },
       "reviewStatus": "verified"
     },
@@ -1761,7 +1861,10 @@
       },
       "source": {
         "document": "Claude-Certified-Architect-Profesional-Exam-Guide.pdf",
-        "section": "4.4 Diagnose system issues (prompt failure, hallucinations, model mismatch)"
+        "section": "4.4 Diagnose system issues (prompt failure, hallucinations, model mismatch)",
+        "quotes": [
+          "Diagnose system issues (prompt failure, hallucinations, model mismatch)"
+        ]
       },
       "reviewStatus": "needs-review",
       "reviewNote": "Objective 4.4 names model mismatch as a diagnostic category but never defines it, so the keyed option depends on the standard sense of the term - a system paired with an unsuited model - and on the reading that a behaviour change with no prompt change is that category. The scenario matches the term rather than any guide-specified rule. Confirm against fuller guide text before treating the option wording as exam-aligned."
@@ -1810,7 +1913,10 @@
       },
       "source": {
         "document": "Claude-Certified-Architect-Profesional-Exam-Guide.pdf",
-        "section": "4.4 Diagnose system issues (prompt failure, hallucinations, model mismatch)"
+        "section": "4.4 Diagnose system issues (prompt failure, hallucinations, model mismatch)",
+        "quotes": [
+          "Diagnose system issues (prompt failure, hallucinations, model mismatch)"
+        ]
       },
       "reviewStatus": "needs-review",
       "reviewNote": "Objective 4.4 names hallucination as a diagnostic category but does not define it, so the scenario is matched to the term in its standard sense. This item replaces an earlier version whose keyed answer was a statement about the guide's silence and whose option a was a real, defensible verification procedure. If fuller guide text defines the category, this item should be checked against that definition."
@@ -1865,7 +1971,10 @@
       },
       "source": {
         "document": "Claude-Certified-Architect-Profesional-Exam-Guide.pdf",
-        "section": "4.5 Optimize token usage, latency, and cost-performance trade-offs"
+        "section": "4.5 Optimize token usage, latency, and cost-performance trade-offs",
+        "quotes": [
+          "Optimize token usage, latency, and cost-performance trade-offs"
+        ]
       },
       "reviewStatus": "verified"
     },
@@ -1919,7 +2028,10 @@
       },
       "source": {
         "document": "Claude-Certified-Architect-Profesional-Exam-Guide.pdf",
-        "section": "4.6 Monitor system performance using logging and observability tools"
+        "section": "4.6 Monitor system performance using logging and observability tools",
+        "quotes": [
+          "Monitor system performance using logging and observability tools"
+        ]
       },
       "reviewStatus": "verified"
     },
@@ -1973,7 +2085,10 @@
       },
       "source": {
         "document": "Claude-Certified-Architect-Profesional-Exam-Guide.pdf",
-        "section": "5.1 Implement guardrails and safety controls"
+        "section": "5.1 Implement guardrails and safety controls",
+        "quotes": [
+          "Implement guardrails and safety controls"
+        ]
       },
       "reviewStatus": "verified"
     },
@@ -2027,7 +2142,10 @@
       },
       "source": {
         "document": "Claude-Certified-Architect-Profesional-Exam-Guide.pdf",
-        "section": "5.1 Implement guardrails and safety controls"
+        "section": "5.1 Implement guardrails and safety controls",
+        "quotes": [
+          "Implement guardrails and safety controls"
+        ]
       },
       "reviewStatus": "verified"
     },
@@ -2136,7 +2254,10 @@
       },
       "source": {
         "document": "Claude-Certified-Architect-Profesional-Exam-Guide.pdf",
-        "section": "5.2 Identify risks, limitations, and failure modes of LLM systems"
+        "section": "5.2 Identify risks, limitations, and failure modes of LLM systems",
+        "quotes": [
+          "Identify risks, limitations, and failure modes of LLM systems"
+        ]
       },
       "reviewStatus": "verified"
     },
@@ -2190,7 +2311,10 @@
       },
       "source": {
         "document": "Claude-Certified-Architect-Profesional-Exam-Guide.pdf",
-        "section": "5.3 Apply human-in-the-loop validation strategies"
+        "section": "5.3 Apply human-in-the-loop validation strategies",
+        "quotes": [
+          "Apply human-in-the-loop validation strategies"
+        ]
       },
       "reviewStatus": "verified"
     },
@@ -2244,7 +2368,10 @@
       },
       "source": {
         "document": "Claude-Certified-Architect-Profesional-Exam-Guide.pdf",
-        "section": "5.4 Ensure compliance with regulations (e.g., GDPR, HIPAA, FedRAMP)"
+        "section": "5.4 Ensure compliance with regulations (e.g., GDPR, HIPAA, FedRAMP)",
+        "quotes": [
+          "Ensure compliance with regulations (e.g., GDPR, HIPAA, FedRAMP)"
+        ]
       },
       "reviewStatus": "verified"
     },
@@ -2298,7 +2425,10 @@
       },
       "source": {
         "document": "Claude-Certified-Architect-Profesional-Exam-Guide.pdf",
-        "section": "5.4 Ensure compliance with regulations (e.g., GDPR, HIPAA, FedRAMP)"
+        "section": "5.4 Ensure compliance with regulations (e.g., GDPR, HIPAA, FedRAMP)",
+        "quotes": [
+          "Ensure compliance with regulations (e.g., GDPR, HIPAA, FedRAMP)"
+        ]
       },
       "reviewStatus": "verified"
     },
@@ -2352,7 +2482,10 @@
       },
       "source": {
         "document": "Claude-Certified-Architect-Profesional-Exam-Guide.pdf",
-        "section": "5.5 Address ethical AI considerations (bias, fairness, transparency)"
+        "section": "5.5 Address ethical AI considerations (bias, fairness, transparency)",
+        "quotes": [
+          "Address ethical AI considerations (bias, fairness, transparency)"
+        ]
       },
       "reviewStatus": "verified"
     },
@@ -2401,7 +2534,10 @@
       "source": {
         "document": "Claude-Certified-Architect-Profesional-Exam-Guide.pdf",
         "section": "6.1 Conduct structured discovery and requirement gathering",
-        "page": 5
+        "page": 5,
+        "quotes": [
+          "Conduct structured discovery and requirement gathering"
+        ]
       },
       "reviewStatus": "verified"
     },
@@ -2449,7 +2585,10 @@
       "source": {
         "document": "Claude-Certified-Architect-Profesional-Exam-Guide.pdf",
         "section": "6.2 Communicate architectural decisions and trade-offs",
-        "page": 5
+        "page": 5,
+        "quotes": [
+          "Communicate architectural decisions and trade-offs"
+        ]
       },
       "reviewStatus": "verified"
     },
@@ -2497,7 +2636,10 @@
       "source": {
         "document": "Claude-Certified-Architect-Profesional-Exam-Guide.pdf",
         "section": "6.3 Manage stakeholder feedback loops and expectation alignment (including SLAs)",
-        "page": 5
+        "page": 5,
+        "quotes": [
+          "Manage stakeholder feedback loops and expectation alignment (including SLAs)"
+        ]
       },
       "reviewStatus": "needs-review",
       "reviewNote": "Objective 6.3 names 'stakeholder feedback loops' and 'expectation alignment' without defining either. The keyed option depends on the standard sense of a feedback loop - stakeholder reaction circulating back into the work - and on the reading that the two named activities are distinct. Both are interpretations of terms the objective only names. Confirm against fuller guide text before treating the option wording as exam-aligned."
@@ -2546,7 +2688,10 @@
       "source": {
         "document": "Claude-Certified-Architect-Profesional-Exam-Guide.pdf",
         "section": "6.3 Manage stakeholder feedback loops and expectation alignment (including SLAs)",
-        "page": 5
+        "page": 5,
+        "quotes": [
+          "Manage stakeholder feedback loops and expectation alignment (including SLAs)"
+        ]
       },
       "reviewStatus": "needs-review",
       "reviewNote": "Objective 6.3 names 'expectation alignment (including SLAs)' and never defines it. The keyed option depends on the standard sense of expectation alignment - reconciling what the stakeholder assumes against the service level the solution can meet - rather than on a definition the guide supplies. Confirm against fuller guide text before treating the option wording as exam-aligned."
@@ -2595,7 +2740,10 @@
       "source": {
         "document": "Claude-Certified-Architect-Profesional-Exam-Guide.pdf",
         "section": "6.3 Manage stakeholder feedback loops and expectation alignment (including SLAs)",
-        "page": 5
+        "page": 5,
+        "quotes": [
+          "Manage stakeholder feedback loops and expectation alignment (including SLAs)"
+        ]
       },
       "reviewStatus": "verified"
     },
@@ -2643,7 +2791,10 @@
       "source": {
         "document": "Claude-Certified-Architect-Profesional-Exam-Guide.pdf",
         "section": "6.4 Document architectures and provide implementation guidance",
-        "page": 5
+        "page": 5,
+        "quotes": [
+          "Document architectures and provide implementation guidance"
+        ]
       },
       "reviewStatus": "verified"
     },
@@ -2691,7 +2842,10 @@
       "source": {
         "document": "Claude-Certified-Architect-Profesional-Exam-Guide.pdf",
         "section": "6.4 Document architectures and provide implementation guidance",
-        "page": 5
+        "page": 5,
+        "quotes": [
+          "Communicate architectural decisions and trade-offs"
+        ]
       },
       "reviewStatus": "verified"
     },
@@ -2739,7 +2893,10 @@
       "source": {
         "document": "Claude-Certified-Architect-Profesional-Exam-Guide.pdf",
         "section": "6.5 Support lifecycle phases (discovery, design, handoff, monitoring, iteration)",
-        "page": 5
+        "page": 5,
+        "quotes": [
+          "Support lifecycle phases (discovery, design, handoff, monitoring, iteration)"
+        ]
       },
       "reviewStatus": "verified"
     },
@@ -2787,7 +2944,10 @@
       "source": {
         "document": "Claude-Certified-Architect-Profesional-Exam-Guide.pdf",
         "section": "6.5 Support lifecycle phases (discovery, design, handoff, monitoring, iteration)",
-        "page": 5
+        "page": 5,
+        "quotes": [
+          "Support lifecycle phases (discovery, design, handoff, monitoring, iteration)"
+        ]
       },
       "reviewStatus": "verified"
     },
@@ -2835,7 +2995,10 @@
       "source": {
         "document": "Claude-Certified-Architect-Profesional-Exam-Guide.pdf",
         "section": "7.1 Configure Claude tools and environments for teams (e.g., Claude Code)",
-        "page": 6
+        "page": 6,
+        "quotes": [
+          "Configure Claude tools and environments for teams (e.g., Claude Code)"
+        ]
       },
       "reviewStatus": "verified"
     },
@@ -2876,7 +3039,10 @@
       "source": {
         "document": "Claude-Certified-Architect-Profesional-Exam-Guide.pdf",
         "section": "7.1 Configure Claude tools and environments for teams (e.g., Claude Code)",
-        "page": 6
+        "page": 6,
+        "quotes": [
+          "Configure Claude tools and environments for teams (e.g., Claude Code)"
+        ]
       },
       "reviewStatus": "verified"
     },
@@ -2924,7 +3090,10 @@
       "source": {
         "document": "Claude-Certified-Architect-Profesional-Exam-Guide.pdf",
         "section": "7.2 Improve developer workflows using AI-assisted tooling",
-        "page": 6
+        "page": 6,
+        "quotes": [
+          "Improve developer workflows using AI-assisted tooling"
+        ]
       },
       "reviewStatus": "verified"
     },
@@ -2965,7 +3134,10 @@
       "source": {
         "document": "Claude-Certified-Architect-Profesional-Exam-Guide.pdf",
         "section": "7.3 Support debugging and operational issue resolution",
-        "page": 6
+        "page": 6,
+        "quotes": [
+          "Support debugging and operational issue resolution"
+        ]
       },
       "reviewStatus": "verified"
     }
