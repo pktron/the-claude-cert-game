@@ -11,6 +11,9 @@ export default defineConfig({
     react(),
     VitePWA({
       registerType: 'autoUpdate',
+      // Registration is done explicitly in src/pwa.ts so it can also poll for
+      // updates; the plugin's injected script would register a second time.
+      injectRegister: false,
       includeAssets: ['favicon.svg', 'icons/*.png'],
       manifest: {
         name: 'The Claude Cert Game',
@@ -30,6 +33,11 @@ export default defineConfig({
       workbox: {
         globPatterns: ['**/*.{js,css,html,svg,png,json}'],
         navigateFallback: 'index.html',
+        // Activate the new worker immediately and take control of open pages, so
+        // the app can reload itself onto the new version without a hard refresh.
+        skipWaiting: true,
+        clientsClaim: true,
+        cleanupOutdatedCaches: true,
       },
     }),
   ],
