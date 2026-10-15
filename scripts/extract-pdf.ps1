@@ -22,12 +22,16 @@ out_dir = sys.argv[2]
 def clean(t):
     if not t:
         return ''
-    # Normalize ligatures and common pdf extraction artifacts
-    for lig in ['ﬁ','ﬂ','ﬀ','ﬃ','ﬄ']:
-        t = t.replace(lig, {'ﬁ':'fi','ﬂ':'fl','ﬀ':'ff','ﬃ':'ffi','ﬄ':'ffl'}[lig])
-    t = t.replace('’', "'").replace('‘', "'")
-    t = t.replace('“','"').replace('”','"')
-    t = t.replace('—','--').replace('–','-')
+    # Normalize ligatures and common pdf extraction artifacts.
+    # Use \u escapes, not literal characters: PowerShell's Set-Content mangles
+    # literal non-ASCII here, which silently no-ops the replacement.
+    for lig, repl in [('\ufb01', 'fi'), ('\ufb02', 'fl'), ('\ufb00', 'ff'),
+                      ('\ufb03', 'ffi'), ('\ufb04', 'ffl')]:
+        t = t.replace(lig, repl)
+    t = t.replace('\u2019', "'").replace('\u2018', "'")
+    t = t.replace('\u201c', '"').replace('\u201d', '"')
+    t = t.replace('\u2014', '--').replace('\u2013', '-')
+    t = t.replace('\u00a0', ' ').replace('\u2022', '-')
     t = re.sub(r'[ \t]+', ' ', t)
     return t.strip()
 
