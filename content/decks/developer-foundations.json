@@ -674,11 +674,6 @@
       "prompt": "Select all that apply. Which topics does objective 2.3 (Claude API Mechanics) explicitly name?",
       "options": [
         {
-          "id": "a",
-          "text": "Streaming and batch API use",
-          "isCorrect": true
-        },
-        {
           "id": "b",
           "text": "Messages API data access patterns",
           "isCorrect": true
@@ -691,6 +686,11 @@
         {
           "id": "d",
           "text": "Invoking Claude through third-party vendors",
+          "isCorrect": true
+        },
+        {
+          "id": "a",
+          "text": "Streaming and batch API use",
           "isCorrect": true
         }
       ],
@@ -952,6 +952,11 @@
       "prompt": "Select all that apply. Objective 2.5 says Claude interprets instructions across which interfaces?",
       "options": [
         {
+          "id": "d",
+          "text": "Vision, thinking, and caching capabilities",
+          "isCorrect": false
+        },
+        {
           "id": "b",
           "text": "The API and SDKs",
           "isCorrect": true
@@ -965,11 +970,6 @@
           "id": "a",
           "text": "Claude Code, Claude Desktop, and claude.ai",
           "isCorrect": true
-        },
-        {
-          "id": "d",
-          "text": "Vision, thinking, and caching capabilities",
-          "isCorrect": false
         }
       ],
       "correctCount": 2,
@@ -1475,16 +1475,6 @@
       "prompt": "Objective 5.1 separates fundamental prompting techniques from model options. Select all that apply: which does the guide list as a prompting technique?",
       "options": [
         {
-          "id": "c",
-          "text": "Adaptive thinking",
-          "isCorrect": false
-        },
-        {
-          "id": "d",
-          "text": "Effort levels",
-          "isCorrect": false
-        },
-        {
           "id": "a",
           "text": "Zero-shot",
           "isCorrect": true
@@ -1493,6 +1483,16 @@
           "id": "b",
           "text": "Single-shot",
           "isCorrect": true
+        },
+        {
+          "id": "c",
+          "text": "Adaptive thinking",
+          "isCorrect": false
+        },
+        {
+          "id": "d",
+          "text": "Effort levels",
+          "isCorrect": false
         }
       ],
       "correctCount": 2,
@@ -2469,16 +2469,6 @@
       "prompt": "Select all that apply. Which of these does the guide name as tool usage patterns under 8.1?",
       "options": [
         {
-          "id": "c",
-          "text": "Approval patterns",
-          "isCorrect": true
-        },
-        {
-          "id": "d",
-          "text": "Communication over stdio, sockets, and client vs. server",
-          "isCorrect": false
-        },
-        {
           "id": "a",
           "text": "Agentic harness dispatch",
           "isCorrect": true
@@ -2487,6 +2477,16 @@
           "id": "b",
           "text": "Client-side versus server-side tools",
           "isCorrect": true
+        },
+        {
+          "id": "c",
+          "text": "Approval patterns",
+          "isCorrect": true
+        },
+        {
+          "id": "d",
+          "text": "Communication over stdio, sockets, and client vs. server",
+          "isCorrect": false
         }
       ],
       "correctCount": 3,

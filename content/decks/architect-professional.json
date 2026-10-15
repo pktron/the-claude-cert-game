@@ -355,14 +355,14 @@
           "isCorrect": false
         },
         {
-          "id": "d",
-          "text": "A standardisation on one pattern for the whole system, applied without further design",
-          "isCorrect": false
-        },
-        {
           "id": "b",
           "text": "A deliberate orchestration strategy designed for how the agents work",
           "isCorrect": true
+        },
+        {
+          "id": "d",
+          "text": "A standardisation on one pattern for the whole system, applied without further design",
+          "isCorrect": false
         },
         {
           "id": "c",
@@ -452,6 +452,11 @@
       "prompt": "Select all that apply: which of these are business value pillars named in objective 1.6?",
       "options": [
         {
+          "id": "c",
+          "text": "Cost",
+          "isCorrect": true
+        },
+        {
           "id": "d",
           "text": "Performance SLAs",
           "isCorrect": true
@@ -465,11 +470,6 @@
           "id": "b",
           "text": "Accuracy",
           "isCorrect": false
-        },
-        {
-          "id": "c",
-          "text": "Cost",
-          "isCorrect": true
         }
       ],
       "correctCount": 3,
@@ -502,6 +502,11 @@
       "prompt": "Under CCAR-P objective 2.1, what is the basis for choosing a Claude model for a workload?",
       "options": [
         {
+          "id": "c",
+          "text": "Weigh the trade-offs between Claude models and pick the one that fits the workload",
+          "isCorrect": true
+        },
+        {
           "id": "a",
           "text": "Default to the most capable Claude model so no trade-off analysis is ever needed",
           "isCorrect": false
@@ -515,11 +520,6 @@
           "id": "d",
           "text": "Choose the model with the largest context window, so nothing is ever truncated",
           "isCorrect": false
-        },
-        {
-          "id": "c",
-          "text": "Weigh the trade-offs between Claude models and pick the one that fits the workload",
-          "isCorrect": true
         }
       ],
       "correctCount": 1,
@@ -813,14 +813,14 @@
           "isCorrect": false
         },
         {
-          "id": "a",
-          "text": "Turn on prompt caching for the repeated block so its content is reused across requests",
-          "isCorrect": true
-        },
-        {
           "id": "c",
           "text": "Move the instruction block into a few-shot example so it reads as data",
           "isCorrect": false
+        },
+        {
+          "id": "a",
+          "text": "Turn on prompt caching for the repeated block so its content is reused across requests",
+          "isCorrect": true
         }
       ],
       "correctCount": 1,
@@ -908,11 +908,6 @@
       "prompt": "A CI/CD agent can read build logs, rerun a failed job, deploy to production, and rotate signing keys. The team only ever needs to read logs and rerun jobs. Which finding does objective 3.1 ask you to record?",
       "options": [
         {
-          "id": "a",
-          "text": "The agent holds deploy and key-rotation capability that its role does not require",
-          "isCorrect": true
-        },
-        {
           "id": "b",
           "text": "The agent's tool calls are not traced in enough detail to explain a bad run",
           "isCorrect": false
@@ -926,6 +921,11 @@
           "id": "d",
           "text": "The model in use is slower than the accuracy this job actually requires",
           "isCorrect": false
+        },
+        {
+          "id": "a",
+          "text": "The agent holds deploy and key-rotation capability that its role does not require",
+          "isCorrect": true
         }
       ],
       "correctCount": 1,
@@ -1117,14 +1117,14 @@
           "isCorrect": false
         },
         {
-          "id": "d",
-          "text": "It relies on defaults, so no accuracy-or-latency judgement is needed",
-          "isCorrect": false
-        },
-        {
           "id": "b",
           "text": "The accuracy it gives up is acceptable for the queries this pipeline serves",
           "isCorrect": true
+        },
+        {
+          "id": "d",
+          "text": "It relies on defaults, so no accuracy-or-latency judgement is needed",
+          "isCorrect": false
         }
       ],
       "correctCount": 1,
@@ -1451,11 +1451,6 @@
       "prompt": "Which set does objective 4.1 name as the evaluation metrics for a Claude-based system?",
       "options": [
         {
-          "id": "c",
-          "text": "Accuracy, latency, cost, safety, and security, which is the full set the objective names",
-          "isCorrect": true
-        },
-        {
           "id": "a",
           "text": "Accuracy, latency, and cost only, because safety and security are out of scope",
           "isCorrect": false
@@ -1469,6 +1464,11 @@
           "id": "d",
           "text": "Safety and security only, because accuracy and cost are optimization targets",
           "isCorrect": false
+        },
+        {
+          "id": "c",
+          "text": "Accuracy, latency, cost, safety, and security, which is the full set the objective names",
+          "isCorrect": true
         }
       ],
       "correctCount": 1,
@@ -1511,14 +1511,14 @@
           "isCorrect": false
         },
         {
-          "id": "b",
-          "text": "Evaluation datasets and test frameworks built using mixed methodologies",
-          "isCorrect": true
-        },
-        {
           "id": "c",
           "text": "A dashboard of production latency, token spend, and error rates",
           "isCorrect": false
+        },
+        {
+          "id": "b",
+          "text": "Evaluation datasets and test frameworks built using mixed methodologies",
+          "isCorrect": true
         },
         {
           "id": "d",
@@ -1560,14 +1560,14 @@
       "prompt": "Objective 4.2 covers evaluation datasets and test frameworks. Which of these belongs to objective 4.5 rather than to 4.2?",
       "options": [
         {
-          "id": "c",
-          "text": "Trading token usage and latency against their cost",
-          "isCorrect": true
-        },
-        {
           "id": "a",
           "text": "Composing the test set and the framework that runs it",
           "isCorrect": false
+        },
+        {
+          "id": "c",
+          "text": "Trading token usage and latency against their cost",
+          "isCorrect": true
         },
         {
           "id": "b",
@@ -1624,14 +1624,14 @@
           "isCorrect": false
         },
         {
-          "id": "d",
-          "text": "Recording each production call so failures can be traced later",
-          "isCorrect": false
-        },
-        {
           "id": "b",
           "text": "Comparing two variants and iterating on what the comparison reveals",
           "isCorrect": true
+        },
+        {
+          "id": "d",
+          "text": "Recording each production call so failures can be traced later",
+          "isCorrect": false
         }
       ],
       "correctCount": 1,
@@ -1668,6 +1668,11 @@
       "prompt": "Objective 4.4 names three things an architect should diagnose. Which set is it?",
       "options": [
         {
+          "id": "c",
+          "text": "Prompt failure, hallucinations, and model mismatch",
+          "isCorrect": true
+        },
+        {
           "id": "a",
           "text": "Latency spikes, token overruns, and cost regressions",
           "isCorrect": false
@@ -1676,11 +1681,6 @@
           "id": "b",
           "text": "Risks, limitations, and failure modes of the system",
           "isCorrect": false
-        },
-        {
-          "id": "c",
-          "text": "Prompt failure, hallucinations, and model mismatch",
-          "isCorrect": true
         },
         {
           "id": "d",
@@ -1727,6 +1727,11 @@
           "isCorrect": false
         },
         {
+          "id": "b",
+          "text": "Model mismatch, the category objective 4.4 names for a system running an unsuited model",
+          "isCorrect": true
+        },
+        {
           "id": "c",
           "text": "Hallucination, the category objective 4.4 names for a system that invents content",
           "isCorrect": false
@@ -1735,11 +1740,6 @@
           "id": "d",
           "text": "Cost regression, the category objective 4.1 tracks when spend per request rises",
           "isCorrect": false
-        },
-        {
-          "id": "b",
-          "text": "Model mismatch, the category objective 4.4 names for a system running an unsuited model",
-          "isCorrect": true
         }
       ],
       "correctCount": 1,
@@ -1836,14 +1836,14 @@
           "isCorrect": false
         },
         {
-          "id": "d",
-          "text": "4.6, which monitors system performance using logging and observability tools",
-          "isCorrect": false
-        },
-        {
           "id": "b",
           "text": "4.5, which optimizes token usage, latency, and cost-performance trade-offs",
           "isCorrect": true
+        },
+        {
+          "id": "d",
+          "text": "4.6, which monitors system performance using logging and observability tools",
+          "isCorrect": false
         }
       ],
       "correctCount": 1,
@@ -1885,11 +1885,6 @@
           "isCorrect": false
         },
         {
-          "id": "a",
-          "text": "Logging and observability tools",
-          "isCorrect": true
-        },
-        {
           "id": "c",
           "text": "A/B tests and iterative improvements",
           "isCorrect": false
@@ -1898,6 +1893,11 @@
           "id": "d",
           "text": "Accuracy, latency, cost, safety, and security",
           "isCorrect": false
+        },
+        {
+          "id": "a",
+          "text": "Logging and observability tools",
+          "isCorrect": true
         }
       ],
       "correctCount": 1,
@@ -1924,60 +1924,6 @@
       "reviewStatus": "verified"
     },
     {
-      "id": "p4-4.6-002",
-      "domain": "d4",
-      "taskStatement": "4.6",
-      "scenario": null,
-      "concept": "monitoring-vs-diagnosis",
-      "mode": "swipe",
-      "type": "single",
-      "prompt": "An on-call engineer opens the production dashboards each morning, sees a recurring spike in wrong answers, and files it as an incident. Which objective covers that work?",
-      "options": [
-        {
-          "id": "b",
-          "text": "4.6 Monitor system performance using logging and observability tools",
-          "isCorrect": true
-        },
-        {
-          "id": "a",
-          "text": "4.4 Diagnose system issues (prompt failure, hallucinations, model mismatch)",
-          "isCorrect": false
-        },
-        {
-          "id": "c",
-          "text": "4.3 Conduct A/B testing and iterative improvements",
-          "isCorrect": false
-        },
-        {
-          "id": "d",
-          "text": "4.1 Define evaluation metrics (accuracy, latency, cost, safety, security)",
-          "isCorrect": false
-        }
-      ],
-      "correctCount": 1,
-      "optionCountRationale": "Four options quoting neighbouring objectives verbatim, so the item tests where the work stops rather than recognising the wording. The scenario is drawn to end at recording what the live signals show - no cause is named - and 4.4 is offered as a real option precisely because naming the cause is the adjacent step the learner has to rule out.",
-      "distractorRationale": {
-        "a": "Probes the sharpest boundary in the domain: reading the failure off live signals is 4.6, while deciding whether it is prompt failure, a hallucination, or model mismatch is 4.4.",
-        "c": "Probes assuming that spotting a problem implies a variant comparison; nothing is being A/B tested in this scenario.",
-        "d": "Probes reading 'wrong answers on the dashboards' as metric selection; the metrics already exist and are already being read."
-      },
-      "explanation": {
-        "correct": "Reading a running system's behaviour off its live dashboards and filing what the signals show is monitoring system performance with logging and observability tools - objective 4.6. The described work establishes that the behaviour is wrong and how often; it stops there.",
-        "whyWrong": {
-          "a": "Objective 4.4 is diagnosing: deciding whether the cause is a prompt failure, a hallucination, or a model mismatch. Nothing in the scenario establishes any of those - the engineer has only read the dashboards and recorded an incident.",
-          "c": "No two variants are being compared here, so no A/B testing is taking place. That is 4.3, which needs a comparison and an iteration.",
-          "d": "Objective 4.1 is deciding which metrics matter. The metrics are already defined and already being read; the capability doing the reading is 4.6."
-        },
-        "takeaway": "Monitoring (4.6) tells you a running system is misbehaving; diagnosing (4.4) tells you why.",
-        "deepDive": "The line between the two is the word 'why'. Logging and observability establish that the behaviour is wrong and how often; deciding what is causing it is the diagnostic work objective 4.4 names. Because 4.4 appears as an option here, the learner has to place the boundary themselves rather than being told it in the stem."
-      },
-      "source": {
-        "document": "Claude-Certified-Architect-Profesional-Exam-Guide.pdf",
-        "section": "4.6 Monitor system performance using logging and observability tools"
-      },
-      "reviewStatus": "verified"
-    },
-    {
       "id": "p5-5.1-001",
       "domain": "d5",
       "taskStatement": "5.1",
@@ -1988,14 +1934,14 @@
       "prompt": "Which task belongs to objective 5.1?",
       "options": [
         {
-          "id": "a",
-          "text": "Identify the risks, limitations, and failure modes of LLM systems",
-          "isCorrect": false
-        },
-        {
           "id": "c",
           "text": "Implement guardrails and safety controls",
           "isCorrect": true
+        },
+        {
+          "id": "a",
+          "text": "Identify the risks, limitations, and failure modes of LLM systems",
+          "isCorrect": false
         },
         {
           "id": "b",
@@ -2047,14 +1993,14 @@
           "isCorrect": false
         },
         {
-          "id": "c",
-          "text": "5.1, because the risks and failure modes have not been identified first",
-          "isCorrect": false
-        },
-        {
           "id": "b",
           "text": "5.1, because guardrails and safety controls have not been implemented",
           "isCorrect": true
+        },
+        {
+          "id": "c",
+          "text": "5.1, because the risks and failure modes have not been identified first",
+          "isCorrect": false
         },
         {
           "id": "d",
@@ -2106,14 +2052,14 @@
           "isCorrect": false
         },
         {
-          "id": "d",
-          "text": "Both are 5.4's work, because guardrails only matter where a regulation applies",
-          "isCorrect": false
-        },
-        {
           "id": "b",
           "text": "The controls are 5.1's work and the regulator demonstration is 5.4's work",
           "isCorrect": true
+        },
+        {
+          "id": "d",
+          "text": "Both are 5.4's work, because guardrails only matter where a regulation applies",
+          "isCorrect": false
         }
       ],
       "correctCount": 1,
@@ -2124,7 +2070,7 @@
         "d": "Probes the belief that guardrails only matter where a regulation applies, which makes 5.1 a special case of 5.4."
       },
       "explanation": {
-        "correct": "Objective 5.1 is 'Implement guardrails and safety controls' - controls that live inside the system. Objective 5.4 is 'Ensure compliance with regulations (e.g., GDPR, HIPAA, FedRAMP)' - an obligation outside the system that the solution has to be shown to meet.",
+        "correct": "Objective 5.1 covers controls that live inside the system. Objective 5.4 covers an obligation that sits outside the system, which the solution then has to be shown to meet.",
         "whyWrong": {
           "a": "This reverses the two. Building controls in the system is 5.1; demonstrating that the system meets a named regulation is 5.4.",
           "c": "The two objectives name different objects. Guardrails bound what the system does; GDPR, HIPAA, and FedRAMP sit outside it, and installing controls does not by itself demonstrate that any of them is met.",
@@ -2156,14 +2102,14 @@
           "isCorrect": false
         },
         {
-          "id": "b",
-          "text": "Risks, limitations, and failure modes of LLM systems",
-          "isCorrect": true
-        },
-        {
           "id": "c",
           "text": "Datasets, frameworks, and evaluation methodologies",
           "isCorrect": false
+        },
+        {
+          "id": "b",
+          "text": "Risks, limitations, and failure modes of LLM systems",
+          "isCorrect": true
         },
         {
           "id": "d",
@@ -2195,60 +2141,6 @@
       "reviewStatus": "verified"
     },
     {
-      "id": "p5-5.2-002",
-      "domain": "d5",
-      "taskStatement": "5.2",
-      "scenario": null,
-      "concept": "risk-identification-in-practice",
-      "mode": "swipe",
-      "type": "single",
-      "prompt": "A team has been running the system for months but has never written down how it can break - there is no register of its risks, limitations, or failure modes. Which objective covers that missing work?",
-      "options": [
-        {
-          "id": "c",
-          "text": "5.2 — Identify risks, limitations, and failure modes of LLM systems",
-          "isCorrect": true
-        },
-        {
-          "id": "a",
-          "text": "5.1 — Implement guardrails and safety controls",
-          "isCorrect": false
-        },
-        {
-          "id": "b",
-          "text": "5.4 — Ensure compliance with regulations (e.g., GDPR, HIPAA, FedRAMP)",
-          "isCorrect": false
-        },
-        {
-          "id": "d",
-          "text": "5.5 — Address ethical AI considerations (bias, fairness, transparency)",
-          "isCorrect": false
-        }
-      ],
-      "correctCount": 1,
-      "optionCountRationale": "Four options quoting the four neighbouring objective titles at comparable length. Three would work mechanically, but 5.4 is the one a reader is most likely to reach for when a running system is involved, and it earns its slot precisely because the scenario mentions months of live use.",
-      "distractorRationale": {
-        "a": "Probes reading 'the system can break' as a request for controls rather than for the identification work 5.2 names.",
-        "b": "Probes assuming that a system operating in production must be shown to meet a named regulation, which the scenario never raises.",
-        "d": "Probes treating any concern about system behaviour as an ethical AI consideration, which 5.5 narrows to bias, fairness, and transparency."
-      },
-      "explanation": {
-        "correct": "The missing artefact is a written list of the system's risks, limitations, and failure modes. That is the object of the verb in objective 5.2 - identify risks, limitations, and failure modes of LLM systems.",
-        "whyWrong": {
-          "a": "Implementing guardrails and safety controls is 5.1. No control is missing in the scenario; what is missing is the record of how the system can fail.",
-          "b": "Objective 5.4 is about meeting a named regulation such as GDPR, HIPAA, or FedRAMP. Nothing in the scenario raises a regulatory obligation, so compliance is not the gap.",
-          "d": "Objective 5.5 covers bias, fairness, and transparency. Those are three named concerns, and the scenario describes none of them."
-        },
-        "takeaway": "A register of risks, limitations, and failure modes is 5.2's deliverable, and it can be produced without any control, regulation, or ethics work existing yet.",
-        "deepDive": "5.2 can be satisfied entirely on paper: an architect can enumerate the failure modes and still have built no guardrails (5.1), reached no regulatory position (5.4), and done no fairness work (5.5). That separation is what makes 5.2 a useful gap-analysis answer - it is the first of the four, and the one that can be complete on its own."
-      },
-      "source": {
-        "document": "Claude-Certified-Architect-Profesional-Exam-Guide.pdf",
-        "section": "5.2 Identify risks, limitations, and failure modes of LLM systems"
-      },
-      "reviewStatus": "verified"
-    },
-    {
       "id": "p5-5.3-001",
       "domain": "d5",
       "taskStatement": "5.3",
@@ -2264,14 +2156,14 @@
           "isCorrect": false
         },
         {
-          "id": "b",
-          "text": "5.2 Identify risks, limitations, and failure modes of LLM systems",
-          "isCorrect": false
-        },
-        {
           "id": "c",
           "text": "5.3 Apply human-in-the-loop validation strategies",
           "isCorrect": true
+        },
+        {
+          "id": "b",
+          "text": "5.2 Identify risks, limitations, and failure modes of LLM systems",
+          "isCorrect": false
         },
         {
           "id": "d",
@@ -2313,14 +2205,14 @@
       "prompt": "Which three regulations does objective 5.4 name as its examples?",
       "options": [
         {
-          "id": "a",
-          "text": "GDPR, PCI DSS, and SOC 2",
-          "isCorrect": false
-        },
-        {
           "id": "c",
           "text": "GDPR, HIPAA, and FedRAMP",
           "isCorrect": true
+        },
+        {
+          "id": "a",
+          "text": "GDPR, PCI DSS, and SOC 2",
+          "isCorrect": false
         },
         {
           "id": "b",
@@ -2372,14 +2264,14 @@
           "isCorrect": false
         },
         {
-          "id": "c",
-          "text": "5.5, because ethical AI work must be reported directly to the regulator",
-          "isCorrect": false
-        },
-        {
           "id": "b",
           "text": "5.4, because the objective is compliance with regulations such as GDPR",
           "isCorrect": true
+        },
+        {
+          "id": "c",
+          "text": "5.5, because ethical AI work must be reported directly to the regulator",
+          "isCorrect": false
         },
         {
           "id": "d",

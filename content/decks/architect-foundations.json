@@ -1686,6 +1686,11 @@
       "prompt": "Which of these are the tool_choice configurations the guide lists? Select all that apply.",
       "options": [
         {
+          "id": "c",
+          "text": "Forced selection using {\"type\": \"tool\", \"name\": \"...\"} to pin the first call",
+          "isCorrect": true
+        },
+        {
           "id": "d",
           "text": "\"none\", which blocks all tool calls for that turn until the setting is changed",
           "isCorrect": false
@@ -1698,11 +1703,6 @@
         {
           "id": "b",
           "text": "\"any\", which guarantees the model calls a tool instead of replying in text",
-          "isCorrect": true
-        },
-        {
-          "id": "c",
-          "text": "Forced selection using {\"type\": \"tool\", \"name\": \"...\"} to pin the first call",
           "isCorrect": true
         }
       ],
@@ -3353,7 +3353,7 @@
           "c": "Enum values such as \"unclear\" and \"other\" plus a detail field serve extensible categorization; a numeric limit that is simply absent needs nullability."
         },
         "takeaway": "If the source may not contain it, make the field nullable — required fields invite fabrication.",
-        "deepDive": "The enum pattern still matters elsewhere: add \"unclear\" for ambiguous cases and \"other\" plus a detail string when a category list must stay extensible."
+        "deepDive": "A nullable field is the schema's way of saying the source may legitimately omit this value, which is different from a value the model simply failed to extract."
       },
       "source": {
         "document": "Claude-Certified-Architect-Foundations-Exam-Guide.pdf",
@@ -3744,14 +3744,14 @@
       "prompt": "A team wants the generating session to catch its own mistakes, and proposes two fixes: tell it to review its own work more carefully, and give it extended thinking. What does the guide say?",
       "options": [
         {
-          "id": "a",
-          "text": "Neither substitutes for an independent review instance, which the guide ranks above both.",
-          "isCorrect": true
-        },
-        {
           "id": "b",
           "text": "Extended thinking alone is enough, since re-checking the same reasoning in more depth catches what the first pass missed.",
           "isCorrect": false
+        },
+        {
+          "id": "a",
+          "text": "Neither substitutes for an independent review instance, which the guide ranks above both.",
+          "isCorrect": true
         },
         {
           "id": "c",
@@ -4374,7 +4374,7 @@
           "c": "The guide names silent error handling as an anti-pattern just as it names terminating whole workflows on a single failure."
         },
         "takeaway": "Recover locally, propagate what you cannot fix, and report it with context.",
-        "deepDive": "The synthesis side of this topic matters too: the guide recommends structuring synthesis output with coverage annotations that mark which findings are well-supported and which topic areas have gaps because sources were unavailable."
+        "deepDive": "Propagating an error you cannot resolve is itself a finding the coordinator needs: what was attempted, what failed, and what partial results exist, so it can decide what to do next."
       },
       "source": {
         "document": "Claude-Certified-Architect-Foundations-Exam-Guide.pdf",
