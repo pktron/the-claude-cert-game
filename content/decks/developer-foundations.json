@@ -90,7 +90,7 @@
         },
         "analogy": "Architecture picks the shape of the solution (fixed steps or autonomous judgement); construction and deployment pick the machinery and where it runs.",
         "takeaway": "Objective 1.1 is about choosing between a workflow and an agent; the SDK, loops, and hosting models belong to objective 1.2.",
-        "deepDive": "The objective also names the structure of manager/supervisor hierarchies and the role of subagents in improving task execution, so 1.1 is about architecture decisions rather than about the tools that build them."
+        "deepDive": "1.1 is framed as architecture decisions rather than about the tools that build them, which is why the construction and pattern objectives keep turning up as distractors throughout Domain 1."
       },
       "source": {
         "document": "Claude-Certified-Developer-Foundations-Exam-Guide.pdf",
@@ -114,14 +114,14 @@
           "isCorrect": false
         },
         {
-          "id": "a",
-          "text": "Tradeoffs between architectural choices for agents and workflows",
-          "isCorrect": true
-        },
-        {
           "id": "c",
           "text": "Managed agent deployment models, self-hosted versus Anthropic-hosted",
           "isCorrect": false
+        },
+        {
+          "id": "a",
+          "text": "Tradeoffs between architectural choices for agents and workflows",
+          "isCorrect": true
         }
       ],
       "correctCount": 1,
@@ -136,7 +136,7 @@
           "b": "The Claude Agent SDK is named under objective 1.2 as a tool for constructing agents, not as an architecture concern.",
           "c": "Self-hosted versus Anthropic-hosted deployment models are named under objective 1.2 as construction and deployment choices, not as architecture."
         },
-        "takeaway": "Tradeoffs, hierarchy structure, and subagent roles sit in 1.1; the SDK, custom loops, deployment models, and hooks sit in 1.2.",
+        "takeaway": "Tradeoffs between architectural choices sit in 1.1; the SDK, custom loops, deployment models, and hooks sit in 1.2.",
         "deepDive": "A reliable test for the boundary: if the sentence would still be true with Claude replaced by another model, it is architecture; if it depends on Claude's tooling, it is construction."
       },
       "source": {
@@ -150,41 +150,48 @@
       "domain": "d1",
       "taskStatement": "1.1",
       "scenario": "dev-productivity",
-      "concept": "agent-architecture-scope",
+      "concept": "manager-supervisor-hierarchy",
       "mode": "swipe",
       "type": "single",
-      "prompt": "A team has a working prototype but no agreed design. Before anyone picks a tool, they need to agree the overall shape of the solution and the principles and tradeoffs behind it. Which Domain 1 objective should they start with?",
+      "prompt": "A team is designing an agent system in which one manager agent hands work to supervisor agents and coordinates what they send back. Which Domain 1 objective names that structure?",
       "options": [
         {
-          "id": "a",
-          "text": "The decision criteria for using a workflow versus an agent (1.1)",
-          "isCorrect": true
-        },
-        {
           "id": "b",
-          "text": "Hooks and other mechanisms for deterministic actions (1.2)",
+          "text": "Hooks for deterministic actions, under Agent Construction with Claude (1.2)",
           "isCorrect": false
         },
         {
           "id": "c",
-          "text": "Abstraction frameworks such as LangGraph (1.3)",
+          "text": "Managed agent deployment models, under Agent Construction with Claude (1.2)",
           "isCorrect": false
+        },
+        {
+          "id": "d",
+          "text": "Tool-use loops, a common agent design pattern under Agent Patterns and Frameworks (1.3)",
+          "isCorrect": false
+        },
+        {
+          "id": "a",
+          "text": "The structure of manager/supervisor hierarchies, under Agent Architecture (1.1)",
+          "isCorrect": true
         }
       ],
       "correctCount": 1,
-      "optionCountRationale": "Three options, one per objective in the domain, so the item doubles as a scope map of Domain 1. A fourth option would add no new discrimination because the guide offers only three distinct construction/architecture areas.",
+      "optionCountRationale": "Four options: the one structure objective 1.1 names, the two construction concerns listed under 1.2, and one of 1.3's design patterns. Every option is a real Domain 1 concept, so the item turns on which objective owns a manager/supervisor arrangement rather than on eliminating implausible choices.",
       "distractorRationale": {
-        "b": "Probes the misconception that deterministic mechanisms decide architecture; hooks are how you build an agent, not how you choose between a workflow and an agent.",
-        "c": "Probes picking a framework before making the architectural decision; the framework layer comes after the choice of approach."
+        "b": "Probes reaching for a construction mechanism. Hooks are the mechanism 1.2 names for deterministic actions; they make a fixed step repeatable and say nothing about how agents are arranged.",
+        "c": "Probes confusing where the agents run with how they relate to one another. Self-hosted versus Anthropic-hosted deployment models are named under 1.2.",
+        "d": "Probes confusing 1.3's pattern layer with 1.1 architecture. Tool-use loops sit in the common agent design pattern list alongside sub-agents, memory, and context-window management."
       },
       "explanation": {
-        "correct": "Objective 1.1 covers principles, patterns, and tradeoffs of agent and workflow architecture, including the decision criteria for using a workflow versus an agent — the shape of the solution is exactly what this team has not agreed yet.",
+        "correct": "Objective 1.1 covers principles, patterns, and tradeoffs of agent and workflow architecture, and names the structure of manager/supervisor hierarchies inside that scope. A manager delegating to supervisor agents is exactly the structure that clause describes.",
         "whyWrong": {
-          "b": "Hooks for deterministic actions are a construction mechanism under 1.2. They say how an agent performs a fixed step, not whether the overall design should be a workflow or an agent.",
-          "c": "Abstraction frameworks such as Strands, LangGraph, and PydanticAI are listed under 1.3 for building agents and workflows for multi-step tasks. Choosing a framework before settling the architecture reverses the order of decisions."
+          "b": "Hooks are named under objective 1.2 as the mechanism for deterministic actions. A hook makes a fixed step repeatable; it does not describe an arrangement of agents.",
+          "c": "Self-hosted versus Anthropic-hosted managed deployment models are named under objective 1.2. They answer who runs the agent, not how agents are related to one another.",
+          "d": "Tool-use loops are listed among objective 1.3's common agent design patterns, alongside sub-agents, memory, and context-window management. That is the pattern layer, not the architecture structure 1.1 names."
         },
-        "takeaway": "Decide architecture first (1.1), then construction mechanisms (1.2), then the pattern or framework layer (1.3).",
-        "deepDive": "Scenario items like this are common in this exam because each objective answers a different question: 1.1 asks what shape the solution takes, 1.2 asks what builds it, 1.3 asks which pattern or framework organises it."
+        "takeaway": "The structure of manager/supervisor hierarchies is a 1.1 architecture concern; hooks and hosting models are 1.2 construction choices.",
+        "deepDive": "Objective 1.1 covers principles, patterns, and tradeoffs of agent and workflow architecture, and inside that scope it names the decision criteria for using a workflow versus an agent, the structure of manager/supervisor hierarchies, and the role of subagents in improving task execution. The hierarchy clause is the one candidates most often file under 1.3, because 1.3 also names sub-agents as a design pattern."
       },
       "source": {
         "document": "Claude-Certified-Developer-Foundations-Exam-Guide.pdf",
@@ -365,7 +372,7 @@
           "b": "The structure of manager/supervisor hierarchies is named under objective 1.1 as part of agent architecture. Objective 1.3's pattern list is tool-use loops, sub-agents, memory, and context-window management."
         },
         "analogy": "Patterns are the recurring shapes a solution takes; frameworks are the libraries that implement them.",
-        "takeaway": "In 1.3, patterns are tool-use loops, sub-agents, memory, and context-window management; frameworks are Strands, LangGraph, and PydanticAI.",
+        "takeaway": "In 1.3, patterns are tool-use loops, sub-agents, memory, and context-window management.",
         "deepDive": "Both groups appear in the same objective because the guide treats them as two layers of the same job: building agents and workflows for multi-step tasks."
       },
       "source": {
@@ -432,14 +439,14 @@
       "prompt": "The guide says agentic abstraction frameworks are for building agents and workflows for a particular kind of task. Which kind?",
       "options": [
         {
-          "id": "c",
-          "text": "Multi-step tasks that agents and workflows are built to handle",
-          "isCorrect": true
-        },
-        {
           "id": "a",
           "text": "Tasks a single model call completes without any orchestration",
           "isCorrect": false
+        },
+        {
+          "id": "c",
+          "text": "Multi-step tasks that agents and workflows are built to handle",
+          "isCorrect": true
         },
         {
           "id": "b",
@@ -519,14 +526,14 @@
       "prompt": "Per objective 2.1, what are the functional and infrastructure requirements based on?",
       "options": [
         {
-          "id": "a",
-          "text": "User research sessions and legacy code audits",
-          "isCorrect": false
-        },
-        {
           "id": "b",
           "text": "Business requirements and solution architecture",
           "isCorrect": true
+        },
+        {
+          "id": "a",
+          "text": "User research sessions and legacy code audits",
+          "isCorrect": false
         },
         {
           "id": "c",
@@ -620,11 +627,6 @@
       "prompt": "An operations team has inherited a system that is already in production and needs a framework for running it, fixing defects, and evolving it over its life. Which Domain 2 objective does that work sit under?",
       "options": [
         {
-          "id": "b",
-          "text": "Objective 2.2, Systems Life Cycle",
-          "isCorrect": true
-        },
-        {
           "id": "a",
           "text": "Objective 2.1, Understanding Requirements",
           "isCorrect": false
@@ -633,6 +635,11 @@
           "id": "c",
           "text": "Objective 2.4, Software Engineering Foundations",
           "isCorrect": false
+        },
+        {
+          "id": "b",
+          "text": "Objective 2.2, Systems Life Cycle",
+          "isCorrect": true
         }
       ],
       "correctCount": 1,
@@ -642,7 +649,7 @@
         "c": "Probes reaching for 2.4 because code review and refactoring are what a team actually does to fix defects; those are engineering practices named inside 2.4, not a framework for managing a system across its life."
       },
       "explanation": {
-        "correct": "Objective 2.2 covers systems life cycle management concepts and frameworks used to develop, implement, operate, and maintain IT systems. Running, repairing, and evolving a system that has already shipped is the operate-and-maintain half of that scope.",
+        "correct": "Objective 2.2 covers systems life cycle management concepts and frameworks. Running, repairing, and evolving a system that has already shipped is the operate-and-maintain half of that scope.",
         "whyWrong": {
           "a": "2.1 is Understanding Requirements, covering functional and infrastructure requirements based on business requirements and solution architecture. It sits upstream of building and says nothing about running a system afterwards.",
           "c": "2.4 is Software Engineering Foundations, covering practices such as REST APIs, JSON, asynchronous programming, version control, SDLC integration, code review, and refactoring. Using those practices to fix defects is not the same work as managing the system across its life."
@@ -667,16 +674,6 @@
       "prompt": "Select all that apply. Which topics does objective 2.3 (Claude API Mechanics) explicitly name?",
       "options": [
         {
-          "id": "c",
-          "text": "Prompt versioning and model version pinning",
-          "isCorrect": false
-        },
-        {
-          "id": "d",
-          "text": "Invoking Claude through third-party vendors",
-          "isCorrect": true
-        },
-        {
           "id": "a",
           "text": "Streaming and batch API use",
           "isCorrect": true
@@ -684,6 +681,16 @@
         {
           "id": "b",
           "text": "Messages API data access patterns",
+          "isCorrect": true
+        },
+        {
+          "id": "c",
+          "text": "Prompt versioning and model version pinning",
+          "isCorrect": false
+        },
+        {
+          "id": "d",
+          "text": "Invoking Claude through third-party vendors",
           "isCorrect": true
         }
       ],
@@ -717,14 +724,14 @@
       "prompt": "Objective 2.3 explicitly names tradeoffs between which two API selection modes?",
       "options": [
         {
-          "id": "b",
-          "text": "Realtime and batch",
-          "isCorrect": true
-        },
-        {
           "id": "a",
           "text": "Streaming and batch",
           "isCorrect": false
+        },
+        {
+          "id": "b",
+          "text": "Realtime and batch",
+          "isCorrect": true
         }
       ],
       "correctCount": 1,
@@ -757,6 +764,11 @@
       "prompt": "Which grouping belongs to objective 2.3 (Claude API Mechanics) rather than objective 2.4 (Software Engineering Foundations)?",
       "options": [
         {
+          "id": "a",
+          "text": "Messages, tools, and streaming behavior",
+          "isCorrect": true
+        },
+        {
           "id": "b",
           "text": "REST APIs, JSON, and version control",
           "isCorrect": false
@@ -765,11 +777,6 @@
           "id": "c",
           "text": "Code review and refactoring at small and large scale",
           "isCorrect": false
-        },
-        {
-          "id": "a",
-          "text": "Messages, tools, and streaming behavior",
-          "isCorrect": true
         }
       ],
       "correctCount": 1,
@@ -858,14 +865,14 @@
       "prompt": "Objective 2.4 names refactoring at which scales?",
       "options": [
         {
-          "id": "a",
-          "text": "Both small and large scale",
-          "isCorrect": true
-        },
-        {
           "id": "b",
           "text": "Small scale only, not system-wide",
           "isCorrect": false
+        },
+        {
+          "id": "a",
+          "text": "Both small and large scale",
+          "isCorrect": true
         }
       ],
       "correctCount": 1,
@@ -898,6 +905,11 @@
       "prompt": "Objectives 2.2 and 2.4 both concern process over the life of a system. Which statement matches what the guide names?",
       "options": [
         {
+          "id": "a",
+          "text": "2.2 names life cycle management concepts and frameworks; 2.4 names SDLC integration among its practices",
+          "isCorrect": true
+        },
+        {
           "id": "b",
           "text": "2.2 names the core software engineering practices; 2.4 names the life cycle frameworks",
           "isCorrect": false
@@ -906,11 +918,6 @@
           "id": "c",
           "text": "Both objectives name the same set of life cycle concepts for IT systems",
           "isCorrect": false
-        },
-        {
-          "id": "a",
-          "text": "2.2 names life cycle management concepts and frameworks; 2.4 names SDLC integration among its practices",
-          "isCorrect": true
         }
       ],
       "correctCount": 1,
@@ -920,13 +927,13 @@
         "c": "Probes collapsing the two into a single topic, which hides that the guide treats lifecycle management and SDLC integration as different things."
       },
       "explanation": {
-        "correct": "Objective 2.2 is described as systems life cycle management concepts and frameworks used to develop, implement, operate, and maintain IT systems, while objective 2.4 lists SDLC integration among core software engineering principles and practices.",
+        "correct": "Objective 2.2 is described as systems life cycle management concepts and frameworks, while objective 2.4 lists SDLC integration among core software engineering principles and practices.",
         "whyWrong": {
           "b": "This swaps the two. Objective 2.2 is Systems Life Cycle, described as life cycle management concepts and frameworks, while objective 2.4 is Software Engineering Foundations, described as principles and practices such as REST APIs, JSON, asynchronous programming, version control, SDLC integration, code review, and refactoring. So the practices belong to 2.4 and the frameworks to 2.2, not the other way round.",
           "c": "The two objectives are worded differently on purpose: 2.2 is about management concepts and frameworks, while 2.4 is about principles and practices that include SDLC integration."
         },
         "takeaway": "2.2 is life cycle management concepts and frameworks; 2.4 is engineering practice, including SDLC integration.",
-        "deepDive": "Two different senses of 'lifecycle' sit in Domain 2. 2.2 is about managing systems through develop, implement, operate, and maintain. 2.4 is about engineering practice, and SDLC integration is the single item in its list that reaches toward a process. The guide uses the acronym without expanding it, so treat this item as a question about where the practice sits rather than about the acronym's wording."
+        "deepDive": "Two different senses of 'lifecycle' sit in Domain 2. 2.2 is about managing systems through develop, implement, operate, and maintain. 2.4 is about engineering practice, and SDLC integration is the single item in its list that reaches toward a process. The guide uses the acronym without expanding it, so treat the question as one about where the practice sits rather than about the acronym's wording."
       },
       "source": {
         "document": "Claude-Certified-Developer-Foundations-Exam-Guide.pdf",
@@ -945,13 +952,13 @@
       "prompt": "Select all that apply. Objective 2.5 says Claude interprets instructions across which interfaces?",
       "options": [
         {
-          "id": "c",
-          "text": "CLAUDE.md files and settings.json, plus model version pinning",
-          "isCorrect": false
+          "id": "b",
+          "text": "The API and SDKs",
+          "isCorrect": true
         },
         {
-          "id": "d",
-          "text": "Vision, thinking, and caching capabilities",
+          "id": "c",
+          "text": "CLAUDE.md files and settings.json, plus model version pinning",
           "isCorrect": false
         },
         {
@@ -960,9 +967,9 @@
           "isCorrect": true
         },
         {
-          "id": "b",
-          "text": "The API and SDKs",
-          "isCorrect": true
+          "id": "d",
+          "text": "Vision, thinking, and caching capabilities",
+          "isCorrect": false
         }
       ],
       "correctCount": 2,
@@ -1091,6 +1098,11 @@
       "prompt": "Which set of artifacts does objective 2.6 (Configuration Management) name for Claude system components?",
       "options": [
         {
+          "id": "b",
+          "text": "CLAUDE.md files, settings.json, and plugin dependencies",
+          "isCorrect": true
+        },
+        {
           "id": "a",
           "text": "Solution architecture and business requirements",
           "isCorrect": false
@@ -1101,13 +1113,8 @@
           "isCorrect": false
         },
         {
-          "id": "b",
-          "text": "CLAUDE.md files, settings.json, and plugin dependencies",
-          "isCorrect": true
-        },
-        {
           "id": "d",
-          "text": "Content boundaries, schema designs, and session rules",
+          "text": "Content boundaries, schema design, and session hygiene",
           "isCorrect": false
         }
       ],
@@ -1116,14 +1123,14 @@
       "distractorRationale": {
         "a": "Probes confusing the inputs named in 2.1 with configuration artifacts; it is a near-miss because both are Domain 2 named lists that are easy to file together.",
         "c": "Probes confusing general software engineering practice with Claude configuration management; REST and JSON are 2.4's terms, and the third item is an invented near-miss rather than a named artefact.",
-        "d": "Probes confusing application design concerns (2.5) with configuration artefacts; both sit under Claude and are the easiest pair in the domain to merge."
+        "d": "Probes confusing application design concerns (2.5) with configuration artefacts. Content boundaries, schema design, and session hygiene are all named under 2.5, and the 2.5/2.6 pair is the easiest one in the domain to merge."
       },
       "explanation": {
         "correct": "Objective 2.6 names CLAUDE.md files, settings.json, and plugin dependencies among the configuration items for Claude system components.",
         "whyWrong": {
           "a": "Solution architecture and business requirements are the inputs named in 2.1, not configuration artifacts.",
           "c": "REST endpoints and JSON payloads belong to the engineering practices of 2.4; version history is a general version control concern, not a named Claude configuration artifact.",
-          "d": "Content boundaries and schema design are named under 2.5 Claude Application Design."
+          "d": "Content boundaries, schema design, and session hygiene are all named under 2.5, Claude Application Design. None of the three is a configuration artefact for a Claude system component."
         },
         "takeaway": "2.6 names CLAUDE.md files, settings.json, model version pinning, prompt versioning, and plugin dependencies.",
         "deepDive": "2.6 is 4.1% of the exam and the only Domain 2 objective that names specific files and version controls, which makes it the easiest place to anchor concrete recall."
@@ -1193,24 +1200,24 @@
       "options": [
         {
           "id": "b",
-          "text": "Objective 2.6, Configuration Management",
+          "text": "Configuration Management, 2.6",
           "isCorrect": true
         },
         {
           "id": "a",
-          "text": "Objective 2.5, Claude Application Design",
+          "text": "Claude Application Design, 2.5",
           "isCorrect": false
         },
         {
           "id": "c",
-          "text": "Objective 2.4, Software Engineering Foundations",
+          "text": "Software Engineering Foundations, 2.4",
           "isCorrect": false
         }
       ],
       "correctCount": 1,
       "optionCountRationale": "Three options: within Domain 2 only one objective names CLAUDE.md files, so the item is a single scope lookup. A fourth option would repeat an objective that is already ruled out.",
       "distractorRationale": {
-        "a": "Probes assuming 2.5 owns every Claude-specific artefact because 2.5 lists Claude Code as an interface; the guide names CLAUDE.md files only under 2.6.",
+        "a": "Probes assuming 2.5 owns every Claude-specific artefact because 2.5 lists Claude Code as an interface; within Domain 2 the guide names CLAUDE.md files only under 2.6.",
         "c": "Probes treating instruction files as a general software engineering practice; objective 2.4's practices are REST APIs, JSON, asynchronous programming, version control, SDLC integration, code review, and refactoring."
       },
       "explanation": {
@@ -1219,15 +1226,14 @@
           "a": "2.5 names Claude Code as an interface Claude interprets instructions across, but it does not name CLAUDE.md files.",
           "c": "2.4 names practices such as REST APIs, JSON, and code review; CLAUDE.md files are not among them."
         },
-        "takeaway": "CLAUDE.md files are named under 2.6, Configuration Management.",
-        "deepDive": "The guide names CLAUDE.md files once, under 2.6, and says nothing further about hierarchy, scoping, or location. Read it exactly that narrowly: 2.6 lists CLAUDE.md files as configuration for Claude system components, and no other Domain 2 objective claims them.",
+        "takeaway": "Within Domain 2, CLAUDE.md files are named only under 2.6, Configuration Management.",
+        "deepDive": "No other Domain 2 objective claims CLAUDE.md files, and 2.6 itself adds nothing about hierarchy, scoping, or location - its single sentence is a bare list of configuration artefacts. The CLAUDE.md hierarchy belongs to Domain 3: objective 3.1 names it, alongside repository initialization and settings.json configuration.",
         "analogy": "Think of 2.6 as the domain's inventory: CLAUDE.md files, settings.json, model version pinning, prompt versioning, and plugin dependencies. Knowing which shelf an item sits on is what the guide supports."
       },
       "source": {
         "document": "Claude-Certified-Developer-Foundations-Exam-Guide.pdf",
         "section": "2.6 Configuration Management"
       },
-      "reviewNote": "Flagged during authoring: this item rests on CLAUDE.md files being absent from 2.4 and 2.5, which the guide supports, and the guide gives no detail about CLAUDE.md hierarchy, scoping, or location. Set to verified to match v2-26-001 and v2-26-002, which test the same premise.",
       "reviewStatus": "verified"
     },
     {
@@ -1241,14 +1247,14 @@
       "prompt": "The guide lists Claude Code's core components as its own group. Which set matches that list?",
       "options": [
         {
-          "id": "b",
-          "text": "Rules, Skills, Commands, Agents, and Agent Memory",
-          "isCorrect": true
-        },
-        {
           "id": "a",
           "text": "Session management, headless mode, and streaming mode",
           "isCorrect": false
+        },
+        {
+          "id": "b",
+          "text": "Rules, Skills, Commands, Agents, and Agent Memory",
+          "isCorrect": true
         },
         {
           "id": "c",
@@ -1334,11 +1340,6 @@
       "prompt": "An application's output is wrong and the team cannot tell whether the fault is in its own integration code or in what the model produced. Which technique does objective 4.1 name for this?",
       "options": [
         {
-          "id": "b",
-          "text": "Problem origin isolation between the integration layer and model output",
-          "isCorrect": true
-        },
-        {
           "id": "a",
           "text": "Retry the same request until the output changes",
           "isCorrect": false
@@ -1347,6 +1348,11 @@
           "id": "c",
           "text": "Context-window management to shrink what the model sees",
           "isCorrect": false
+        },
+        {
+          "id": "b",
+          "text": "Problem origin isolation between the integration layer and model output",
+          "isCorrect": true
         }
       ],
       "correctCount": 1,
@@ -1422,31 +1428,31 @@
       "options": [
         {
           "id": "a",
-          "text": "Tokens — the model reads and writes text in token units.",
-          "isCorrect": false
-        },
-        {
-          "id": "c",
-          "text": "Context window — the amount of text the model can consider.",
+          "text": "Tokens — another fundamental named in the same 5.1 list",
           "isCorrect": false
         },
         {
           "id": "b",
-          "text": "Non-determinism — identical input can yield different output.",
+          "text": "Non-determinism — the fundamental that fits two runs of one request",
           "isCorrect": true
+        },
+        {
+          "id": "c",
+          "text": "Context window — another fundamental named in the same 5.1 list",
+          "isCorrect": false
         }
       ],
       "correctCount": 1,
       "optionCountRationale": "Three options give one genuine distractor per adjacent fundamental in the same list — tokens and the context window are the two that get conflated with non-determinism — with no padding.",
       "distractorRationale": {
-        "a": "Probes conflating the unit text is processed in with the repeatability of the output; tokenisation explains representation, not why two runs differ.",
-        "c": "Probes the misconception that a fixed or large context window makes generation reproducible; the window bounds how much input is considered, not output variance."
+        "a": "Probes reaching for the neighbouring 5.1 fundamental instead of the one naming the behaviour observed; the guide lists tokens without connecting them to run-to-run variation.",
+        "c": "Probes reaching for the neighbouring 5.1 fundamental instead of the one naming the behaviour observed; the guide lists the context window without connecting it to run-to-run variation."
       },
       "explanation": {
-        "correct": "Objective 5.1 lists non-determinism as a core LLM fundamental, and it is the one that describes exactly what this team observed: the same request coming back differently worded on a repeat run.",
+        "correct": "Objective 5.1 lists non-determinism as a core LLM fundamental, and it is the one that names exactly what this team observed: the same request coming back differently worded on a repeat run.",
         "whyWrong": {
-          "a": "Tokens describe the units text is broken into for processing. Two runs using the same tokens can still differ, so tokenisation does not explain the difference you saw.",
-          "c": "The context window limits how much text the model can take in at once. Holding that limit steady, or raising it, does not make the output repeatable."
+          "a": "Tokens is named in the same 5.1 list, but the guide attaches no account of how it would explain output that changes between runs. What was observed is a property of the result, not of how text is represented.",
+          "c": "The context window is named in the same 5.1 list, but the guide attaches no claim to it about output changing between runs. A steady or larger window does not address what was observed either."
         },
         "analogy": "Like asking the same person the same question twice: both answers are usually right, but rarely word-for-word identical.",
         "takeaway": "Same input can still produce different output — that is non-determinism, not a malfunction."
@@ -1456,7 +1462,7 @@
         "section": "5.1 LLM Fundamentals"
       },
       "reviewStatus": "needs-review",
-      "reviewNote": "5.1 names non-determinism but does not define it. The answer is derivable from the term itself, so the item is kept, but no mechanism is asserted: the guide gives no account of how output varies between runs, and the removed clause about next-token generation under sampling was not guide content."
+      "reviewNote": "5.1 names non-determinism but does not define it. The answer is derivable from the term itself, so the item is kept. No mechanism is asserted: the guide gives no account of how output varies between runs, and the removed clause about next-token generation under sampling was not guide content. The distractor texts and their whyWrong entries are worded to avoid defining tokens or the context window either, because the guide names those two without defining them too."
     },
     {
       "id": "v5-51-002",
@@ -1469,16 +1475,6 @@
       "prompt": "Objective 5.1 separates fundamental prompting techniques from model options. Select all that apply: which does the guide list as a prompting technique?",
       "options": [
         {
-          "id": "a",
-          "text": "Zero-shot",
-          "isCorrect": true
-        },
-        {
-          "id": "b",
-          "text": "Single-shot",
-          "isCorrect": true
-        },
-        {
           "id": "c",
           "text": "Adaptive thinking",
           "isCorrect": false
@@ -1487,6 +1483,16 @@
           "id": "d",
           "text": "Effort levels",
           "isCorrect": false
+        },
+        {
+          "id": "a",
+          "text": "Zero-shot",
+          "isCorrect": true
+        },
+        {
+          "id": "b",
+          "text": "Single-shot",
+          "isCorrect": true
         }
       ],
       "correctCount": 2,
@@ -1526,7 +1532,7 @@
         },
         {
           "id": "a",
-          "text": "Context window — how much text the model can hold at once.",
+          "text": "Context window — a separate fundamental named in the same 5.1 list",
           "isCorrect": false
         },
         {
@@ -1538,13 +1544,13 @@
       "correctCount": 1,
       "optionCountRationale": "Three options: the mechanism asked about sits beside two closely related fundamentals in the same list, and a binary choice would leave the most confusable term unaddressed.",
       "distractorRationale": {
-        "a": "Probes confusing how much input the model can hold with the order in which it produces output.",
+        "a": "Probes reaching for the other fundamental in the same 5.1 list; the guide does not connect the context window to the order in which output is produced.",
         "b": "Probes confusing the way a response is built with the other generation-related fundamental in the same list; 5.1 names them side by side but does not merge them."
       },
       "explanation": {
         "correct": "5.1 lists next-token generation as the fundamental that describes a response being produced one token at a time, and lists sampling and non-determinism alongside it as separate fundamentals.",
         "whyWrong": {
-          "a": "The context window bounds how much text the model can take in at once. It says nothing about the order in which the answer is produced.",
+          "a": "The context window is named in 5.1's own list of fundamentals, but the guide does not tie it to the order in which the answer is produced.",
           "b": "Sampling is named by 5.1 as its own fundamental, separately from next-token generation. Building the response one token at a time is the next-token generation entry in that list."
         },
         "analogy": "Autocomplete run for a whole paragraph, not a sentence pulled finished off a shelf.",
@@ -1555,7 +1561,7 @@
         "section": "5.1 LLM Fundamentals"
       },
       "reviewStatus": "needs-review",
-      "reviewNote": "5.1 names tokens, context windows, sampling, non-determinism, and next-token generation without defining any of them. The keyed answer follows from the term 'next-token generation' itself; the option text and explanation avoid defining sampling, and no definition of non-determinism is asserted."
+      "reviewNote": "5.1 names tokens, context windows, sampling, non-determinism, and next-token generation without defining any of them. The keyed answer follows from the term 'next-token generation' itself; the option text and explanation avoid defining sampling or the context window, and no definition of non-determinism is asserted."
     },
     {
       "id": "v5-52-002",
@@ -1586,7 +1592,7 @@
       "explanation": {
         "correct": "5.2 names integrating with SDKs that wrap REST APIs and websockets as the basic engineering practices for AI application development.",
         "whyWrong": {
-          "b": "Message queues are not named in 5.2. The guide pairs SDKs that wrap REST APIs with websockets, so getting the SDK half right does not carry the item."
+          "b": "Message queues are not named in 5.2. The guide pairs SDKs that wrap REST APIs with websockets, so getting the SDK half right does not make the answer correct."
         },
         "takeaway": "The integration pair 5.2 names is SDKs wrapping REST APIs plus websockets."
       },
@@ -1612,14 +1618,14 @@
           "isCorrect": false
         },
         {
-          "id": "b",
-          "text": "Quality, latency, and cost of the response",
-          "isCorrect": true
-        },
-        {
           "id": "c",
           "text": "Sampling, non-determinism, and next-token generation",
           "isCorrect": false
+        },
+        {
+          "id": "b",
+          "text": "Quality, latency, and cost of the response",
+          "isCorrect": true
         }
       ],
       "correctCount": 1,
@@ -1715,12 +1721,12 @@
         "c": "Probes mixing prompt engineering from 6.2 with cost management. Examples, output constraints, and sanitization shape instructions, not the token bill."
       },
       "explanation": {
-        "correct": "5.4 covers token budgeting and cost management through token usage tracking, cost modeling, and caching techniques, giving prompt caching and cache check-pointing as the caching examples.",
+        "correct": "5.4 covers token budgeting and cost management through token usage tracking, cost modeling, and caching techniques.",
         "whyWrong": {
           "a": "Model routing, retries, and rate limiting are not among the techniques 5.4 lists. The named cluster is usage tracking, cost modeling, and caching.",
           "c": "Few-shot examples, output constraints, and input sanitization are prompt engineering methods from 6.2. They shape the instruction rather than the spend."
         },
-        "takeaway": "5.4 is token usage tracking, cost modeling, and caching — prompt caching and cache check-pointing."
+        "takeaway": "5.4 is the token bill: token usage tracking, cost modeling, and caching techniques for cost optimization."
       },
       "source": {
         "document": "Claude-Certified-Developer-Foundations-Exam-Guide.pdf",
@@ -1824,14 +1830,14 @@
       "prompt": "Which technique does Domain 6.1 name for isolating one part of a task's context from the rest of the work?",
       "options": [
         {
-          "id": "a",
-          "text": "Context isolation through subagents or agentic workflows",
-          "isCorrect": true
-        },
-        {
           "id": "b",
           "text": "Context isolation through bigger windows or effort levels",
           "isCorrect": false
+        },
+        {
+          "id": "a",
+          "text": "Context isolation through subagents or agentic workflows",
+          "isCorrect": true
         }
       ],
       "correctCount": 1,
@@ -1899,52 +1905,6 @@
       "reviewStatus": "verified"
     },
     {
-      "id": "v6-62-002",
-      "domain": "d6",
-      "taskStatement": "6.2",
-      "scenario": "dev-productivity",
-      "concept": "prompt-iteration-loop",
-      "mode": "swipe",
-      "type": "single",
-      "prompt": "Domain 6.2 covers writing and iterating on prompts for Claude. Which set belongs to that iteration loop?",
-      "options": [
-        {
-          "id": "a",
-          "text": "Benchmark selection, release gating, and deployment",
-          "isCorrect": false
-        },
-        {
-          "id": "b",
-          "text": "Cost modeling, token budgeting, and caching",
-          "isCorrect": false
-        },
-        {
-          "id": "c",
-          "text": "Iterative refinement, prompt adjustment, and sanitization",
-          "isCorrect": true
-        }
-      ],
-      "correctCount": 1,
-      "optionCountRationale": "Three options: the two distractors are sets that appear nowhere in 6.2's list of prompt engineering methods, and a fourth would be padding.",
-      "distractorRationale": {
-        "a": "Probes reaching for work outside the prompt iteration loop. Benchmark selection, release gating, and deployment appear nowhere in 6.2's list of methods.",
-        "b": "Probes mixing prompt iteration with 5.4 cost work. Modeling and budgeting tokens is spend management, not refining the instruction."
-      },
-      "explanation": {
-        "correct": "6.2 describes the work of writing and iterating on prompts as iterative refinement and prompt adjustment, with input sanitization among the methods it lists for doing that work.",
-        "whyWrong": {
-          "a": "None of benchmark selection, release gating, or deployment appears in 6.2's list of prompt engineering methods. The 6.2 loop is refining, adjusting, and sanitizing the prompt itself.",
-          "b": "Cost modeling and token budgeting belong to 5.4. They account for spend after the fact rather than improving the prompt as it is written."
-        },
-        "takeaway": "Iterating on a prompt means refining it, adjusting it, and sanitizing the input — not re-architecting the service."
-      },
-      "source": {
-        "document": "Claude-Certified-Developer-Foundations-Exam-Guide.pdf",
-        "section": "6.2 Prompt Engineering (cross-reference: 5.4 Cost and Token Management)"
-      },
-      "reviewStatus": "verified"
-    },
-    {
       "id": "v6-62-003",
       "domain": "d6",
       "taskStatement": "6.2",
@@ -1955,11 +1915,6 @@
       "prompt": "Only one of these appears in Domain 6.2's list of prompt engineering principles. Which one is it?",
       "options": [
         {
-          "id": "a",
-          "text": "Instruction clarity",
-          "isCorrect": true
-        },
-        {
           "id": "b",
           "text": "Response validation",
           "isCorrect": false
@@ -1968,6 +1923,11 @@
           "id": "c",
           "text": "Defensive parsing",
           "isCorrect": false
+        },
+        {
+          "id": "a",
+          "text": "Instruction clarity",
+          "isCorrect": true
         },
         {
           "id": "d",
@@ -1983,17 +1943,18 @@
         "d": "Probes the prompt-versus-model-option boundary. Effort levels are named under 5.1's model options."
       },
       "explanation": {
-        "correct": "Instruction clarity is the first principle in Domain 6.2's prompt engineering list, which also covers few-shot examples, system versus user placement, output constraints, placement across components, iterative refinement, prompt adjustment, and input sanitization.",
+        "correct": "Instruction clarity appears in Domain 6.2's prompt engineering list, which also covers few-shot examples, system versus user placement, output constraints, prompt and instruction placement across components, iterative refinement, prompt adjustment, and input sanitization.",
         "whyWrong": {
           "b": "Response validation is named in Domain 6.3 as an output handling pattern. 6.2 lists principles for composing the request.",
           "c": "Defensive parsing is a Domain 6.3 output handling pattern for consuming responses. It does not belong in the prompt engineering list.",
           "d": "Effort levels appear in Domain 5.1 under model options. They are a model-level control, not a prompt engineering principle."
         },
-        "takeaway": "Prompt engineering shapes what you send; output handling shapes what you do with what comes back."
+        "takeaway": "Prompt engineering shapes what you send; output handling shapes what you do with what comes back.",
+        "deepDive": "Objective 6.2 names eight principles and methods: instruction clarity, few-shot examples, system versus user placement, output constraints, prompt and instruction placement across components, iterative refinement, prompt adjustment, and input sanitization. The objective frames them as what applies when writing and iterating on prompts for Claude, but it ranks them not at all, groups them not at all, and defines none of them. Input sanitization sits in the same flat enumeration as the wording techniques rather than as a closing step, so treat the set as something to recall rather than a procedure to run."
       },
       "source": {
         "document": "Claude-Certified-Developer-Foundations-Exam-Guide.pdf",
-        "section": "6.2 Prompt Engineering (cross-reference: 5.1 LLM Fundamentals)"
+        "section": "6.2 Prompt Engineering (cross-reference: 5.1 LLM Fundamentals, 6.3 Output Handling)"
       },
       "reviewStatus": "verified"
     },
@@ -2013,14 +1974,14 @@
           "isCorrect": false
         },
         {
-          "id": "b",
-          "text": "Structured output patterns, response validation, defensive parsing",
-          "isCorrect": true
-        },
-        {
           "id": "c",
           "text": "Token budgeting, prompt caching, cache check-pointing",
           "isCorrect": false
+        },
+        {
+          "id": "b",
+          "text": "Structured output patterns, response validation, defensive parsing",
+          "isCorrect": true
         }
       ],
       "correctCount": 1,
@@ -2054,14 +2015,14 @@
       "prompt": "A response parses cleanly, sounds completely certain, and cites a plausible source. What does Domain 6.3 direct you to do next?",
       "options": [
         {
-          "id": "a",
-          "text": "Ship it — confident, well-formed output is reliable by default",
-          "isCorrect": false
-        },
-        {
           "id": "b",
           "text": "Stay skeptical — validate it defensively before relying on it",
           "isCorrect": true
+        },
+        {
+          "id": "a",
+          "text": "Ship it — confident, well-formed output is reliable by default",
+          "isCorrect": false
         }
       ],
       "correctCount": 1,
@@ -2094,11 +2055,6 @@
       "prompt": "Which set of topics does the Developer Foundations guide place under 7.1, AI Application Security?",
       "options": [
         {
-          "id": "b",
-          "text": "Data privacy and security best practices, from prompt injection to PII handling",
-          "isCorrect": true
-        },
-        {
           "id": "a",
           "text": "Model routing, prompt caching, and token budget management",
           "isCorrect": false
@@ -2107,6 +2063,11 @@
           "id": "c",
           "text": "Content policy, guardrail layering, and secure-by-design principles",
           "isCorrect": false
+        },
+        {
+          "id": "b",
+          "text": "Data privacy and security best practices, from prompt injection to PII handling",
+          "isCorrect": true
         }
       ],
       "correctCount": 1,
@@ -2116,7 +2077,7 @@
         "c": "Probes confusion between AI application security (7.1) and guardrails with secure-by-design (7.2); content policy, guardrail layering, identity and access management, and least privilege are all named under 7.2."
       },
       "explanation": {
-        "correct": "7.1 is data privacy and security best practices: prompt injection awareness and mitigation, jailbreak defense, untrusted input handling, data leakage prevention, and PII handling, plus ensuring authentication, authorization, confidentiality, privacy, and integrity.",
+        "correct": "7.1 is data privacy and security best practices: prompt injection awareness and mitigation, jailbreak defense, untrusted input handling, data leakage prevention, and PII handling.",
         "whyWrong": {
           "a": "Objective 7.1 covers prompt injection, jailbreak defense, untrusted input handling, data leakage prevention, PII handling, and the security properties to ensure. Routing, caching, and token budget management are not among the topics it names.",
           "c": "Content policy, guardrail layering, and secure-by-design principles (privacy, identity and access management, least privilege) are the two halves of 7.2, Guardrails and Safe Deployment."
@@ -2141,14 +2102,14 @@
       "prompt": "A customer-support assistant will read free-text messages pasted in by end users. Which pair of concerns does 7.1 name as in scope for this?",
       "options": [
         {
-          "id": "b",
-          "text": "Guardrail layering and content policy for safe deployment",
-          "isCorrect": false
-        },
-        {
           "id": "a",
           "text": "Prompt injection awareness and mitigation, and jailbreak defense",
           "isCorrect": true
+        },
+        {
+          "id": "b",
+          "text": "Guardrail layering and content policy for safe deployment",
+          "isCorrect": false
         },
         {
           "id": "c",
@@ -2193,14 +2154,14 @@
           "isCorrect": false
         },
         {
-          "id": "b",
-          "text": "Availability, scalability, and cost efficiency once deployed",
-          "isCorrect": false
-        },
-        {
           "id": "c",
           "text": "Authentication, authorization, confidentiality, privacy, and integrity",
           "isCorrect": true
+        },
+        {
+          "id": "b",
+          "text": "Availability, scalability, and cost efficiency once deployed",
+          "isCorrect": false
         }
       ],
       "correctCount": 1,
@@ -2234,14 +2195,14 @@
       "prompt": "Which pair does the guide list as a secure-by-design principle under 7.2, Guardrails and Safe Deployment?",
       "options": [
         {
-          "id": "a",
-          "text": "Identity and access management, and least privilege",
-          "isCorrect": true
-        },
-        {
           "id": "b",
           "text": "Jailbreak defense and untrusted input handling",
           "isCorrect": false
+        },
+        {
+          "id": "a",
+          "text": "Identity and access management, and least privilege",
+          "isCorrect": true
         }
       ],
       "correctCount": 1,
@@ -2320,11 +2281,6 @@
       "prompt": "According to the guide, what are Claude hooks for inside a Claude application?",
       "options": [
         {
-          "id": "b",
-          "text": "Acting as guardrails and safety controls that block destructive actions",
-          "isCorrect": true
-        },
-        {
           "id": "a",
           "text": "Managing credentials and API keys across environments",
           "isCorrect": false
@@ -2333,6 +2289,11 @@
           "id": "c",
           "text": "Writing tool descriptions and handling errors when tools are called",
           "isCorrect": false
+        },
+        {
+          "id": "b",
+          "text": "Acting as guardrails and safety controls that block destructive actions",
+          "isCorrect": true
         }
       ],
       "correctCount": 1,
@@ -2372,14 +2333,14 @@
           "isCorrect": false
         },
         {
-          "id": "c",
-          "text": "Data privacy and PII handling, plus leakage prevention",
-          "isCorrect": false
-        },
-        {
           "id": "b",
           "text": "Access approval and level verification, plus monitoring",
           "isCorrect": true
+        },
+        {
+          "id": "c",
+          "text": "Data privacy and PII handling, plus leakage prevention",
+          "isCorrect": false
         }
       ],
       "correctCount": 1,
@@ -2394,7 +2355,7 @@
           "a": "Access controls and least privilege are named, but as secure-by-design principles under 7.2, Guardrails and Safe Deployment. 7.4's three sub-clauses are identity validation and authentication, access approval and level verification, and authorized access monitoring.",
           "c": "Data privacy and PII handling with data leakage prevention belongs to 7.1, AI Application Security. Protecting the data an application processes is not the same work as approving an access level and watching that authorized access."
         },
-        "takeaway": "7.4's three sub-clauses are identity validation and authentication, access approval and level verification, and authorized access monitoring.",
+        "takeaway": "7.4 covers approving access and verifying the level granted, together with monitoring that the access stays within bounds.",
         "deepDive": "Objective 7.4 treats access as a lifecycle, not a single step: who you are, what you are cleared for, and then watching that the clearance is used. The guide names the three activities but gives no procedure for any of them."
       },
       "source": {
@@ -2408,45 +2369,45 @@
       "domain": "d7",
       "taskStatement": "7.4",
       "scenario": null,
-      "concept": "access-approval-and-monitoring",
+      "concept": "identity-validation-and-authentication",
       "mode": "swipe",
       "type": "single",
-      "prompt": "An access review must confirm that only approved people, at the access level they should hold, are reaching the production application. Which objective covers that?",
+      "prompt": "A team must establish who is behind a request before anything else. Which objective names that activity and pairs it with managing secrets, credentials, and API keys across environments?",
       "options": [
         {
-          "id": "c",
-          "text": "7.4, because it covers access approval, level verification, and access monitoring",
-          "isCorrect": true
-        },
-        {
           "id": "a",
-          "text": "7.1, because it covers untrusted input handling and data leakage prevention",
+          "text": "7.1, because it pairs authentication and authorization with data privacy and PII handling",
           "isCorrect": false
         },
         {
           "id": "b",
-          "text": "7.2, because it treats identity and access management as a design-time principle",
+          "text": "7.2, because it pairs identity and access management with least privilege",
           "isCorrect": false
+        },
+        {
+          "id": "c",
+          "text": "7.4, because it pairs identity validation and authentication with managing secrets, credentials, and API keys",
+          "isCorrect": true
         }
       ],
       "correctCount": 1,
-      "optionCountRationale": "Three options, one per candidate objective in the domain, because the item turns on picking the right objective and the three choices make that boundary explicit and equally long.",
+      "optionCountRationale": "Three options, one per candidate objective in the domain. All three name authentication or identity language, so the item cannot be answered by spotting the security word; it turns on which objective pairs that language with managing secrets, credentials, and API keys.",
       "distractorRationale": {
-        "a": "Probes the confusion between defending against untrusted input (7.1) and controlling who is allowed in (7.4).",
-        "b": "Probes the closest real overlap in the domain: 7.2 does name identity and access management, but as a secure-by-design principle rather than the approval, level verification, and monitoring activities the review performs."
+        "a": "Probes the confusion between establishing who someone is (7.4) and defending the application against hostile or untrusted data (7.1).",
+        "b": "Probes the closest real overlap in the domain: 7.2 does name identity and access management, but as a secure-by-design principle and with no secrets or credentials scope."
       },
       "explanation": {
-        "correct": "7.4 names access approval and level verification along with authorized access monitoring, which matches confirming who is approved, at what level, and watching that authorized access.",
+        "correct": "Objective 7.4 covers managing secrets, credentials, and API keys across Claude development and production environments, and identity validation and authentication is one of the three activities it names inside that scope.",
         "whyWrong": {
-          "a": "7.1 is about hostile or untrusted input reaching the model: prompt injection, jailbreaks, untrusted input handling, and leakage. It says nothing about approving or monitoring users.",
-          "b": "7.2 does name identity and access management as a secure-by-design principle, so this is a genuine near-miss; it is a design-time posture, however, while the three activities in the prompt — approving access, verifying the level granted, and monitoring authorized access — are the words 7.4 uses."
+          "a": "7.1 does name authentication, but inside a list of properties an application should ensure — authentication, authorization, confidentiality, privacy, and integrity — alongside prompt injection, jailbreak defense, untrusted input handling, data leakage prevention, and PII handling. It says nothing about secrets, credentials, or API keys.",
+          "b": "7.2 does name identity and access management, but as a secure-by-design principle sitting alongside privacy and least privilege. The identity validation and authentication phrasing, and the secrets, credentials, and API keys scope, are 7.4's."
         },
-        "takeaway": "Approving an access level and monitoring who uses it is 7.4; 7.2 only gestures at identity and access management as a design principle.",
-        "deepDive": "This is the one place two objectives in the domain overlap: 7.2 mentions identity and access management as a design principle, while 7.4 names the concrete activities of approving access, verifying the level granted, and monitoring authorized access."
+        "takeaway": "Identity validation and authentication sit in 7.4, inside its scope of managing secrets, credentials, and API keys.",
+        "deepDive": "Objective 7.4's scope is managing secrets, credentials, and API keys across Claude development and production environments, and it names three activities inside that scope: identity validation and authentication, access approval and level verification, and authorized access monitoring. The guide names the three but gives no procedure for any of them."
       },
       "source": {
         "document": "Claude-Certified-Developer-Foundations-Exam-Guide.pdf",
-        "section": "Objective 7.4: Identity, Secrets, and Key Management"
+        "section": "Objective 7.4: Identity, Secrets, and Key Management (cross-reference: 7.1 AI Application Security, 7.2 Guardrails and Safe Deployment)"
       },
       "reviewStatus": "verified"
     },
@@ -2508,16 +2469,6 @@
       "prompt": "Select all that apply. Which of these does the guide name as tool usage patterns under 8.1?",
       "options": [
         {
-          "id": "a",
-          "text": "Agentic harness dispatch",
-          "isCorrect": true
-        },
-        {
-          "id": "b",
-          "text": "Client-side versus server-side tools",
-          "isCorrect": true
-        },
-        {
           "id": "c",
           "text": "Approval patterns",
           "isCorrect": true
@@ -2526,6 +2477,16 @@
           "id": "d",
           "text": "Communication over stdio, sockets, and client vs. server",
           "isCorrect": false
+        },
+        {
+          "id": "a",
+          "text": "Agentic harness dispatch",
+          "isCorrect": true
+        },
+        {
+          "id": "b",
+          "text": "Client-side versus server-side tools",
+          "isCorrect": true
         }
       ],
       "correctCount": 3,
@@ -2618,13 +2579,13 @@
         "c": "Probes the confusion between exposing capabilities through a server (8.2) and the safety controls that block destructive actions (7.3)."
       },
       "explanation": {
-        "correct": "8.2 covers MCP server authoring, deployment, and integration with Claude applications, the resources, tools, and prompts a server exposes, and the communication patterns stdio, sockets, and client versus server.",
+        "correct": "8.2 covers MCP server authoring, deployment, and integration with Claude applications, and the resources, tools, and prompts a server exposes.",
         "whyWrong": {
           "b": "Configuration for external system interaction and tool description writing are named under 8.1, Tool Implementation.",
           "c": "Hooks that prevent destructive actions within Claude applications are the subject of 7.3 in the Security and Safety domain."
         },
         "takeaway": "8.2 is the server-side objective: author, deploy, integrate, and expose MCP resources, tools, and prompts.",
-        "deepDive": "8.2 lists resources, tools, and prompts as one group, and labels only the second group: the communication patterns (stdio, sockets, client vs. server)."
+        "deepDive": "8.2 groups the things a server exposes - its resources, tools, and prompts - and covers how the server is authored, deployed, and integrated."
       },
       "source": {
         "document": "Claude-Certified-Developer-Foundations-Exam-Guide.pdf",
@@ -2640,89 +2601,41 @@
       "concept": "mcp-communication-patterns",
       "mode": "swipe",
       "type": "single",
-      "prompt": "The guide lists MCP communication patterns and tool usage patterns under different objectives. Which pair is the 8.2 communication set?",
+      "prompt": "The guide labels one set inside objective 8.2 as the MCP communication patterns. Which set is it?",
       "options": [
+        {
+          "id": "b",
+          "text": "Agentic harness dispatch, client-side vs. server-side tools, and approval patterns",
+          "isCorrect": false
+        },
         {
           "id": "a",
           "text": "Communication over stdio, sockets, and a client vs. server distinction",
           "isCorrect": true
         },
         {
-          "id": "b",
-          "text": "Agentic harness dispatch, client-side vs. server-side tools, and approval patterns",
+          "id": "c",
+          "text": "The MCP resources, tools, and prompts that a server exposes",
           "isCorrect": false
         }
       ],
       "correctCount": 1,
-      "optionCountRationale": "Two options because the guide states both lists in full and they are cleanly separable: one is explicitly labelled tool usage patterns under 8.1 and the other communication patterns under 8.2.",
+      "optionCountRationale": "Three options: the set 8.2 explicitly labels as communication patterns, the trio 8.1 explicitly labels as tool usage patterns, and one unlabelled set from 8.2's own sentence. The resources, tools, and prompts option earns its place because it is genuinely 8.2 content, so the item tests the label the guide attaches rather than the objective the content comes from.",
       "distractorRationale": {
-        "b": "Probes swapping the 8.1 tool usage patterns into a question about MCP communication, which is the exact confusion the two labelled lists are designed to prevent."
+        "b": "Probes swapping the 8.1 tool usage patterns into a question about MCP communication, which is the exact confusion the two labelled lists are designed to prevent.",
+        "c": "Probes stopping at the objective boundary instead of the label: resources, tools, and prompts are named in the same 8.2 sentence, but the guide attaches the words 'communication patterns' only to stdio, sockets, and client versus server."
       },
       "explanation": {
-        "correct": "8.2 names the communication patterns as stdio, sockets, and the client versus server distinction, alongside server authoring, deployment, integration, and the MCP resources, tools, and prompts.",
+        "correct": "Objective 8.2 names the communication patterns as stdio, sockets, and the client versus server distinction, alongside server authoring, deployment, integration, and the MCP resources, tools, and prompts.",
         "whyWrong": {
-          "b": "Agentic harness dispatch, client-side versus server-side tools, and approval patterns are the tool usage patterns listed under 8.1, Tool Implementation, not MCP communication patterns."
+          "b": "Agentic harness dispatch, client-side versus server-side tools, and approval patterns are the tool usage patterns listed under 8.1, Tool Implementation, not MCP communication patterns.",
+          "c": "Resources, tools, and prompts are named in objective 8.2, so this set is in the right place — but the guide never labels them as communication patterns. That label belongs only to stdio, sockets, and client versus server."
         },
         "takeaway": "stdio, sockets, and client vs. server are the MCP communication patterns; the harness dispatch trio belongs to tool implementation."
       },
       "source": {
         "document": "Claude-Certified-Developer-Foundations-Exam-Guide.pdf",
         "section": "Objective 8.2: MCP Server Development"
-      },
-      "reviewStatus": "verified"
-    },
-    {
-      "id": "v8-82-004",
-      "domain": "d8",
-      "taskStatement": "8.2",
-      "scenario": null,
-      "concept": "mcp-communication-patterns",
-      "mode": "swipe",
-      "type": "single",
-      "prompt": "A team is choosing how an MCP server will talk to the Claude application. Which set of options does objective 8.2 name for this?",
-      "options": [
-        {
-          "id": "b",
-          "text": "stdio, sockets, or a client vs. server split",
-          "isCorrect": true
-        },
-        {
-          "id": "a",
-          "text": "Tool descriptions, error handling, and approval patterns",
-          "isCorrect": false
-        },
-        {
-          "id": "c",
-          "text": "Built-in Tools, custom Tools, Skills, or MCPs",
-          "isCorrect": false
-        },
-        {
-          "id": "d",
-          "text": "Privacy, identity and access management, and least privilege",
-          "isCorrect": false
-        }
-      ],
-      "correctCount": 1,
-      "optionCountRationale": "Four options: 8.2 names exactly one group for how a server communicates, set against one item from each of its three neighbours in this deck (8.1 tool implementation, 8.3 customization, 7.2 security). Every distractor is a real responsibility elsewhere, so the item tests which objective owns the transport choice rather than whether the terms sound technical.",
-      "distractorRationale": {
-        "a": "Tool description writing, error handling and approval patterns are objective 8.1, which covers tool implementation generally rather than how an MCP server communicates.",
-        "c": "Choosing among built-in Tools, custom Tools, Skills and MCPs is objective 8.3. That is which approach to adopt, not how a server connects.",
-        "d": "Privacy, identity and access management and least privilege are objective 7.2 secure-by-design principles; 8.2 names no security principles for transport."
-      },
-      "explanation": {
-        "correct": "Objective 8.2 names the communication patterns as stdio, sockets, and a client vs. server distinction.",
-        "whyWrong": {
-          "a": "Tool description writing, error handling and approval patterns are objective 8.1. Those govern how a tool behaves once invoked, not how a server reaches the application.",
-          "c": "Trade-offs among built-in Tools, custom Tools, Skills and MCPs are objective 8.3, which is about choosing the approach rather than connecting a server.",
-          "d": "Secure-by-design principles including privacy, identity and access management and least privilege are objective 7.2. Objective 8.2 states no security requirements for how a server communicates."
-        },
-        "analogy": "Authoring the server is building the room; the communication pattern is the doorway the application and the server agree to use.",
-        "takeaway": "Within 8.2 the transport is named: stdio, sockets, or a client vs. server split. Tool behaviour is 8.1, choosing the approach is 8.3, and the security posture is 7.2.",
-        "deepDive": "Communication patterns are the only group in 8.2 that the guide labels. Treat the resources, tools and prompts list as the other enumerated set, but do not expect the guide to have given that one a name."
-      },
-      "source": {
-        "document": "Claude-Certified-Developer-Foundations-Exam-Guide.pdf",
-        "section": "Objective 8.2: MCP Server Development (cross-reference: 7.2 Guardrails and Safe Deployment, 8.1 Tool Implementation, 8.3 Agentic Customization)"
       },
       "reviewStatus": "verified"
     },
@@ -2737,14 +2650,14 @@
       "prompt": "You must choose between a built-in Tool, a custom Tool, a Skill, and an MCP. What does 8.3, Agentic Customization, tell you to do?",
       "options": [
         {
-          "id": "a",
-          "text": "Author and deploy an MCP server, then integrate it with the application",
-          "isCorrect": false
-        },
-        {
           "id": "b",
           "text": "Weigh the tradeoffs among those options and apply the one that fits the use case",
           "isCorrect": true
+        },
+        {
+          "id": "a",
+          "text": "Author and deploy an MCP server, then integrate it with the application",
+          "isCorrect": false
         }
       ],
       "correctCount": 1,
@@ -2753,11 +2666,11 @@
         "a": "Probes jumping straight to the server-authoring workflow of 8.2 when 8.3 asks for a choice between approaches, and for an unwarranted default of always building a server."
       },
       "explanation": {
-        "correct": "8.3 is the selection objective: weigh the tradeoffs among built-in Tools, custom Tools, Skills, and MCPs, and apply whichever fits the given use case.",
+        "correct": "8.3 is the selection objective: weigh the tradeoffs among the available options and apply whichever fits the given use case.",
         "whyWrong": {
           "a": "Authoring and deploying a server is the 8.2 skill. 8.3 is about the decision itself, and the guide gives no rule that picks one of the four approaches by default."
         },
-        "takeaway": "8.3 is a choice, not a construction step: built-in Tools, custom Tools, Skills, or MCPs, chosen by tradeoffs.",
+        "takeaway": "8.3 is a choice, not a construction step: weigh the tradeoffs among the options and pick the one that fits.",
         "deepDive": "The guide names the four options but does not define Skills or describe when each wins, so expect to be tested on recognising the four-way tradeoffs rather than on a decision table."
       },
       "source": {

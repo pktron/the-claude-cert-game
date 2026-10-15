@@ -38,11 +38,16 @@ function mulberry32(seed) {
 }
 
 /**
- * Redistribute key positions evenly within each file.
+ * Redistribute key positions evenly within each DECK.
  *
  * Questions are grouped by option count (a 2-option item can only key #0 or #1),
  * ordered deterministically by an id hash, then dealt round-robin so each target
  * position is used about equally often.
+ *
+ * Balance is computed per DECK, not per file. A deck is authored as several
+ * partial files, and per-file balancing cannot reach deck-level balance when
+ * each file holds fewer items than it has positions - CCDV-F is 8 files of
+ * ~7 items, so per-file balancing left 53% of keys on index 0.
  */
 function spread(questions) {
   const groups = new Map();
@@ -73,33 +78,62 @@ function spread(questions) {
 }
 
 const files = readdirSync(PARTIALS).filter((f) => f.endsWith('.json')).sort();
-let totalMoved = 0;
 
+/** Which shipped deck a partial belongs to. Balance must be per deck, not per file. */
+function deckOf(file) {
+  if (file.startsWith('architect-foundations')) return 'architect-foundations';
+  if (file.startsWith('architect-professional')) return 'architect-professional';
+  if (file.startsWith('developer-foundations')) return 'developer-foundations';
+  return file;
+}
+
+// Load every partial, then spread each DECK as one population.
+const byDeck = new Map();
+const loaded = [];
 for (const f of files) {
   const path = join(PARTIALS, f);
   const qs = JSON.parse(readFileSync(path, 'utf8'));
-  const before = qs
-    .filter((q) => q.type === 'single')
-    .map((q) => q.options.findIndex((o) => o.isCorrect));
-  const moved = spread(qs);
-  totalMoved += moved;
+  loaded.push({ f, path, qs });
+  const key = deckOf(f);
+  if (!byDeck.has(key)) byDeck.set(key, []);
+  byDeck.get(key).push(...qs);
+}
+
+const beforeByDeck = new Map();
+for (const [deck, qs] of byDeck) {
+  beforeByDeck.set(
+    deck,
+    qs.filter((q) => q.type === 'single').map((q) => q.options.findIndex((o) => o.isCorrect)),
+  );
+}
+let totalMoved = 0;
+for (const qs of byDeck.values()) totalMoved += spread(qs);
+
+const dist = (arr) => {
+  const c = {};
+  for (const i of arr) c[i] = (c[i] || 0) + 1;
+  return Object.keys(c)
+    .sort()
+    .map((k) => `#${k}:${c[k]}`)
+    .join(' ');
+};
+
+for (const [deck, qs] of byDeck) {
   const after = qs
     .filter((q) => q.type === 'single')
     .map((q) => q.options.findIndex((o) => o.isCorrect));
-
-  const dist = (arr) => {
-    const c = {};
-    for (const i of arr) c[i] = (c[i] || 0) + 1;
-    return Object.keys(c)
-      .sort()
-      .map((k) => `#${k}:${c[k]}`)
-      .join(' ');
-  };
   console.log(
-    `${f.replace('.json', '').padEnd(36)} moved ${String(moved).padStart(2)}  ${dist(before)}  ->  ${dist(after)}`,
+    `${deck.padEnd(24)} ${dist(beforeByDeck.get(deck))}  ->  ${dist(after)}`,
   );
-  if (APPLY) writeFileSync(path, JSON.stringify(qs, null, 2) + '\n', 'utf8');
 }
 
-console.log(`\n${APPLY ? 'Applied' : 'Would move'} ${totalMoved} correct-answer positions across ${files.length} files.`);
+if (APPLY) {
+  for (const { path, qs } of loaded) {
+    writeFileSync(path, JSON.stringify(qs, null, 2) + '\n', 'utf8');
+  }
+}
+
+console.log(
+  `\n${APPLY ? 'Applied' : 'Would move'} ${totalMoved} correct-answer positions across ${byDeck.size} decks (${files.length} files).`,
+);
 if (!APPLY) console.log('Re-run with --apply to write the changes.');

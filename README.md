@@ -14,8 +14,8 @@ you have not seen in a while.
 | Exam | Name | Domains | Objectives | Questions |
 |---|---|---|---|---|
 | CCAR-F | Architect · Foundations | 5 | 30 | 98 |
-| CCAR-P | Architect · Professional | 7 | 38 | 85 |
-| CCDV-F | Developer · Foundations | 8 | 25 | 60 |
+| CCAR-P | Architect · Professional | 7 | 38 | 60 |
+| CCDV-F | Developer · Foundations | 8 | 25 | 58 |
 
 Pick a certification on the home screen. Progress is stored **per certification**, so studying
 one exam never touches another's history.

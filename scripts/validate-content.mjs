@@ -181,13 +181,22 @@ function checkAggregateBias(file, questions) {
   const n = singles.length;
 
   // Distribution of the correct answer across array positions. A key that piles up
-  // on one position is a pattern a learner could learn. Small samples are noisy, so
-  // only flag when the concentration is clear.
+  // on one position is a pattern a learner could learn.
+  //
+  // The expected count per index is NOT n/nPositions: a 2-option item can only
+  // ever key index 0 or 1. Each item contributes 1/options.length of probability
+  // to each index it can reach, so expected[i] is summed per item. Comparing a
+  // flat count against 50% made this gate blind to exactly the case it exists to
+  // catch - CCDV-F is 13 two-option items, so index 0 was legitimately common.
   const perIndex = {};
+  const expected = {};
   let longer = 0;
   for (const q of singles) {
+    const nOpts = q.options.length;
     const i = q.options.findIndex((o) => o.isCorrect);
     perIndex[i] = (perIndex[i] || 0) + 1;
+    const share = 1 / nOpts;
+    for (let k = 0; k < nOpts; k++) expected[k] = (expected[k] || 0) + share;
     const c = q.options[i].text.length;
     const avg = q.options
       .filter((o) => !o.isCorrect)
@@ -195,14 +204,14 @@ function checkAggregateBias(file, questions) {
     if (c > avg * 1.5 + 10 || c < avg * 0.6) longer += 1;
   }
   for (const [idx, count] of Object.entries(perIndex)) {
-    const share = count / n;
-    // Needs enough items for the distribution to mean anything. Below ~10 items a
-    // >50% share is reachable by chance alone, especially once items are grouped by
-    // option count, so only flag where the pattern is real.
-    if (n >= 10 && share > 0.5) {
+    const exp = expected[idx] || 1;
+    const ratio = count / exp;
+    // Needs enough items for the distribution to mean anything; below ~10 items a
+    // large deviation is reachable by chance alone.
+    if (n >= 10 && (ratio > 1.5 || ratio < 0.6)) {
       warn(
         file,
-        `aggregate: the correct answer sits at index ${idx} in ${count}/${n} single-answer items (${Math.round(share * 100)}%). Keys should be spread across positions.`,
+        `aggregate: the correct answer sits at index ${idx} in ${count}/${n} single-answer items, against an expected ${exp.toFixed(1)} (${ratio.toFixed(2)}x). Keys should be spread across positions.`,
       );
     }
   }

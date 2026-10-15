@@ -94,100 +94,6 @@
       "reviewStatus": "verified"
     },
     {
-      "id": "p1-1-002",
-      "domain": "d1",
-      "taskStatement": "1.1",
-      "scenario": null,
-      "concept": "problem-first-translation",
-      "mode": "swipe",
-      "type": "single",
-      "prompt": "Objective 1.1 is phrased as translating business problems into Claude-based AI solutions. Which direction of reasoning does that wording describe?",
-      "options": [
-        {
-          "id": "b",
-          "text": "From the business problem inward, deriving a Claude-based AI solution for it",
-          "isCorrect": true
-        },
-        {
-          "id": "a",
-          "text": "From a chosen Claude capability outward, finding a business problem it fits",
-          "isCorrect": false
-        },
-        {
-          "id": "c",
-          "text": "Neither; translation here means restating the problem in the team's own words",
-          "isCorrect": false
-        }
-      ],
-      "correctCount": 1,
-      "optionCountRationale": "Three options cover the two real readings of the word translate: the reversed capability-first direction, and translation as summarisation. Both are genuine misreadings of the objective rather than padding, and a fourth would need a third invented reading.",
-      "distractorRationale": {
-        "a": "Probes the technology-first habit of picking a capability and then hunting for a use case, which inverts the translation the objective names.",
-        "c": "Probes reading 'translate' in the linguistic sense, which produces a restated problem rather than the Claude-based AI solution the objective names."
-      },
-      "explanation": {
-        "correct": "The objective names the business problem as the source and the Claude-based AI solution as the target. The problem statement is the fixed point; the solution is what the architect derives from it.",
-        "whyWrong": {
-          "a": "Starting from the capability reverses the stated direction. It makes the business problem a justification written after the technology was chosen.",
-          "c": "Restating the problem produces no solution at all. The objective's target is a Claude-based AI solution, which is an artefact, not a paraphrase."
-        },
-        "takeaway": "Read the objective's nouns in order: business problem first, Claude-based AI solution second.",
-        "deepDive": "The same problem-first reading is why 1.1 sits ahead of 1.3 in the domain list. Pattern selection only makes sense once the solution being patterned is already defined."
-      },
-      "source": {
-        "document": "Claude-Certified-Architect-Profesional-Exam-Guide.pdf",
-        "section": "1.1 Translate business problems into Claude-based AI solutions"
-      },
-      "reviewStatus": "verified"
-    },
-    {
-      "id": "p1-1-003",
-      "domain": "d1",
-      "taskStatement": "1.1",
-      "scenario": null,
-      "concept": "problem-translation-vs-decomposition",
-      "mode": "swipe",
-      "type": "single",
-      "prompt": "Objectives 1.1 and 1.5 both concern problem solving. Which statement separates them as the guide writes them?",
-      "options": [
-        {
-          "id": "a",
-          "text": "They describe one activity, since both objectives are about solving problems",
-          "isCorrect": false
-        },
-        {
-          "id": "c",
-          "text": "1.1 breaks a problem into parts; 1.5 turns a business problem into a Claude-based solution",
-          "isCorrect": false
-        },
-        {
-          "id": "b",
-          "text": "1.1 turns a business problem into a Claude-based solution; 1.5 breaks a complex problem into parts",
-          "isCorrect": true
-        }
-      ],
-      "correctCount": 1,
-      "optionCountRationale": "Three options cover the two real errors: collapsing the objectives into one, and swapping them. A fourth option would need a third invented confusion not present in the guide.",
-      "distractorRationale": {
-        "a": "Probes the belief that two objectives both about 'problem solving' are interchangeable, which hides the difference in what gets acted on.",
-        "c": "Probes a straight swap of the two verbs, translate and decompose, which is the specific confusion the shared problem-solving framing invites."
-      },
-      "explanation": {
-        "correct": "1.1 acts on a business problem and produces a Claude-based AI solution. 1.5 acts on a problem that is already complex and produces parts. The first is a translation, the second is a decomposition.",
-        "whyWrong": {
-          "a": "The two objectives name different objects and different outputs, so they cannot be merged into a single activity.",
-          "c": "This swaps the two. Decomposition belongs to 1.5; translation to a Claude-based solution belongs to 1.1."
-        },
-        "takeaway": "Translation (1.1) is about framing the problem as a Claude-based solution; decomposition (1.5) is about splitting a complex problem into parts.",
-        "deepDive": "Both objectives can touch the same project, but at different moments: decomposition helps structure a hard task, while translation decides whether Claude-based AI is the right answer to the business problem at all."
-      },
-      "source": {
-        "document": "Claude-Certified-Architect-Profesional-Exam-Guide.pdf",
-        "section": "1.1 Translate business problems into Claude-based AI solutions"
-      },
-      "reviewStatus": "verified"
-    },
-    {
       "id": "p1-2-001",
       "domain": "d1",
       "taskStatement": "1.2",
@@ -236,53 +142,6 @@
       "reviewStatus": "verified"
     },
     {
-      "id": "p1-2-002",
-      "domain": "d1",
-      "taskStatement": "1.2",
-      "scenario": null,
-      "concept": "architecture-stage-sequence",
-      "mode": "swipe",
-      "type": "single",
-      "prompt": "In the flow named for objective 1.2, which stage directly follows output?",
-      "options": [
-        {
-          "id": "a",
-          "text": "input, so the run starts over",
-          "isCorrect": false
-        },
-        {
-          "id": "b",
-          "text": "feedback loops, to close the loop",
-          "isCorrect": true
-        },
-        {
-          "id": "c",
-          "text": "processing, so the model re-runs",
-          "isCorrect": false
-        }
-      ],
-      "correctCount": 1,
-      "optionCountRationale": "Three options: the named successor plus the two stages a learner is most likely to jump to, since both are plausible positions once the loop restarts. The distractors are padded to comparable length so position and size carry no signal.",
-      "distractorRationale": {
-        "a": "Probes the mental model in which the architecture restarts from the beginning immediately after output.",
-        "c": "Probes the assumption that the model re-processes on its own once an output exists, skipping the feedback stage."
-      },
-      "explanation": {
-        "correct": "The objective places feedback loops immediately after output. They are the stage that returns the result of the run back into the system.",
-        "whyWrong": {
-          "a": "Input is the first stage of the flow. Returning to it is what the feedback loops enable, not the stage that directly follows output.",
-          "c": "Processing precedes output in the stated flow; it does not sit after it."
-        },
-        "takeaway": "Output is never the end of the 1.2 flow; feedback loops come next.",
-        "deepDive": "Knowing the successor matters as much as knowing the sequence: it is the detail most often dropped when someone describes the architecture as just input, processing and output."
-      },
-      "source": {
-        "document": "Claude-Certified-Architect-Profesional-Exam-Guide.pdf",
-        "section": "1.2 Design end-to-end architectures (input → processing → output → feedback loops)"
-      },
-      "reviewStatus": "verified"
-    },
-    {
       "id": "p1-2-003",
       "domain": "d1",
       "taskStatement": "1.2",
@@ -293,14 +152,14 @@
       "prompt": "Objective 1.2 asks the architect to design an end-to-end architecture. What does that word require the design to cover?",
       "options": [
         {
+          "id": "c",
+          "text": "Every stage the objective names, not only the part that produces an answer",
+          "isCorrect": true
+        },
+        {
           "id": "a",
           "text": "Only the model call that produces the output, since that is where the work happens",
           "isCorrect": false
-        },
-        {
-          "id": "c",
-          "text": "The stages the objective names, from input and processing through output to the feedback loops",
-          "isCorrect": true
         },
         {
           "id": "b",
@@ -321,7 +180,7 @@
         "d": "Probes singling out the feedback stage as the interesting part and demoting the rest of the flow to background."
       },
       "explanation": {
-        "correct": "Objective 1.2 names the architecture as input → processing → output → feedback loops. End-to-end means the design covers that whole chain, not just the part that produces an answer.",
+        "correct": "Objective 1.2 asks for an end-to-end architecture, so the design has to cover the whole chain the objective names rather than the part of it that happens to be interesting.",
         "whyWrong": {
           "a": "The model call is the processing stage, one of four. A design that stops there omits the output and feedback stages the objective names after it.",
           "b": "Input, processing, output and feedback loops are all enumerated in the objective. Treating the middle as implementation detail leaves two named stages outside the design.",
@@ -419,7 +278,7 @@
         "c": "Probes the subtler version: accepting the merge while assuming the second objective is simply restated for emphasis."
       },
       "explanation": {
-        "correct": "The guide lists 1.3 and 1.4 as separate objectives. 1.3 is about selecting among workflow, agentic and augmented LLM; 1.4 is about designing multi-agent systems and orchestration strategies.",
+        "correct": "The guide lists 1.3 and 1.4 as separate objectives, each with its own verb and its own object. Close wording is not the same objective twice, so a reviewer's claim that one covers the other does not hold.",
         "whyWrong": {
           "a": "Two distinct numbered objectives are not one objective renamed, and each names a different design activity.",
           "c": "1.4 adds orchestration strategies, which the 1.3 pattern enumeration does not mention."
@@ -449,14 +308,14 @@
           "isCorrect": false
         },
         {
-          "id": "c",
-          "text": "Decomposition techniques for complex problem solving",
-          "isCorrect": false
-        },
-        {
           "id": "b",
           "text": "Orchestration strategies for those agents",
           "isCorrect": true
+        },
+        {
+          "id": "c",
+          "text": "Decomposition techniques for complex problem solving",
+          "isCorrect": false
         }
       ],
       "correctCount": 1,
@@ -491,19 +350,19 @@
       "prompt": "Several agents must divide a research task between them. What does objective 1.4 expect the architect to bring to that problem?",
       "options": [
         {
-          "id": "b",
-          "text": "A deliberate orchestration strategy designed for how the agents work",
-          "isCorrect": true
-        },
-        {
           "id": "a",
           "text": "Whatever coordination behaviour the underlying model happens to provide",
           "isCorrect": false
         },
         {
           "id": "d",
-          "text": "A standardisation on one pattern, so coordination is handled once as 1.3 does",
+          "text": "A standardisation on one pattern for the whole system, applied without further design",
           "isCorrect": false
+        },
+        {
+          "id": "b",
+          "text": "A deliberate orchestration strategy designed for how the agents work",
+          "isCorrect": true
         },
         {
           "id": "c",
@@ -512,7 +371,7 @@
         }
       ],
       "correctCount": 1,
-      "optionCountRationale": "Four options: the objective's design responsibility, plus three positions that would remove or relocate it — inheriting default behaviour, standardising on a single pattern the way 1.3 does, or running the agents with no coordination at all. The standardisation option earns its place because it is a defensible architecture in its own right and is the one a learner reaches for instead of answering 1.4.",
+      "optionCountRationale": "Four options: the objective's design responsibility, plus three positions that would remove or relocate it — inheriting default behaviour, standardising on a single pattern for the whole system, or running the agents with no coordination at all. The standardisation option earns its place because it is a defensible architecture in its own right and is the one a learner reaches for instead of answering 1.4.",
       "distractorRationale": {
         "a": "Probes treating orchestration as something inherited from the model rather than designed, which would make the objective trivial.",
         "c": "Probes assuming that 'multi-agent' means agents run independently, removing the coordination decision the objective is built around.",
@@ -526,7 +385,7 @@
           "d": "Standardising on a single pattern is a legitimate answer to 1.3, but it settles the pattern question rather than the coordination question. Here the agents already exist and the scenario is how they divide the work, which is what orchestration strategies address."
         },
         "takeaway": "Objective 1.4 is a design decision about how agents coordinate, even though the guide lists no named strategies.",
-        "deepDive": "Study this conservatively. If an item asks you to choose a specific orchestration topology, the guide gives you no vocabulary to justify it, so the defensible ground is that the strategy is architect-designed."
+        "deepDive": "Orchestration is the second half of objective 1.4's wording, and it is the half that makes multi-agent design an architectural decision: how the agents coordinate is chosen and designed, not inherited from whatever arrangement presents itself."
       },
       "source": {
         "document": "Claude-Certified-Architect-Profesional-Exam-Guide.pdf",
@@ -534,58 +393,6 @@
       },
       "reviewStatus": "needs-review",
       "reviewNote": "Objective 1.4 names orchestration strategies without enumerating any, so no specific strategy can be checked against the guide. The keyed option stays at the level of the design decision the wording implies; it does not name or require any particular coordination pattern."
-    },
-    {
-      "id": "p1-5-001",
-      "domain": "d1",
-      "taskStatement": "1.5",
-      "scenario": null,
-      "concept": "decomposition-scope",
-      "mode": "challenge",
-      "type": "multiple",
-      "prompt": "Select all that apply: which activities belong to objective 1.5, apply decomposition techniques for complex problem solving?",
-      "options": [
-        {
-          "id": "a",
-          "text": "Breaking a complex problem into parts",
-          "isCorrect": true
-        },
-        {
-          "id": "b",
-          "text": "Breaking an architecture into input, processing, output and feedback loops",
-          "isCorrect": false
-        },
-        {
-          "id": "c",
-          "text": "Using those parts to make progress on the complex problem",
-          "isCorrect": true
-        },
-        {
-          "id": "d",
-          "text": "Choosing between workflow, agentic and augmented LLM designs",
-          "isCorrect": false
-        }
-      ],
-      "correctCount": 2,
-      "optionCountRationale": "The objective has two clauses, splitting a complex problem and solving it through the split, so a two-correct select-all item mirrors the wording. Both distractors are real Domain 1 activities from 1.2 and 1.3, which is the confusion the item exists to resolve.",
-      "distractorRationale": {
-        "b": "Probes conflating decomposition of a problem with decomposition of an architecture, which is objective 1.2's stage flow.",
-        "d": "Probes conflating decomposition with pattern selection, which is objective 1.3 and happens at the architecture level."
-      },
-      "explanation": {
-        "correct": "Objective 1.5 is about applying decomposition techniques to a complex problem: breaking it into parts and solving through those parts.",
-        "whyWrong": {
-          "b": "Input, processing, output and feedback loops are the end-to-end architecture stages from objective 1.2, not the parts of a problem being decomposed.",
-          "d": "Selecting among workflow, agentic and augmented LLM is objective 1.3. Decomposition happens at the level of the problem, pattern selection at the level of the design."
-        },
-        "takeaway": "Decomposition (1.5) breaks the problem; architecture stages (1.2) and patterns (1.3) describe the solution's shape.",
-        "deepDive": "Both wrong options are legitimate Domain 1 work. Keeping them out of 1.5 is about level: 1.5 operates on the problem, 1.2 and 1.3 operate on the design."
-      },
-      "source": {
-        "document": "Claude-Certified-Architect-Profesional-Exam-Guide.pdf",
-        "section": "1.5 Apply decomposition techniques for complex problem solving"
-      },
-      "reviewStatus": "verified"
     },
     {
       "id": "p1-5-002",
@@ -645,11 +452,6 @@
       "prompt": "Select all that apply: which of these are business value pillars named in objective 1.6?",
       "options": [
         {
-          "id": "c",
-          "text": "Cost",
-          "isCorrect": true
-        },
-        {
           "id": "d",
           "text": "Performance SLAs",
           "isCorrect": true
@@ -663,6 +465,11 @@
           "id": "b",
           "text": "Accuracy",
           "isCorrect": false
+        },
+        {
+          "id": "c",
+          "text": "Cost",
+          "isCorrect": true
         }
       ],
       "correctCount": 3,
@@ -677,100 +484,6 @@
         },
         "takeaway": "The five 1.6 pillars are efficiency, transformation, productivity, cost and performance SLAs.",
         "deepDive": "The full list matters as much as the members you are shown. Efficiency, transformation and productivity are easy to half-remember, and performance SLAs is the only pillar phrased with a commitment attached."
-      },
-      "source": {
-        "document": "Claude-Certified-Architect-Profesional-Exam-Guide.pdf",
-        "section": "1.6 Align solutions to business value pillars (efficiency, transformation, productivity, cost, performance SLAs)"
-      },
-      "reviewStatus": "verified"
-    },
-    {
-      "id": "p1-6-002",
-      "domain": "d1",
-      "taskStatement": "1.6",
-      "scenario": null,
-      "concept": "business-value-pillars",
-      "mode": "swipe",
-      "type": "single",
-      "prompt": "Which option pairs only business value pillars that objective 1.6 actually names?",
-      "options": [
-        {
-          "id": "b",
-          "text": "productivity, alongside transformation",
-          "isCorrect": true
-        },
-        {
-          "id": "a",
-          "text": "accuracy, alongside throughput",
-          "isCorrect": false
-        },
-        {
-          "id": "c",
-          "text": "reliability, alongside scalability",
-          "isCorrect": false
-        }
-      ],
-      "correctCount": 1,
-      "optionCountRationale": "Three options is the default: one correct pair and two pairs built from plausible-sounding business concerns that the objective does not list. A fourth pair would be filler once the list is known.",
-      "distractorRationale": {
-        "a": "Probes half-remembering the list and swapping a named pillar for a quality attribute that sounds like one.",
-        "c": "Probes the general-purpose engineering vocabulary that readers bring to a business value discussion and that is absent from the 1.6 list."
-      },
-      "explanation": {
-        "correct": "Productivity and transformation are both named in objective 1.6, so this pair is entirely inside the list.",
-        "whyWrong": {
-          "a": "Accuracy is not among the named pillars, so the pair fails even though throughput is a reasonable thing to care about.",
-          "c": "Neither reliability nor scalability appears in the objective's list of business value pillars."
-        },
-        "takeaway": "Check each word of a pillar list against the objective; plausible business concerns are not all in it.",
-        "deepDive": "Reading the 1.6 list literally is the reliable move: efficiency, transformation, productivity, cost, performance SLAs. Anything else in a proposal is your own vocabulary, not the guide's."
-      },
-      "source": {
-        "document": "Claude-Certified-Architect-Profesional-Exam-Guide.pdf",
-        "section": "1.6 Align solutions to business value pillars (efficiency, transformation, productivity, cost, performance SLAs)"
-      },
-      "reviewStatus": "verified"
-    },
-    {
-      "id": "p1-6-003",
-      "domain": "d1",
-      "taskStatement": "1.6",
-      "scenario": null,
-      "concept": "cost-and-performance-sla-pillars",
-      "mode": "swipe",
-      "type": "single",
-      "prompt": "A proposal promises both lower spend and firmer response-time commitments. Which two named pillars does it speak to?",
-      "options": [
-        {
-          "id": "a",
-          "text": "cost and reliability",
-          "isCorrect": false
-        },
-        {
-          "id": "b",
-          "text": "cost and performance SLAs",
-          "isCorrect": true
-        },
-        {
-          "id": "c",
-          "text": "cost and transformation",
-          "isCorrect": false
-        }
-      ],
-      "correctCount": 1,
-      "optionCountRationale": "Three options: the named pair, the plausible-but-unlisted reading of response-time promises as reliability, and one further named pillar that plainly does not fit the promise. Two options would leave the reliability confusion untested, and a fourth would be filler.",
-      "distractorRationale": {
-        "a": "Probes reading performance commitments as reliability, a plausible concern that this objective does not name.",
-        "c": "Probes matching a named pillar on a loose word association; transformation is named, but it does not cover response-time commitments."
-      },
-      "explanation": {
-        "correct": "Lower spend maps to cost, and firmer response-time commitments map to performance SLAs. Both are in the objective's list.",
-        "whyWrong": {
-          "a": "Reliability is not one of the named pillars. The pillar that covers response-time commitments is performance SLAs.",
-          "c": "Transformation is a named pillar, but it describes what the solution changes about the business, not what it promises about response times."
-        },
-        "takeaway": "Spend and response-time commitments are cost and performance SLAs, the two pillars with money and commitment attached.",
-        "deepDive": "Performance SLAs is the only pillar in the list phrased as a service commitment, which makes it the natural home for any promise about response times."
       },
       "source": {
         "document": "Claude-Certified-Architect-Profesional-Exam-Guide.pdf",
@@ -794,11 +507,6 @@
           "isCorrect": false
         },
         {
-          "id": "c",
-          "text": "Weigh the trade-offs between Claude models and pick the one that fits the workload",
-          "isCorrect": true
-        },
-        {
           "id": "b",
           "text": "Default to whichever model other teams already use, to stay consistent",
           "isCorrect": false
@@ -807,6 +515,11 @@
           "id": "d",
           "text": "Choose the model with the largest context window, so nothing is ever truncated",
           "isCorrect": false
+        },
+        {
+          "id": "c",
+          "text": "Weigh the trade-offs between Claude models and pick the one that fits the workload",
+          "isCorrect": true
         }
       ],
       "correctCount": 1,
@@ -825,55 +538,7 @@
         },
         "analogy": "Model selection is load-bearing choice, not brand loyalty: you do not specify the same steel for a bookshelf and a bridge girder.",
         "takeaway": "Objective 2.1 is about weighing trade-offs per workload, not defaulting to one model for everything.",
-        "deepDive": "The CCAR-P blueprint lists this objective as a single bullet with no supporting detail: it names no models, no capability tiers, and no pricing. The defensible content here is the shape of the decision, not its outcome. Any item that asks which named Claude model to use is beyond what objective 2.1 supports."
-      },
-      "source": {
-        "document": "Claude-Certified-Architect-Profesional-Exam-Guide.pdf",
-        "section": "2.1 Select appropriate Claude models based on trade-offs"
-      },
-      "reviewStatus": "verified"
-    },
-    {
-      "id": "p2-2-002",
-      "domain": "d2",
-      "taskStatement": "2.1",
-      "scenario": "customer-support",
-      "concept": "model-selection-tradeoffs",
-      "mode": "swipe",
-      "type": "single",
-      "prompt": "A support team must classify every inbound ticket inside a fixed response-time budget, and the strongest Claude model costs far more per call. Which choice best reflects objective 2.1?",
-      "options": [
-        {
-          "id": "a",
-          "text": "Use the strongest model on every ticket, so classification accuracy is never traded away",
-          "isCorrect": false
-        },
-        {
-          "id": "c",
-          "text": "Skip model selection entirely and classify tickets with a fixed keyword script",
-          "isCorrect": false
-        },
-        {
-          "id": "b",
-          "text": "Weigh the per-call cost and latency of the stronger model against what routing needs",
-          "isCorrect": true
-        }
-      ],
-      "correctCount": 1,
-      "optionCountRationale": "Three options. The scenario already supplies the two poles (cost/latency pressure versus quality), so the only real decision is whether the architect weighs them, ignores them, or abandons model selection; a fourth option would repeat one of these.",
-      "distractorRationale": {
-        "a": "Probes the one-sided reading where a stated constraint is ignored in favour of maximum capability.",
-        "c": "Probes treating the objective as optional — the team would be avoiding the selection rather than making it."
-      },
-      "explanation": {
-        "correct": "2.1 asks for a selection made on the basis of trade-offs. Here the architect holds two competing pressures — per-call cost and response-time budget against the accuracy routing needs — and picks a model by comparing them for this workload.",
-        "whyWrong": {
-          "a": "This decides on one dimension and ignores the stated constraints entirely. It is not a trade-off; it is a fixed preference applied to a situation that did not ask for it.",
-          "c": "A keyword script removes the model from the decision, so no trade-off between Claude models is ever evaluated. The objective is about how to choose, not whether to choose."
-        },
-        "analogy": "Choosing a courier for same-city deliveries: the fastest, most capable courier is a poor fit when the constraint is cost per parcel.",
-        "takeaway": "A model choice is defensible only when the trade-off it makes is stated and tied to the workload.",
-        "deepDive": "Note what this item does not claim: the blueprint gives no guidance on which accuracy level a classification task needs, nor any cost figures. The question is scoped to the shape of the reasoning, which is what the objective states."
+        "deepDive": "Two trade-off questions are always live: is the most capable model actually needed for this workload, and what does the cheaper or faster alternative give up? Answering 2.1 means putting a specific workload behind both questions and naming which way the balance falls, rather than defaulting on habit."
       },
       "source": {
         "document": "Claude-Certified-Architect-Profesional-Exam-Guide.pdf",
@@ -892,6 +557,11 @@
       "prompt": "Objective 2.2 names three things to design together. Which set is it?",
       "options": [
         {
+          "id": "a",
+          "text": "System prompts, reusable templates, and guardrails",
+          "isCorrect": true
+        },
+        {
           "id": "b",
           "text": "Model choice, chunk size, and retrieval strategy",
           "isCorrect": false
@@ -900,11 +570,6 @@
           "id": "c",
           "text": "Retrieval sources, in-context examples, and step-by-step reasoning",
           "isCorrect": false
-        },
-        {
-          "id": "a",
-          "text": "System prompts, reusable templates, and guardrails",
-          "isCorrect": true
         }
       ],
       "correctCount": 1,
@@ -930,61 +595,6 @@
       "reviewStatus": "verified"
     },
     {
-      "id": "p2-2-005",
-      "domain": "d2",
-      "taskStatement": "2.2",
-      "scenario": "customer-support",
-      "concept": "guardrail-behaviour-design",
-      "mode": "swipe",
-      "type": "single",
-      "prompt": "A team's assistant keeps inventing refund policy that the policy documents never state. Objective 2.2 names three artefacts to design. Which one is the boundary on what the assistant may do?",
-      "options": [
-        {
-          "id": "a",
-          "text": "System prompts, the instructions that set out the assistant's role",
-          "isCorrect": false
-        },
-        {
-          "id": "c",
-          "text": "Templates, the reusable structure a system prompt is written on",
-          "isCorrect": false
-        },
-        {
-          "id": "b",
-          "text": "Guardrails, the limits the designed prompt layer places on behaviour",
-          "isCorrect": true
-        },
-        {
-          "id": "d",
-          "text": "Caching, which reuses prompt content across requests",
-          "isCorrect": false
-        }
-      ],
-      "correctCount": 1,
-      "optionCountRationale": "Four options: the three artefacts objective 2.2 names, tested on what each is for rather than on enumeration, plus one strategy from objective 2.5 that a candidate reaches for when the question is about a production failure. Four is right because the neighbouring artefact names are the real confusion here — all three are named by the objective and only one of them bounds behaviour.",
-      "distractorRationale": {
-        "a": "Probes the misconception that the system prompt is where limits are set. The objective names system prompts and guardrails as separate artefacts, so the boundary is not what the role description carries.",
-        "c": "Probes treating the template as the control. It is the reusable structure, named by the objective as something to design, but not the limit on what the assistant may do.",
-        "d": "Probes reaching for objective 2.5's reuse strategy when the problem is behavioural rather than about how often prompt content is resent."
-      },
-      "explanation": {
-        "correct": "Objective 2.2 names system prompts, templates and guardrails. Guardrails are the one of the three that places a limit on behaviour, which is what the observed failure calls for: the model is answering beyond what its source material supports.",
-        "whyWrong": {
-          "a": "A system prompt sets out the role, but the objective names guardrails as a separate artefact, so the boundary is not part of what the role description carries.",
-          "c": "A template is the reusable form the prompt is written on. Making the template reusable does not change what the assistant is permitted to say.",
-          "d": "Caching is objective 2.5's strategy for reusing prompt content. Reusing the instructions more cheaply does nothing about the boundary they failed to set."
-        },
-        "analogy": "The system prompt is the job description and the template is the form it is written on; guardrails are the limits on what the role is allowed to do.",
-        "takeaway": "Objective 2.2 names three artefacts; guardrails are the one that bounds what the assistant may do.",
-        "deepDive": "The objective names guardrails but does not enumerate types, so this item deliberately stops at which artefact is which and claims nothing about the shape of a specific guardrail. Note also what it does not claim: that a guardrail belongs in the template rather than the system prompt, which the objective does not decide."
-      },
-      "source": {
-        "document": "Claude-Certified-Architect-Profesional-Exam-Guide.pdf",
-        "section": "2.2 Design system prompts, templates, and guardrails"
-      },
-      "reviewStatus": "verified"
-    },
-    {
       "id": "p2-2-006",
       "domain": "d2",
       "taskStatement": "2.3",
@@ -1000,27 +610,27 @@
           "isCorrect": false
         },
         {
-          "id": "c",
-          "text": "Zero-shot, few-shot, and chain-of-thought prompting",
-          "isCorrect": true
-        },
-        {
           "id": "b",
           "text": "Reusable templates, shared context files, and versioned prompts",
           "isCorrect": false
+        },
+        {
+          "id": "c",
+          "text": "Zero-shot, few-shot, and chain-of-thought prompting",
+          "isCorrect": true
         }
       ],
       "correctCount": 1,
       "optionCountRationale": "Three options, each a plausible technique list drawn from elsewhere in the guide. The objective's own parenthetical names exactly three items, so there is no honest basis for a fourth.",
       "distractorRationale": {
         "a": "Probes importing techniques the objective does not list: only few-shot appears in 2.3, so retrieval and fine-tuning are not part of it.",
-        "b": "Probes the reuse-versus-technique boundary inside Domain 2: packaging prompt content so it can be reused is not the same as shaping a single request."
+        "b": "Probes the reuse-versus-technique boundary inside Domain 2: packaging prompt content so it can be reused is not one of the three techniques 2.3 names."
       },
       "explanation": {
         "correct": "The bullet reads 'Apply prompt engineering techniques (zero-shot, few-shot, chain-of-thought)'. All three named techniques are ways of shaping a single request.",
         "whyWrong": {
           "a": "Only few-shot appears alongside them. Objective 2.3 names zero-shot, few-shot and chain-of-thought, and nothing else.",
-          "b": "That list belongs to the reuse objective (2.5). Carrying prompt content in reusable templates, shared context files, or versioned prompts changes how a prompt is packaged and reused, not how one request is phrased."
+          "b": "None of these three is named in 2.5, which lists caching, modular prompts and Skills. Reusable templates belong to the artefacts 2.2 names, not to 2.3's list of techniques."
         },
         "analogy": "2.3 is about how you phrase the request; 2.5 is about how you ship and reuse the prompt around it.",
         "takeaway": "2.3 names three techniques — zero-shot, few-shot, chain-of-thought — and nothing else.",
@@ -1033,101 +643,52 @@
       "reviewStatus": "verified"
     },
     {
-      "id": "p2-2-007",
-      "domain": "d2",
-      "taskStatement": "2.3",
-      "scenario": null,
-      "concept": "zero-shot-vs-few-shot",
-      "mode": "swipe",
-      "type": "single",
-      "prompt": "Which technique gets a model to work from instructions alone, with no examples supplied?",
-      "options": [
-        {
-          "id": "a",
-          "text": "Zero-shot prompting, where the prompt contains no worked examples",
-          "isCorrect": true
-        },
-        {
-          "id": "b",
-          "text": "Few-shot prompting, where examples are supplied in the prompt",
-          "isCorrect": false
-        },
-        {
-          "id": "c",
-          "text": "Chain-of-thought prompting, where the model reasons step by step",
-          "isCorrect": false
-        }
-      ],
-      "correctCount": 1,
-      "optionCountRationale": "Three options because objective 2.3 names exactly three techniques, and this is a straight distinction between them — each distractor is a different technique from the same bullet.",
-      "distractorRationale": {
-        "b": "Probes the core zero-shot/few-shot boundary, which is the easiest pair in this objective to confuse.",
-        "c": "Probes treating step-by-step reasoning as a form of demonstration, when it adds no examples."
-      },
-      "explanation": {
-        "correct": "Zero-shot means the prompt carries no demonstrations of the task: the instruction alone has to carry it. That is what separates it from the other two techniques named in 2.3.",
-        "whyWrong": {
-          "b": "Few-shot is defined by the presence of examples, so it is the opposite of working from instructions alone.",
-          "c": "Chain-of-thought changes how the model reasons through the answer; it does not remove or replace examples, and the question turns on the absence of examples."
-        },
-        "analogy": "Zero-shot is briefing someone from the specification; few-shot is briefing them while pointing at two finished examples.",
-        "takeaway": "Zero-shot versus few-shot turns on one thing only: whether examples are in the prompt.",
-        "deepDive": "The blueprint names these techniques without defining them, so the descriptions here are the standard senses of the named terms. Treat the names as exam-relevant and the definitions as background knowledge."
-      },
-      "source": {
-        "document": "Claude-Certified-Architect-Profesional-Exam-Guide.pdf",
-        "section": "2.3 Apply prompt engineering techniques (zero-shot, few-shot, chain-of-thought)"
-      },
-      "reviewStatus": "verified"
-    },
-    {
       "id": "p2-2-008",
       "domain": "d2",
       "taskStatement": "2.3",
       "scenario": "data-extraction",
-      "concept": "chain-of-thought-definition",
+      "concept": "prompt-technique-vs-reuse-strategy",
       "mode": "swipe",
       "type": "single",
-      "prompt": "What distinguishes chain-of-thought prompting from zero-shot prompting under objective 2.3?",
+      "prompt": "A reviewer lists five Domain 2 terms: zero-shot, few-shot, chain-of-thought, caching, and modular prompts. Which split matches the guide?",
       "options": [
         {
           "id": "a",
-          "text": "The prompt supplies worked examples that demonstrate the expected task",
-          "isCorrect": false
-        },
-        {
-          "id": "c",
-          "text": "The system retrieves reference documents before the model responds",
-          "isCorrect": false
-        },
-        {
-          "id": "d",
-          "text": "The model runs the same prompt several times and the outputs are reconciled",
+          "text": "All five are prompt engineering techniques named under 2.3",
           "isCorrect": false
         },
         {
           "id": "b",
-          "text": "The model works through the problem in steps before committing to an answer",
+          "text": "Zero-shot, few-shot and chain-of-thought are 2.5; caching and modular prompts are 2.3",
+          "isCorrect": false
+        },
+        {
+          "id": "d",
+          "text": "Zero-shot and few-shot are 2.2; the other three are 2.3",
+          "isCorrect": false
+        },
+        {
+          "id": "c",
+          "text": "Zero-shot, few-shot and chain-of-thought are 2.3; caching and modular prompts are 2.5",
           "isCorrect": true
         }
       ],
       "correctCount": 1,
-      "optionCountRationale": "Four options because three different techniques are easy to substitute for chain-of-thought: few-shot (supplies examples), retrieval (supplies documents), and self-consistency (repeats runs). Each names a real prompting pattern, so none is filler.",
+      "optionCountRationale": "Four options covering the three errors worth making on a list-splitting question: merging the two lists, swapping them, and filing the techniques under the neighbouring artefact objective. Each distractor is a distinct misfiling, so a three-option version would have to merge two of them and lose which one the learner had in mind.",
       "distractorRationale": {
-        "a": "Probes confusing chain-of-thought with few-shot, the most common mix-up among the named techniques.",
-        "c": "Probes treating retrieval as a prompting technique when it is a pipeline stage.",
-        "d": "Probes confusing step-by-step reasoning within one run with aggregating several independent runs."
+        "a": "Probes collapsing every Domain 2 term into one bucket, which is what happens when the three lists are learned as one vocabulary.",
+        "b": "Probes the outright swap, the error made when caching and modular prompts are remembered as techniques rather than reuse strategies.",
+        "d": "Probes filing the techniques under the prompt-artefact objective because 2.2 and 2.3 share the word prompt."
       },
       "explanation": {
-        "correct": "Chain-of-thought makes the reasoning explicit: the model works the problem through in steps before committing. Zero-shot only says 'no examples' — it says nothing about how the answer is reached, so reasoning structure is the real difference.",
+        "correct": "The five terms divide cleanly between two adjacent objectives: 2.3 names the prompting techniques and 2.5 names the prompt reuse strategies. Merging them into one list, or swapping the two halves, misstates both objectives.",
         "whyWrong": {
-          "a": "That is few-shot. It changes what the prompt contains, not how the model reasons.",
-          "c": "Retrieval is how supporting material is supplied. That is a pipeline decision, and it is orthogonal to whether reasoning is stepwise.",
-          "d": "Running the prompt repeatedly and reconciling outputs is a separate pattern about variance across runs, not about reasoning inside one run."
+          "a": "Objective 2.3 names three techniques and nothing else. Caching and modular prompts are named under 2.5, so merging the lists misstates both objectives.",
+          "b": "This reverses the two. The techniques that shape a single request are 2.3's; the strategies that reuse prompt content across requests are 2.5's.",
+          "d": "Objective 2.2 names the prompt artefacts - system prompts, templates, guardrails - and none of the five terms appears there, so the split is wrong as well as incomplete."
         },
-        "analogy": "Few-shot hands over two solved exam papers; chain-of-thought asks the candidate to show the working.",
-        "takeaway": "Zero-shot and few-shot differ by what the prompt contains; chain-of-thought differs by how the model reasons.",
-        "deepDive": "The blueprint names the technique but does not define it, so the descriptions are the standard senses of the named terms. The exam-relevant skill is keeping the three techniques distinct from each other and from pipeline concerns like retrieval."
+        "takeaway": "Adjacent objectives split by object: the list that shapes one request is 2.3's, and the list that reuses prompt content across requests is 2.5's.",
+        "deepDive": "The split that does the work is object-based: 2.3 is about shaping a request, 2.5 is about reusing prompt content. Because neither bullet explains itself, the lists are the reliable thing to learn."
       },
       "source": {
         "document": "Claude-Certified-Architect-Profesional-Exam-Guide.pdf",
@@ -1146,14 +707,14 @@
       "prompt": "A team must decide what to keep in each request's context window. Which objective owns that decision?",
       "options": [
         {
-          "id": "c",
-          "text": "2.4 — Optimize context windows and manage token usage",
-          "isCorrect": true
-        },
-        {
           "id": "a",
           "text": "2.5 — Implement prompt reuse strategies (caching, modular prompts, Skills)",
           "isCorrect": false
+        },
+        {
+          "id": "c",
+          "text": "2.4 — Optimize context windows and manage token usage",
+          "isCorrect": true
         },
         {
           "id": "b",
@@ -1170,53 +731,12 @@
       "explanation": {
         "correct": "2.4 is literally 'Optimize context windows and manage token usage'. Choosing what goes into the window and how many tokens that costs is the decision this objective owns.",
         "whyWrong": {
-          "a": "2.5 is about reuse: caching, modular prompts, and Skills are the three strategies it names. Those change how often the same prompt content is reused, not what a given request carries.",
+          "a": "2.5 is about reuse: its strategies change how often the same prompt content is reused, not what a given request carries.",
           "b": "2.1 decides which model to use. That choice may interact with context cost, but it is a different decision from what belongs in the window."
         },
         "analogy": "2.4 decides what to pack for the trip; 2.5 decides what you can leave at home because it is already on the shelf.",
         "takeaway": "Context contents and token volume are 2.4; prompt reuse across requests is 2.5.",
         "deepDive": "Objectives 2.4 and 2.5 are the pair most often confused in this domain because both reduce token cost. The test that separates them: are you changing one request's contents (2.4), or changing how the same prompt content is reused across requests (2.5)?"
-      },
-      "source": {
-        "document": "Claude-Certified-Architect-Profesional-Exam-Guide.pdf",
-        "section": "2.4 Optimize context windows and manage token usage"
-      },
-      "reviewStatus": "verified"
-    },
-    {
-      "id": "p2-2-010",
-      "domain": "d2",
-      "taskStatement": "2.4",
-      "scenario": null,
-      "concept": "token-budget-sizing",
-      "mode": "swipe",
-      "type": "single",
-      "prompt": "Under objective 2.4, how is token usage handled?",
-      "options": [
-        {
-          "id": "a",
-          "text": "As part of optimizing the context window, rather than as a separate concern",
-          "isCorrect": true
-        },
-        {
-          "id": "b",
-          "text": "By filling each request to the largest figure the chosen model's window allows",
-          "isCorrect": false
-        }
-      ],
-      "correctCount": 1,
-      "optionCountRationale": "Two options is the honest count: the objective names two activities — optimize the context window and manage token usage — joined by 'and' in a single clause, so the keyed option reads them as one piece of work. The one wrong option is the misreading that turns the window's capacity limit into a budget. A third option would require a sizing rule the guide never states.",
-      "distractorRationale": {
-        "b": "Probes treating the maximum window as a target, which converts a capacity limit into a budget."
-      },
-      "explanation": {
-        "correct": "The objective reads 'Optimize context windows and manage token usage'. Token usage is managed as part of optimizing the context window — the two are one design activity, not a separate budgeting step.",
-        "whyWrong": {
-          "b": "The context window is a capacity limit, not a target. Filling every request to that edge is not optimizing the window; it is declining to optimize it."
-        },
-        "analogy": "A hold baggage limit is how much you may bring, not how much you should bring.",
-        "takeaway": "Objective 2.4 joins two activities: optimize the context window and manage the token usage inside it.",
-        "deepDive": "Note the limits of what can be asked here. The objective supplies no budget, threshold, ratio, or sizing method, so the exam-relevant content is the pairing — token usage is managed inside the act of optimizing the window — rather than any particular figure."
       },
       "source": {
         "document": "Claude-Certified-Architect-Profesional-Exam-Guide.pdf",
@@ -1235,11 +755,6 @@
       "prompt": "Which three strategies does objective 2.5 name for reusing prompt content?",
       "options": [
         {
-          "id": "b",
-          "text": "Caching, modular prompts, and Skills",
-          "isCorrect": true
-        },
-        {
           "id": "a",
           "text": "Chunking, indexing, and retrieval tuning",
           "isCorrect": false
@@ -1248,6 +763,11 @@
           "id": "c",
           "text": "Few-shot, zero-shot, and chain-of-thought prompting",
           "isCorrect": false
+        },
+        {
+          "id": "b",
+          "text": "Caching, modular prompts, and Skills",
+          "isCorrect": true
         }
       ],
       "correctCount": 1,
@@ -1264,7 +784,7 @@
         },
         "analogy": "Reuse strategies are stationery and templates on a shared desk; prompting techniques are what you write on the page in front of you.",
         "takeaway": "2.5's three named reuse strategies are caching, modular prompts, and Skills.",
-        "deepDive": "Note what the guide does not say: it does not define Skills, describe cache behaviour, or describe a modular layout. It names the strategies as things candidates are expected to implement, so recognising the list is the exam-relevant part."
+        "deepDive": "The objective's verb is implement, and all three named strategies act on prompt content that would otherwise be rebuilt on every request. That shared object is what separates them from the techniques in 2.3, which change the content of a single request instead."
       },
       "source": {
         "document": "Claude-Certified-Architect-Profesional-Exam-Guide.pdf",
@@ -1283,11 +803,6 @@
       "prompt": "An extraction service resends the same 6,000-token instruction block on every request, followed by a short varying input. Which change addresses the repeated content itself?",
       "options": [
         {
-          "id": "a",
-          "text": "Turn on prompt caching for the repeated block so its content is reused across requests",
-          "isCorrect": true
-        },
-        {
           "id": "b",
           "text": "Trim the instruction block down to its opening 500 tokens on every request",
           "isCorrect": false
@@ -1296,6 +811,11 @@
           "id": "d",
           "text": "Switch to the smallest available model, whatever the extraction task needs",
           "isCorrect": false
+        },
+        {
+          "id": "a",
+          "text": "Turn on prompt caching for the repeated block so its content is reused across requests",
+          "isCorrect": true
         },
         {
           "id": "c",
@@ -1311,15 +831,15 @@
         "d": "Probes swapping a prompt problem for a model change, which risks quality and still resends the same tokens."
       },
       "explanation": {
-        "correct": "Caching is the reuse strategy objective 2.5 names for prompt content that would otherwise be rebuilt or resent on every request, and the repeated block in this scenario is exactly that content. How a cache achieves that reuse, and what it does to cost and latency, is not something the objective defines.",
+        "correct": "Caching is the reuse strategy objective 2.5 names for prompt content that would otherwise be rebuilt or resent on every request, and the repeated block in this scenario is exactly that content.",
         "whyWrong": {
           "b": "Truncating throws away instructions the extraction depends on. The saving comes from the system no longer doing the work properly.",
           "c": "Re-framing the block as an example changes what the model treats as instruction versus data; it does not change the fact that the same content is sent on every request.",
           "d": "The problem is repeated static content, not model capability. A smaller model still receives the same repeated block, and quality may drop."
         },
         "analogy": "Printing the same 6,000-token manual on every job order: the fix is to stop reprinting it, not to shorten the manual.",
-        "takeaway": "2.5 names caching as the strategy for reusing prompt content; the objective does not define how a cache does it.",
-        "deepDive": "Objective 2.5 is one line, and it names caching, modular prompts and Skills without defining any of them. The mechanics behind the keyed option — placing stable content first so a repeated prefix can be reused, and the effect on per-request cost and time-to-first-token — are standard prompt-caching practice, included here to keep the scenario realistic rather than quoted from the guide. Study the strategy name from this objective and look the mechanics up elsewhere."
+        "takeaway": "2.5 names caching as the strategy for reusing prompt content across requests, and the repeated block is the content it is for.",
+        "deepDive": "Caching is the strategy that fits a scenario built around the same block of prompt content being resent unchanged every time: the repetition is the thing being reused, so the fix belongs to the reuse objective rather than to a rewrite of the instructions."
       },
       "source": {
         "document": "Claude-Certified-Architect-Profesional-Exam-Guide.pdf",
@@ -1363,12 +883,12 @@
       "explanation": {
         "correct": "Modular prompts are the structural strategy: shared sections become separate modules that are composed into whichever prompts need them, so the shared content is maintained in one place.",
         "whyWrong": {
-          "b": "The objective names caching and modular prompts as two separate strategies and defines neither. Keeping shared sections in one maintained place and composing them into many prompts is what 'modular' describes; caching is the strategy for reusing content that would otherwise be resent.",
+          "b": "Caching and modular prompts are two separate strategies named side by side under the same objective. Keeping shared sections in one maintained place and composing them into many prompts is what 'modular' describes; caching is the strategy for reusing content that would otherwise be resent.",
           "c": "Zero-shot is a technique from 2.3 about including no examples. It says nothing about how a prompt is structured or reused."
         },
         "analogy": "Modular prompts are shared header and footer components assembled per document; caching is keeping the same already-printed cover on the shelf.",
         "takeaway": "Modular prompts are named for composing shared sections into many prompts; caching is a separate strategy the objective does not define.",
-        "deepDive": "The objective lists three strategies in one breath with no definitions, so the exam-relevant skill is telling them apart from their names. Anything more specific about module boundaries or cache semantics is outside what the blueprint states."
+        "deepDive": "Modular prompts and caching are named side by side under 2.5, so telling them apart is a matter of what each name describes: one keeps shared sections in a maintained place for composition into many prompts, the other reuses content that would otherwise be sent again."
       },
       "source": {
         "document": "Claude-Certified-Architect-Profesional-Exam-Guide.pdf",
@@ -1388,14 +908,14 @@
       "prompt": "A CI/CD agent can read build logs, rerun a failed job, deploy to production, and rotate signing keys. The team only ever needs to read logs and rerun jobs. Which finding does objective 3.1 ask you to record?",
       "options": [
         {
-          "id": "b",
-          "text": "The agent's tool calls are not traced in enough detail to explain a bad run",
-          "isCorrect": false
-        },
-        {
           "id": "a",
           "text": "The agent holds deploy and key-rotation capability that its role does not require",
           "isCorrect": true
+        },
+        {
+          "id": "b",
+          "text": "The agent's tool calls are not traced in enough detail to explain a bad run",
+          "isCorrect": false
         },
         {
           "id": "c",
@@ -1424,7 +944,7 @@
         },
         "analogy": "An over-broad keyring is recognised by comparing every key on it against the doors the job actually requires — that comparison is the evaluation, not a claim about which lock to change.",
         "takeaway": "3.1 asks you to evaluate a tool or agent configuration against the role it serves.",
-        "deepDive": "The objective line for 3.1 names capability bloat without defining it. Reading 'bloat' as capability the role does not require - the role-fit framing used here - is an inference from the words 'tool/agent configuration' and 'capability', not a definition the guide supplies. Expect items that reward judging scope against the role rather than reciting a rule."
+        "deepDive": "The evaluation is a comparison, not a verdict: list what the configuration carries, list what the role is assigned, and the gap between the two lists is the finding."
       },
       "source": {
         "document": "Claude-Certified-Architect-Profesional-Exam-Guide.pdf",
@@ -1444,6 +964,11 @@
       "prompt": "Which question belongs to objective 3.1 rather than to a neighbouring Domain 3 objective?",
       "options": [
         {
+          "id": "a",
+          "text": "Which tools belong in this agent's configuration, and which does the role need?",
+          "isCorrect": true
+        },
+        {
           "id": "b",
           "text": "Does this integration authenticate its callers and restrict what they may do?",
           "isCorrect": false
@@ -1452,11 +977,6 @@
           "id": "c",
           "text": "Should this agent receive its context all at once or discover it progressively?",
           "isCorrect": false
-        },
-        {
-          "id": "a",
-          "text": "Which tools belong in this agent's configuration, and which does the role need?",
-          "isCorrect": true
         }
       ],
       "correctCount": 1,
@@ -1473,59 +993,11 @@
         },
         "analogy": "3.1 audits what is in the toolbox; 3.2 audits who is allowed to open it; 3.8 decides whether the manual is handed over whole or fetched by chapter.",
         "takeaway": "3.1 is about what the tool or agent configuration contains, not about access control or context supply.",
-        "deepDive": "The objective names capability bloat without defining it, which is exactly why attribution is the defensible way to test it: the objective's own subject matter — tool and agent configuration — is quotable, while any definition of bloat would not be."
+        "deepDive": "The objective's subject is the configuration itself: what the tool or agent is given access to. A review starts by listing what the configuration carries and comparing that list against the work the role is actually assigned."
       },
       "source": {
         "document": "Claude-Certified-Architect-Profesional-Exam-Guide.pdf",
         "section": "3.1 Evaluate tool/agent configuration for capability bloat"
-      },
-      "reviewStatus": "verified"
-    },
-    {
-      "id": "p3-3-003",
-      "domain": "d3",
-      "taskStatement": "3.2",
-      "scenario": "customer-support",
-      "concept": "authentication-vs-authorization",
-      "mode": "swipe",
-      "type": "single",
-      "prompt": "A support agent presents valid service credentials, and the gateway confirms them. The agent can then act on any customer's account. Which requirement is broken?",
-      "options": [
-        {
-          "id": "a",
-          "text": "Authentication — the agent's identity could not be established",
-          "isCorrect": false
-        },
-        {
-          "id": "b",
-          "text": "Authorization — a verified agent is permitted well beyond its role",
-          "isCorrect": true
-        },
-        {
-          "id": "c",
-          "text": "Neither — once credentials verify, every action is permitted by definition",
-          "isCorrect": false
-        }
-      ],
-      "correctCount": 1,
-      "optionCountRationale": "Three options: the classic authentication/authorization conflation, the correct half, and the 'verified implies authorized' fallacy. Three is right because the objective names both requirements and they are the whole question.",
-      "distractorRationale": {
-        "a": "Probes collapsing the two halves of the objective into one and blaming identity verification when verification succeeded.",
-        "c": "Probes treating a successful handshake as a grant of every permission, which is the assumption that lets over-broad integrations ship."
-      },
-      "explanation": {
-        "correct": "Objective 3.2 asks you to analyse both authentication and authorization requirements and find the gap. Here identity was established successfully, so the failure is in scope: a confirmed agent may act on accounts it should not touch.",
-        "whyWrong": {
-          "a": "The gateway confirmed the credentials, so authentication worked. Blaming identity verification misreads which half of the requirement failed.",
-          "c": "Successful authentication proves who is calling. It grants nothing on its own; permissions are a separate decision, and conflating them is exactly the gap this objective asks you to find."
-        },
-        "analogy": "Valid credentials get you through the door. They do not decide which rooms you are allowed into.",
-        "takeaway": "Authentication says who you are; authorization says what you may do. Finding the gap means checking both.",
-        "deepDive": "The objective names the two requirements but the guide does not define them, so the descriptions here are the standard senses of the terms. The exam-relevant skill is separating the two when auditing an integration, which is what this scenario models."
-      },
-      "source": {
-        "document": "Claude-Certified-Architect-Profesional-Exam-Guide.pdf",
-        "section": "3.2 Analyze authentication and authorization requirements to identify security gaps"
       },
       "reviewStatus": "verified"
     },
@@ -1537,13 +1009,8 @@
       "concept": "security-gap-analysis",
       "mode": "swipe",
       "type": "single",
-      "prompt": "An internal refund endpoint is reachable from an entire subnet and performs no authentication or authorization of its own. What should the architect flag under objective 3.2?",
+      "prompt": "An internal refund endpoint performs no authentication or authorization of its own. What should the architect flag under objective 3.2?",
       "options": [
-        {
-          "id": "c",
-          "text": "Nothing at the endpoint restricts callers, so reaching it is treated as trust",
-          "isCorrect": true
-        },
         {
           "id": "a",
           "text": "The endpoint declares no error schema, so clients cannot parse failures",
@@ -1553,6 +1020,11 @@
           "id": "b",
           "text": "The endpoint has no versioned contract, so future changes will break callers",
           "isCorrect": false
+        },
+        {
+          "id": "c",
+          "text": "The endpoint implements neither of the two requirements the objective names",
+          "isCorrect": true
         }
       ],
       "correctCount": 1,
@@ -1562,14 +1034,14 @@
         "b": "Probes confusing interface stability with access control, which are frequently discussed in the same design reviews."
       },
       "explanation": {
-        "correct": "Network placement is not authorization. If the endpoint performs no identity or permission check of its own, then anything that reaches it — including an agent running with broad privileges — can act as a trusted caller. That absence is the gap 3.2 asks you to identify.",
+        "correct": "The endpoint performs no authentication or authorization of its own, which is exactly the kind of gap 3.2 asks you to identify. The objective asks for the two requirements to be analysed, so the finding here is the check that is missing, not a proposed fix.",
         "whyWrong": {
-          "a": "An error schema affects how clients handle failures. It does not change who can call the endpoint, so it is an interface gap rather than a security gap under this objective.",
-          "b": "Contract versioning is about compatibility over time. It has no bearing on whether the endpoint is checking that callers are allowed to invoke it."
+          "a": "An error schema affects how clients handle failures. It concerns the interface a caller sees, not either of the two requirements objective 3.2 names.",
+          "b": "Contract versioning is about compatibility as the interface changes over time. Neither of the two requirements objective 3.2 names is about how callers adapt to a new release."
         },
-        "analogy": "A locked door inside a locked compound is still secure because of the compound. Remove the compound and the inner door is just a door.",
-        "takeaway": "Reachability is not authorization: an endpoint that trusts its network boundary has an authorization gap.",
-        "deepDive": "Objective 3.2 is about analysing requirements to find gaps, so the exam skill is naming which control is missing, not proposing a fix. The scenario detail about subnet reachability is illustrative setup rather than a claim about any product."
+        "analogy": "The objective names two requirements. The finding here is that neither has been implemented at all, which is a different conversation from how one of them is handled.",
+        "takeaway": "An endpoint that performs no authentication or authorization of its own is the gap objective 3.2 asks you to identify.",
+        "deepDive": "Objective 3.2 is about analysing requirements to find gaps, so the exam skill is naming which of the two named requirements is unsatisfied, not proposing a fix."
       },
       "source": {
         "document": "Claude-Certified-Architect-Profesional-Exam-Guide.pdf",
@@ -1578,50 +1050,49 @@
       "reviewStatus": "verified"
     },
     {
-      "id": "p3-3-005",
+      "id": "p3-3-016",
       "domain": "d3",
-      "taskStatement": "3.3",
+      "taskStatement": "3.2",
       "scenario": null,
-      "concept": "accuracy-latency-justification",
+      "concept": "two-security-requirements",
       "mode": "swipe",
       "type": "single",
-      "prompt": "A team has picked a configuration for an agentic workflow. What does objective 3.3 expect of that choice?",
+      "prompt": "Objective 3.2 names two requirements to analyse when looking for security gaps. A team argues that checking a password at sign-in settles the whole objective, so no further review is needed. Which reply matches the objective?",
       "options": [
         {
-          "id": "b",
-          "text": "That the lowest-latency configuration was taken, since accuracy is secondary here",
+          "id": "a",
+          "text": "Correct; authentication and authorization are the same requirement under two names",
           "isCorrect": false
         },
         {
           "id": "c",
-          "text": "That the highest-accuracy configuration was taken, since latency is secondary here",
+          "text": "Correct; the objective offers authentication or authorization, so meeting either one is enough",
           "isCorrect": false
         },
         {
-          "id": "a",
-          "text": "That the accuracy-latency trade-off was evaluated and the decision justified",
+          "id": "b",
+          "text": "No; the objective names two requirements, and satisfying one does not satisfy the other",
           "isCorrect": true
         }
       ],
       "correctCount": 1,
-      "optionCountRationale": "Three options in one shape, so every option answers the stem: evaluate and justify, or collapse the trade-off onto latency, or collapse it onto accuracy. The objective names exactly two things — the trade-off and the justification — so the two collapses are the only honest distractors.",
+      "optionCountRationale": "Three options: the answer that keeps the two requirements separate, plus the two distinct ways of collapsing them - reading them as one requirement under two names, and reading the objective's 'and' as a choice between alternatives. Both collapses are separable misreadings of the same clause, and a fourth would have to restate one of them.",
       "distractorRationale": {
-        "b": "Probes collapsing the trade-off into one fixed priority, which is what 'optimise for latency' always means in practice.",
-        "c": "Probes the opposite collapse: accuracy maximised with latency treated as someone else's problem."
+        "a": "Probes the belief that a pair of closely related terms names a single check. The objective lists both, so the analysis has two subjects.",
+        "c": "Probes reading the objective's conjunction as a choice between alternatives, which would make the second requirement optional."
       },
       "explanation": {
-        "correct": "The objective is 'Evaluate accuracy-latency trade-offs and justify configuration decisions'. The verb pair matters: you evaluate a trade-off and you justify the decision. A choice without a stated justification does not satisfy it.",
+        "correct": "Objective 3.2 is 'Analyze authentication and authorization requirements to identify security gaps'. It names two requirements, joined by 'and'. Checking a password at sign-in discharges one of them and leaves the other unanalysed, so the gap objective 3.2 asks about is still open.",
         "whyWrong": {
-          "b": "Taking the lowest-latency configuration settles one side of the pair and states nothing about the accuracy it costs. That discards half of the trade-off the objective names.",
-          "c": "Taking the highest-accuracy configuration is the same error in the opposite direction: latency is settled by default and never weighed."
+          "a": "Two separately named requirements are not one requirement written twice. The objective lists both, and the analysis has to cover both.",
+          "c": "The objective names both as requirements to analyse, not as alternatives between which a team picks. Satisfying one does not remove the other from the review."
         },
-        "analogy": "'We chose the cheaper option' is a preference. 'We chose the cheaper option because accuracy held at the level this task needs' is a justified trade-off.",
-        "takeaway": "Objective 3.3 asks for both halves: evaluate the accuracy-latency trade-off and justify the decision it leads to.",
-        "deepDive": "The verbs in this objective carry the examinable content. Because the guide does not state any particular configuration or threshold, the safe reading is that the reasoning structure, not a specific setting, is what is being assessed."
+        "takeaway": "3.2 names two requirements, authentication and authorization, and satisfying one is not the same as satisfying the other.",
+        "deepDive": "Reading the objective's own grammar is the whole test here: it says 'authentication and authorization requirements', a conjunction, so the architect's analysis has two subjects."
       },
       "source": {
         "document": "Claude-Certified-Architect-Profesional-Exam-Guide.pdf",
-        "section": "3.3 Evaluate accuracy-latency trade-offs and justify configuration decisions"
+        "section": "3.2 Analyze authentication and authorization requirements to identify security gaps"
       },
       "reviewStatus": "verified"
     },
@@ -1636,11 +1107,6 @@
       "prompt": "A research pipeline can be built one way — slow with high accuracy — or another way — fast with lower accuracy. What makes the second option defensible under 3.3?",
       "options": [
         {
-          "id": "b",
-          "text": "The accuracy it gives up is acceptable for the queries this pipeline serves",
-          "isCorrect": true
-        },
-        {
           "id": "a",
           "text": "It is faster, so user-visible latency improves in every case",
           "isCorrect": false
@@ -1654,6 +1120,11 @@
           "id": "d",
           "text": "It relies on defaults, so no accuracy-or-latency judgement is needed",
           "isCorrect": false
+        },
+        {
+          "id": "b",
+          "text": "The accuracy it gives up is acceptable for the queries this pipeline serves",
+          "isCorrect": true
         }
       ],
       "correctCount": 1,
@@ -1672,7 +1143,7 @@
         },
         "analogy": "Skipping a summary for full text is defensible when readers only need headlines, and indefensible when they need the detail — the justification is about the reader's need.",
         "takeaway": "A configuration choice is defensible when you state what accuracy you gave up and why that is acceptable here.",
-        "deepDive": "Note that the guide does not supply accuracy or latency figures for any architecture. Candidates should expect items that reward reasoning about the trade-off rather than recall of specific numbers."
+        "deepDive": "Neither side of this trade-off has a fixed number attached to it. What makes the second option defensible is the judgement that the accuracy it gives up is acceptable for this workload, and that judgement is the architect's to make."
       },
       "source": {
         "document": "Claude-Certified-Architect-Profesional-Exam-Guide.pdf",
@@ -1718,7 +1189,7 @@
           "a": "Removing tools from an agent's configuration is capability-bloat evaluation, which is 3.1.",
           "b": "Matching retrieval to data shape and query pattern is 3.6. It is about what the system retrieves, not what you can see."
         },
-        "analogy": "3.1 shrinks the blast radius; 3.4 improves your ability to see it. Both are sensible, they answer different questions.",
+        "analogy": "3.1 asks what is in the agent's toolkit; 3.4 asks what a reviewer can see of what it did.",
         "takeaway": "3.4 is about what becomes hard to observe as volume grows, and what to monitor because of it.",
         "deepDive": "Domain 3's objectives partition naturally into capability (3.1), security (3.2), trade-offs (3.3), visibility (3.4), retrieval (3.5, 3.6), connection mechanisms (3.7), and context strategy (3.8). Attributing a question to the right bucket is a reliable first-order study skill."
       },
@@ -1739,11 +1210,6 @@
       "prompt": "Which pair of decisions does objective 3.5 put in the architect's hands?",
       "options": [
         {
-          "id": "b",
-          "text": "How documents are chunked, and how they are indexed",
-          "isCorrect": true
-        },
-        {
           "id": "a",
           "text": "Which Claude model to use, and what it costs per call",
           "isCorrect": false
@@ -1752,6 +1218,11 @@
           "id": "c",
           "text": "Which prompting technique to apply, and how many examples to include",
           "isCorrect": false
+        },
+        {
+          "id": "b",
+          "text": "How documents are chunked, and how they are indexed",
+          "isCorrect": true
         }
       ],
       "correctCount": 1,
@@ -1764,7 +1235,7 @@
         "correct": "Objective 3.5 is 'Design a RAG pipeline with appropriate chunking and indexing strategies'. The pipeline is built by deciding how source documents are divided and how those pieces are made findable.",
         "whyWrong": {
           "a": "Model choice and its cost sit under 2.1. They matter for a RAG system, but they are not the chunking-and-indexing decisions this objective names.",
-          "c": "Prompting technique is 2.3. RAG is a pipeline stage with its own structural decisions, which is why the blueprint gives it its own objective."
+          "c": "Prompting technique is 2.3. RAG is a pipeline stage with its own structural decisions, which is why the guide gives it its own objective."
         },
         "analogy": "Chunking is deciding how to cut a document; indexing is deciding how the shelves are labelled so the right piece can be found.",
         "takeaway": "3.5 = building the pipeline: chunk the documents, index the pieces.",
@@ -1826,54 +1297,6 @@
       "reviewNote": "Objective 3.5 names chunking and indexing but states no chunk sizes, overlap rules, or index types. The correct option is a defensible reading of 'appropriate', not a guide-specified rule. Confirm against fuller source material before treating the phrasing as exam-aligned."
     },
     {
-      "id": "p3-3-011",
-      "domain": "d3",
-      "taskStatement": "3.6",
-      "scenario": null,
-      "concept": "retrieval-strategy-matching",
-      "mode": "swipe",
-      "type": "single",
-      "prompt": "A RAG pipeline chunks and indexes cleanly, yet answers stay wrong. Which objective governs the next decision?",
-      "options": [
-        {
-          "id": "b",
-          "text": "3.5 — rebuild the chunking and indexing strategy from scratch",
-          "isCorrect": false
-        },
-        {
-          "id": "a",
-          "text": "3.6 — match the retrieval strategy to the data shape and query pattern",
-          "isCorrect": true
-        },
-        {
-          "id": "c",
-          "text": "3.8 — replace the pipeline's context with progressive discovery",
-          "isCorrect": false
-        }
-      ],
-      "correctCount": 1,
-      "optionCountRationale": "Three options naming the three retrieval-adjacent objectives. Because chunking and indexing are stated as already working, the item isolates which objective owns query-time retrieval.",
-      "distractorRationale": {
-        "b": "Probes reaching for the pipeline objective when the prompt states chunking and indexing are already correct.",
-        "c": "Probes importing the context-strategy objective, which is about how context is assembled rather than what retrieval returns."
-      },
-      "explanation": {
-        "correct": "3.6 is 'Apply retrieval strategies matched to data shape and query pattern'. Once the store is built correctly, poor answers point at how the query-time retrieval is being matched to the corpus and the question being asked.",
-        "whyWrong": {
-          "b": "3.5 covers chunking and indexing, which the scenario states are already sound. Rebuilding them does not address the remaining fault.",
-          "c": "3.8 is about whether context arrives upfront or is discovered progressively. That is an assembly question, not a retrieval-matching question."
-        },
-        "analogy": "The library is catalogued correctly; the reader still cannot find the right book. The next fix is in the search strategy, not the catalogue.",
-        "takeaway": "3.5 builds the store; 3.6 matches the retrieval strategy to the data and the query.",
-        "deepDive": "Because the scenario states the store is already sound, the remaining fault sits on the query-time side of the line: 3.5 decides how the store is put together, 3.6 decides what a given question pulls back from it. Attribution questions like this one are settled by asking when the decision happens."
-      },
-      "source": {
-        "document": "Claude-Certified-Architect-Profesional-Exam-Guide.pdf",
-        "section": "3.6 Apply retrieval strategies matched to data shape and query pattern"
-      },
-      "reviewStatus": "verified"
-    },
-    {
       "id": "p3-3-012",
       "domain": "d3",
       "taskStatement": "3.6",
@@ -1889,14 +1312,14 @@
           "isCorrect": false
         },
         {
-          "id": "c",
-          "text": "The chunk size used, and how the pieces are indexed",
-          "isCorrect": false
-        },
-        {
           "id": "b",
           "text": "The shape of the data, and the pattern of the query",
           "isCorrect": true
+        },
+        {
+          "id": "c",
+          "text": "The chunk size used, and how the pieces are indexed",
+          "isCorrect": false
         }
       ],
       "correctCount": 1,
@@ -1909,11 +1332,11 @@
         "correct": "The objective's phrase is 'matched to data shape and query pattern'. Retrieval is chosen against two things: what the corpus looks like, and what the incoming queries look like.",
         "whyWrong": {
           "a": "The model and its window bound what can be sent, but they are not what retrieval strategy is matched to. That substitution moves the decision to 2.1.",
-          "c": "Chunk size and indexing are the two decisions 3.5 names when building the pipeline. The objective's pairing for retrieval is specifically about the data and the query."
+          "c": "Chunk size and indexing are pipeline-construction settings from 3.5. The pairing this objective states is about the material and the question, not about how the store was built."
         },
         "analogy": "A search strategy is chosen for what is in the collection and how people ask for things, not for how the building is wired.",
         "takeaway": "3.6 matches retrieval to two inputs only: the shape of the data and the pattern of the query.",
-        "deepDive": "The blueprint supplies no named retrieval techniques, so no item should ask which specific retrieval method to use. What it does supply is the pairing — data shape with query pattern — and that is what this item tests."
+        "deepDive": "The pairing is the objective's whole content: two inputs, and a strategy chosen to match them. Neither input is a setting you configure on the system — one describes the material being searched and one describes the request that arrives."
       },
       "source": {
         "document": "Claude-Certified-Architect-Profesional-Exam-Guide.pdf",
@@ -1932,11 +1355,6 @@
       "prompt": "Which integration mechanisms does objective 3.7 ask an architect to choose between?",
       "options": [
         {
-          "id": "c",
-          "text": "MCP, API/CLI, and agent-to-agent",
-          "isCorrect": true
-        },
-        {
           "id": "a",
           "text": "REST, GraphQL, and gRPC",
           "isCorrect": false
@@ -1945,10 +1363,15 @@
           "id": "b",
           "text": "Cached responses, reusable templates, and shared prompts",
           "isCorrect": false
+        },
+        {
+          "id": "c",
+          "text": "MCP, API/CLI, and agent-to-agent",
+          "isCorrect": true
         }
       ],
       "correctCount": 1,
-      "optionCountRationale": "Three options: a list of wire protocols, a prompt-reuse list from another domain, and the objective's own list. The blueprint names exactly three mechanisms, so there is no basis for a fourth.",
+      "optionCountRationale": "Three options: a list of wire protocols, a prompt-reuse list from another domain, and the objective's own list. Objective 3.7 names exactly three mechanisms, so there is no basis for a fourth.",
       "distractorRationale": {
         "a": "Probes confusing transport protocols with the integration mechanisms the objective names.",
         "b": "Probes carrying over a prompt-reuse list from another domain, which contains no integration mechanism at all."
@@ -1961,55 +1384,7 @@
         },
         "analogy": "The protocol is the road; the integration mechanism is the kind of vehicle you chose to travel on it.",
         "takeaway": "3.7 names three mechanisms: MCP, API/CLI, and agent-to-agent.",
-        "deepDive": "Note the objective's own phrasing is 'evaluate connection protocols and select the appropriate integration mechanism'. The evaluation is part of the objective, not a separate step, which is why a question about selection criteria is also fair game here."
-      },
-      "source": {
-        "document": "Claude-Certified-Architect-Profesional-Exam-Guide.pdf",
-        "section": "3.7 Evaluate connection protocols and select the appropriate integration mechanism (MCP, API/CLI, agent-to-agent)"
-      },
-      "reviewStatus": "verified"
-    },
-    {
-      "id": "p3-3-014",
-      "domain": "d3",
-      "taskStatement": "3.7",
-      "scenario": null,
-      "concept": "mechanism-selection-criteria",
-      "mode": "swipe",
-      "type": "single",
-      "prompt": "A team must connect Claude to an internal service and choose between MCP, API/CLI, and agent-to-agent. What does objective 3.7 ask the architect to produce?",
-      "options": [
-        {
-          "id": "b",
-          "text": "An evaluated choice of mechanism, made after weighing the connection protocols involved",
-          "isCorrect": true
-        },
-        {
-          "id": "a",
-          "text": "Adopt the most capable mechanism available and begin connecting to the service",
-          "isCorrect": false
-        },
-        {
-          "id": "c",
-          "text": "Write the chosen mechanism into a spec and leave the protocol to the vendor",
-          "isCorrect": false
-        }
-      ],
-      "correctCount": 1,
-      "optionCountRationale": "Three options: the correct pairing of the objective's two verbs, plus two designs that each drop one of them - picking the most capable mechanism without evaluating the connection protocols, or recording a specification while the protocol decision is handed to whichever vendor the team adopts. Three keeps the focus on the verbs rather than on the list of candidates.",
-      "distractorRationale": {
-        "a": "Probes reading the three named mechanisms as a ranked list, and skipping the protocol evaluation the objective also requires.",
-        "c": "Probes deferring the decision: the mechanism gets written down, but the connection protocol is left to whoever is adopted as the vendor."
-      },
-      "explanation": {
-        "correct": "Objective 3.7 carries two verbs: evaluate connection protocols, and select the appropriate integration mechanism. Both are required, and the candidates for that selection are the three the objective names in parentheses - MCP, API/CLI, and agent-to-agent.",
-        "whyWrong": {
-          "a": "The objective does not rank the three mechanisms against one another, so 'most capable' has nothing to rest on. Choosing on that basis and connecting straight away also skips the protocol evaluation the objective asks for first.",
-          "c": "Writing the mechanism into a specification records a decision rather than making one, and leaving the connection protocol to whichever vendor the team adopts means it was never evaluated by the architect."
-        },
-        "analogy": "Evaluating the protocols is checking which roads actually reach the building; selecting the mechanism is choosing the vehicle. A plan that does only one of the two has not finished the objective.",
-        "takeaway": "3.7 asks for an evaluated choice between MCP, API/CLI, and agent-to-agent - evaluation and selection, not one without the other.",
-        "deepDive": "The objective's phrasing carries the examinable content here: evaluate the protocols, then select among the three named. Nothing in the objective ranks those three against each other, so a candidate who can weigh them and justify a choice is on solid ground."
+        "deepDive": "Note the objective's own phrasing: 'evaluate connection protocols and select the appropriate integration mechanism'. Evaluating the protocols and selecting the mechanism are one objective rather than two separate steps, and both halves belong to the same judgement."
       },
       "source": {
         "document": "Claude-Certified-Architect-Profesional-Exam-Guide.pdf",
@@ -2057,55 +1432,7 @@
         },
         "analogy": "Monolithic context is handing someone the whole manual up front; progressive discovery is handing them the index and fetching a chapter when they ask.",
         "takeaway": "3.8 is about how much context arrives up front versus on demand: progressive discovery versus monolithic context.",
-        "deepDive": "The objective is the only place in the blueprint where progressive discovery appears. Because the surrounding objectives all sound context-related, misattribution is the main risk, and the words 'progressive' and 'monolithic' are the anchors to hold on to."
-      },
-      "source": {
-        "document": "Claude-Certified-Architect-Profesional-Exam-Guide.pdf",
-        "section": "3.8 Evaluate progressive discovery vs. monolithic context strategy"
-      },
-      "reviewStatus": "verified"
-    },
-    {
-      "id": "p3-3-016",
-      "domain": "d3",
-      "taskStatement": "3.8",
-      "scenario": "dev-productivity",
-      "concept": "progressive-vs-monolithic",
-      "mode": "swipe",
-      "type": "single",
-      "prompt": "The team has a fixed context budget it already meets. The real disagreement is whether the agent should receive every tool's documentation up front, or discover each tool's documentation only when that tool is needed. Which objective is that debate?",
-      "options": [
-        {
-          "id": "a",
-          "text": "3.1 — evaluate the agent's tool set for capability bloat",
-          "isCorrect": false
-        },
-        {
-          "id": "b",
-          "text": "2.4 — size and trim each request's context window",
-          "isCorrect": false
-        },
-        {
-          "id": "c",
-          "text": "3.8 — evaluate progressive discovery versus monolithic context",
-          "isCorrect": true
-        }
-      ],
-      "correctCount": 1,
-      "optionCountRationale": "Three options: the objective itself, plus the two neighbouring decisions the debate is most often misfiled under. The fixed token budget rules the accounting question out of the scenario, so three is sufficient and a fourth would blur it.",
-      "distractorRationale": {
-        "a": "Probes confusing which tools exist with how much documentation about them is loaded. Both arguments sound like 'we have too much in the agent'.",
-        "b": "Probes attributing a context-supply debate to token accounting. With the budget fixed and already met, nothing in this scenario is about sizing or managing the window."
-      },
-      "explanation": {
-        "correct": "Loading everything up front is the monolithic strategy; loading a tool's documentation only when it is needed is progressive discovery. Naming both is exactly what 3.8 asks you to evaluate.",
-        "whyWrong": {
-          "a": "Capability bloat asks whether the tools belong in the configuration at all. This debate assumes the same tool set and argues about when its documentation arrives, which is a different question.",
-          "b": "The token budget here is fixed and already met, so nothing is being sized or managed. The open question is whether the agent can find a tool's documentation at all — whether context arrives on demand or all at once, which is the contrast 3.8 names."
-        },
-        "analogy": "Everyone being handed the full manual at onboarding versus everyone getting the index and a chapter on request — the tools are the same either way.",
-        "takeaway": "The 3.8 debate is about when context arrives — all at once, or on demand — not about which tools exist or how many tokens they cost.",
-        "deepDive": "This is the closest pair in Domain 3: 3.8 and 2.4 both concern how much context a request carries. The distinguishing test is whether the candidate is choosing a context strategy or sizing a context budget - and a scenario that fixes the budget, as this one does, leaves only the strategy question."
+        "deepDive": "This is the only place in the guide where progressive discovery appears. Because the surrounding objectives all sound context-related, misattribution is the main risk, and the words 'progressive' and 'monolithic' are the anchors to hold on to."
       },
       "source": {
         "document": "Claude-Certified-Architect-Profesional-Exam-Guide.pdf",
@@ -2124,14 +1451,14 @@
       "prompt": "Which set does objective 4.1 name as the evaluation metrics for a Claude-based system?",
       "options": [
         {
-          "id": "a",
-          "text": "Accuracy, latency, and cost only, because safety and security are out of scope",
-          "isCorrect": false
-        },
-        {
           "id": "c",
           "text": "Accuracy, latency, cost, safety, and security, which is the full set the objective names",
           "isCorrect": true
+        },
+        {
+          "id": "a",
+          "text": "Accuracy, latency, and cost only, because safety and security are out of scope",
+          "isCorrect": false
         },
         {
           "id": "b",
@@ -2179,14 +1506,14 @@
       "prompt": "Which pair of deliverables does objective 4.2 ask an architect to produce?",
       "options": [
         {
-          "id": "b",
-          "text": "Evaluation datasets and test frameworks built using mixed methodologies",
-          "isCorrect": true
-        },
-        {
           "id": "a",
           "text": "A fixed set of scoring rules applied to each production response",
           "isCorrect": false
+        },
+        {
+          "id": "b",
+          "text": "Evaluation datasets and test frameworks built using mixed methodologies",
+          "isCorrect": true
         },
         {
           "id": "c",
@@ -2233,6 +1560,11 @@
       "prompt": "Objective 4.2 covers evaluation datasets and test frameworks. Which of these belongs to objective 4.5 rather than to 4.2?",
       "options": [
         {
+          "id": "c",
+          "text": "Trading token usage and latency against their cost",
+          "isCorrect": true
+        },
+        {
           "id": "a",
           "text": "Composing the test set and the framework that runs it",
           "isCorrect": false
@@ -2246,11 +1578,6 @@
           "id": "d",
           "text": "Running an A/B test and iterating on whichever variant underperformed",
           "isCorrect": false
-        },
-        {
-          "id": "c",
-          "text": "Trading token usage and latency against their cost",
-          "isCorrect": true
         }
       ],
       "correctCount": 1,
@@ -2275,61 +1602,6 @@
         "section": "4.2 Design evaluation datasets and test frameworks using mixed methodologies"
       },
       "reviewStatus": "verified"
-    },
-    {
-      "id": "p4-4.2-003",
-      "domain": "d4",
-      "taskStatement": "4.2",
-      "scenario": null,
-      "concept": "mixed-evaluation-methodologies",
-      "mode": "swipe",
-      "type": "single",
-      "prompt": "Objective 4.2 requires evaluation datasets and test frameworks built 'using mixed methodologies.' What does that require of the design?",
-      "options": [
-        {
-          "id": "a",
-          "text": "Automated scoring alone, so results stay reproducible across releases",
-          "isCorrect": false
-        },
-        {
-          "id": "b",
-          "text": "Human judgment alone, so reviewer assessments stay consistent",
-          "isCorrect": false
-        },
-        {
-          "id": "c",
-          "text": "More than one evaluation method combined inside the single test framework",
-          "isCorrect": true
-        },
-        {
-          "id": "d",
-          "text": "Production A/B test results alone, so evaluation matches real usage",
-          "isCorrect": false
-        }
-      ],
-      "correctCount": 1,
-      "optionCountRationale": "Four options because the requirement has only one shape - a combination - so the three distractors are all single-method designs, each with a real stated rationale, and all three are designs the requirement excludes. A three-option version would drop one of the single-method patterns for no learning gain.",
-      "distractorRationale": {
-        "a": "Probes the belief that reproducibility justifies a purely automated evaluation, ignoring the word 'mixed'.",
-        "b": "Probes the belief that humans are the only trustworthy evaluator, ignoring the word 'mixed'.",
-        "d": "Probes treating live A/B data as a complete substitute for a designed evaluation rather than one input to it."
-      },
-      "explanation": {
-        "correct": "'Mixed methodologies' means more than one evaluation method combined within the framework you design. A design that runs a single method - automated only, human only, or A/B results only - does not meet that requirement, however good its rationale for that one method is.",
-        "whyWrong": {
-          "a": "Reproducibility is a real argument, but automated scoring alone is one methodology. The requirement is a combination, not the single method with the best case made for it.",
-          "b": "Human judgment alone is likewise one methodology. Consistency is a property a method can have; it is not a combination of methods.",
-          "d": "Relying on production A/B results alone is still a single methodology, and it gives up the evaluation dataset and test framework that 4.2 asks you to design."
-        },
-        "takeaway": "'Mixed methodologies' means combining more than one evaluation method in one framework, not picking the single best method.",
-        "deepDive": "The word doing the work in this objective is 'mixed'. The objective names no specific methods to combine and no weighting scheme for them, so the examinable point is the shape of the design: one method is not a mix, and the combination belongs inside the single test framework rather than in separate exercises."
-      },
-      "source": {
-        "document": "Claude-Certified-Architect-Profesional-Exam-Guide.pdf",
-        "section": "4.2 Design evaluation datasets and test frameworks using mixed methodologies"
-      },
-      "reviewStatus": "needs-review",
-      "reviewNote": "Objective 4.2's source line is 'Design evaluation datasets and test frameworks using mixed methodologies'. It enumerates no methods and does not place production A/B data in 4.2, so this item tests the meaning of 'mixed' - more than one method combined in one framework - rather than any guide-specified combination. The earlier keyed trio of human judgment, automated scoring, and production A/B results was not sourced and has been removed. Confirm against fuller guide text before treating the option wording as exam-aligned."
     },
     {
       "id": "p4-4.3-001",
@@ -2386,60 +1658,6 @@
       "reviewStatus": "verified"
     },
     {
-      "id": "p4-4.3-002",
-      "domain": "d4",
-      "taskStatement": "4.3",
-      "scenario": null,
-      "concept": "ab-testing-vs-diagnosis",
-      "mode": "swipe",
-      "type": "single",
-      "prompt": "A team runs prompt variant A against variant B, then refines it again from what the comparison showed. Which objective covers that whole cycle?",
-      "options": [
-        {
-          "id": "a",
-          "text": "4.6, because every round of comparison belongs in the observability dashboard",
-          "isCorrect": false
-        },
-        {
-          "id": "c",
-          "text": "4.1, because the cycle starts with fixing which metrics are defined",
-          "isCorrect": false
-        },
-        {
-          "id": "b",
-          "text": "4.3, because A/B testing and iterative improvement are named together",
-          "isCorrect": true
-        },
-        {
-          "id": "d",
-          "text": "4.4, because the cycle only works once the failure mode is diagnosed",
-          "isCorrect": false
-        }
-      ],
-      "correctCount": 1,
-      "optionCountRationale": "Four options because the cycle described has three plausible neighbours in the same domain (measure, monitor, diagnose) plus the correct one. The item is testing whether the reader sees that 4.3 bundles a method and an improvement loop.",
-      "distractorRationale": {
-        "a": "Probes the belief that A/B results should be logged to production dashboards, which is 4.6's job.",
-        "c": "Probes the sequencing misconception that metric definition is the opening move of an A/B cycle rather than prior setup under 4.1.",
-        "d": "Probes the belief that iteration requires a named failure mode first; 4.3 iterates on comparison results, not on diagnoses."
-      },
-      "explanation": {
-        "correct": "Objective 4.3 names both halves of the cycle - A/B testing and iterative improvement - so comparing variants and then refining from the result is exactly its scope.",
-        "whyWrong": {
-          "a": "Observability dashboards are 4.6. Logging the comparison does not make the comparison itself 4.6 work.",
-          "c": "Defining metrics is 4.1 and is preparation, not part of the A/B and iteration cycle described.",
-          "d": "Diagnosis of prompt failure, hallucinations, and model mismatch is 4.4. An A/B cycle iterates on comparison results and does not require a prior diagnosis."
-        },
-        "takeaway": "4.3 pairs A/B testing with iteration; diagnosing what went wrong is 4.4.",
-        "deepDive": "The useful split for the exam is: 4.3 asks 'did the change help?', 4.4 asks 'why is it failing?'. They are often used in sequence but they answer different questions."
-      },
-      "source": {
-        "document": "Claude-Certified-Architect-Profesional-Exam-Guide.pdf",
-        "section": "4.3 Conduct A/B testing and iterative improvements"
-      },
-      "reviewStatus": "verified"
-    },
-    {
       "id": "p4-4.4-001",
       "domain": "d4",
       "taskStatement": "4.4",
@@ -2450,11 +1668,6 @@
       "prompt": "Objective 4.4 names three things an architect should diagnose. Which set is it?",
       "options": [
         {
-          "id": "c",
-          "text": "Prompt failure, hallucinations, and model mismatch",
-          "isCorrect": true
-        },
-        {
           "id": "a",
           "text": "Latency spikes, token overruns, and cost regressions",
           "isCorrect": false
@@ -2463,6 +1676,11 @@
           "id": "b",
           "text": "Risks, limitations, and failure modes of the system",
           "isCorrect": false
+        },
+        {
+          "id": "c",
+          "text": "Prompt failure, hallucinations, and model mismatch",
+          "isCorrect": true
         },
         {
           "id": "d",
@@ -2509,11 +1727,6 @@
           "isCorrect": false
         },
         {
-          "id": "b",
-          "text": "Model mismatch, the category objective 4.4 names for a system running an unsuited model",
-          "isCorrect": true
-        },
-        {
           "id": "c",
           "text": "Hallucination, the category objective 4.4 names for a system that invents content",
           "isCorrect": false
@@ -2522,6 +1735,11 @@
           "id": "d",
           "text": "Cost regression, the category objective 4.1 tracks when spend per request rises",
           "isCorrect": false
+        },
+        {
+          "id": "b",
+          "text": "Model mismatch, the category objective 4.4 names for a system running an unsuited model",
+          "isCorrect": true
         }
       ],
       "correctCount": 1,
@@ -2545,7 +1763,8 @@
         "document": "Claude-Certified-Architect-Profesional-Exam-Guide.pdf",
         "section": "4.4 Diagnose system issues (prompt failure, hallucinations, model mismatch)"
       },
-      "reviewStatus": "verified"
+      "reviewStatus": "needs-review",
+      "reviewNote": "Objective 4.4 names model mismatch as a diagnostic category but never defines it, so the keyed option depends on the standard sense of the term - a system paired with an unsuited model - and on the reading that a behaviour change with no prompt change is that category. The scenario matches the term rather than any guide-specified rule. Confirm against fuller guide text before treating the option wording as exam-aligned."
     },
     {
       "id": "p4-4.4-003",
@@ -2558,14 +1777,14 @@
       "prompt": "A support assistant confidently quotes a discount policy the team never published. Neither the prompt nor the model has changed. Which of objective 4.4's three categories does this fall under?",
       "options": [
         {
-          "id": "b",
-          "text": "Hallucination, where the system asserts content it has no basis for",
-          "isCorrect": true
-        },
-        {
           "id": "a",
           "text": "Prompt failure, where the prompt stops producing the behaviour it was written for",
           "isCorrect": false
+        },
+        {
+          "id": "b",
+          "text": "Hallucination, where the system asserts content it has no basis for",
+          "isCorrect": true
         },
         {
           "id": "c",
@@ -2586,7 +1805,7 @@
           "c": "Model mismatch is the pairing of a system with an unsuited model. Nothing changed about the model, and the task it is serving is the one it was already serving."
         },
         "analogy": "The clerk was told exactly what to do and still quoted a policy that does not exist. The instruction was not the problem; what came out was.",
-        "takeaway": "Objective 4.4's three categories separate prompt failure, hallucination, and model mismatch - decide which one the symptom matches.",
+        "takeaway": "The symptom points at the output layer: what the system asserted, not what it was told and not which model ran it.",
         "deepDive": "The three categories in 4.4 sit at different layers: the instruction, the output, and the pairing of system with model. Naming the layer a symptom appears at is the diagnostic move here, because each category sends you to a different place to look."
       },
       "source": {
@@ -2607,11 +1826,6 @@
       "prompt": "Latency is fine but cost per request keeps climbing. Which objective covers the fix an architect chooses?",
       "options": [
         {
-          "id": "b",
-          "text": "4.5, which optimizes token usage, latency, and cost-performance trade-offs",
-          "isCorrect": true
-        },
-        {
           "id": "a",
           "text": "4.1, which defines accuracy, latency, cost, safety, and security",
           "isCorrect": false
@@ -2625,6 +1839,11 @@
           "id": "d",
           "text": "4.6, which monitors system performance using logging and observability tools",
           "isCorrect": false
+        },
+        {
+          "id": "b",
+          "text": "4.5, which optimizes token usage, latency, and cost-performance trade-offs",
+          "isCorrect": true
         }
       ],
       "correctCount": 1,
@@ -2651,60 +1870,6 @@
       "reviewStatus": "verified"
     },
     {
-      "id": "p4-4.5-002",
-      "domain": "d4",
-      "taskStatement": "4.5",
-      "scenario": null,
-      "concept": "measurement-vs-change",
-      "mode": "swipe",
-      "type": "single",
-      "prompt": "A team runs a curated test set through a mixed-methodology evaluation framework every week and reports accuracy, latency, cost, safety, and security from it. A live dashboard of the last week's production incidents is already on the wall. Nothing about the system itself has changed. Which objective describes the work still missing?",
-      "options": [
-        {
-          "id": "a",
-          "text": "4.1, because the metrics named there have not been defined yet",
-          "isCorrect": false
-        },
-        {
-          "id": "c",
-          "text": "4.5, because token usage, latency, and cost-performance trade-offs are unoptimised",
-          "isCorrect": true
-        },
-        {
-          "id": "b",
-          "text": "4.2, because the evaluation datasets and framework have not been designed",
-          "isCorrect": false
-        },
-        {
-          "id": "d",
-          "text": "4.6, because logging and observability have not been wired up",
-          "isCorrect": false
-        }
-      ],
-      "correctCount": 1,
-      "optionCountRationale": "Four options because the scenario states outright three things that are already done: the five metrics 4.1 names are reported weekly, a curated test set and a mixed-methodology test framework are already in use, and a live production dashboard already exists. That eliminates 4.1, 4.2, and 4.6 on the facts and leaves 4.5 as the only remaining gap, so every distractor has to be a real objective in this domain that the scenario itself rules out.",
-      "distractorRationale": {
-        "a": "Probes ignoring the scenario: the team already reports all five metrics named in 4.1.",
-        "b": "The plausible alternative once 4.1 and 4.6 are ruled out - the scenario already has the datasets and the framework, so 4.2 is done.",
-        "d": "Probes reading 'reports metrics weekly' as the whole of monitoring; the scenario separately states that production incidents already appear on a live dashboard."
-      },
-      "explanation": {
-        "correct": "The evaluation dataset, the mixed-methodology test framework, the five 4.1 metrics, and the production reporting are all in place. What remains is changing the system itself to optimise token usage, latency, and cost-performance - objective 4.5.",
-        "whyWrong": {
-          "a": "The team already reports accuracy, latency, cost, safety, and security, so definition is not the gap.",
-          "b": "The scenario states that a curated test set and a mixed-methodology scoring framework are already in weekly use, which is exactly what 4.2 asks you to design.",
-          "d": "A live dashboard of the last week's production incidents is stated to be already on the wall, so logging and observability are in place and 4.6 is not the gap."
-        },
-        "takeaway": "If a team can already see the numbers and has not changed the system, the remaining objective is 4.5, not 4.1, 4.2, or 4.6.",
-        "deepDive": "4.1, 4.2, and 4.6 are all about being able to see: choose the metrics, build the offline harness, and watch production. 4.5 is the only one in this cluster that is about changing the system itself."
-      },
-      "source": {
-        "document": "Claude-Certified-Architect-Profesional-Exam-Guide.pdf",
-        "section": "4.5 Optimize token usage, latency, and cost-performance trade-offs"
-      },
-      "reviewStatus": "verified"
-    },
-    {
       "id": "p4-4.6-001",
       "domain": "d4",
       "taskStatement": "4.6",
@@ -2720,6 +1885,11 @@
           "isCorrect": false
         },
         {
+          "id": "a",
+          "text": "Logging and observability tools",
+          "isCorrect": true
+        },
+        {
           "id": "c",
           "text": "A/B tests and iterative improvements",
           "isCorrect": false
@@ -2728,11 +1898,6 @@
           "id": "d",
           "text": "Accuracy, latency, cost, safety, and security",
           "isCorrect": false
-        },
-        {
-          "id": "a",
-          "text": "Logging and observability tools",
-          "isCorrect": true
         }
       ],
       "correctCount": 1,
@@ -2769,6 +1934,11 @@
       "prompt": "An on-call engineer opens the production dashboards each morning, sees a recurring spike in wrong answers, and files it as an incident. Which objective covers that work?",
       "options": [
         {
+          "id": "b",
+          "text": "4.6 Monitor system performance using logging and observability tools",
+          "isCorrect": true
+        },
+        {
           "id": "a",
           "text": "4.4 Diagnose system issues (prompt failure, hallucinations, model mismatch)",
           "isCorrect": false
@@ -2777,11 +1947,6 @@
           "id": "c",
           "text": "4.3 Conduct A/B testing and iterative improvements",
           "isCorrect": false
-        },
-        {
-          "id": "b",
-          "text": "4.6 Monitor system performance using logging and observability tools",
-          "isCorrect": true
         },
         {
           "id": "d",
@@ -2803,8 +1968,8 @@
           "c": "No two variants are being compared here, so no A/B testing is taking place. That is 4.3, which needs a comparison and an iteration.",
           "d": "Objective 4.1 is deciding which metrics matter. The metrics are already defined and already being read; the capability doing the reading is 4.6."
         },
-        "takeaway": "Monitoring (4.6) tells you a running system is misbehaving; diagnosing (4.4) tells you which of prompt failure, hallucination, or model mismatch it is.",
-        "deepDive": "The line between the two is the word 'why'. Logging and observability establish that the behaviour is wrong and how often; deciding whether the prompt failed, the system hallucinated, or the model is mismatched is the diagnostic work objective 4.4 names. Because 4.4 appears as an option here, the learner has to place the boundary themselves rather than being told it in the stem."
+        "takeaway": "Monitoring (4.6) tells you a running system is misbehaving; diagnosing (4.4) tells you why.",
+        "deepDive": "The line between the two is the word 'why'. Logging and observability establish that the behaviour is wrong and how often; deciding what is causing it is the diagnostic work objective 4.4 names. Because 4.4 appears as an option here, the learner has to place the boundary themselves rather than being told it in the stem."
       },
       "source": {
         "document": "Claude-Certified-Architect-Profesional-Exam-Guide.pdf",
@@ -2828,14 +1993,14 @@
           "isCorrect": false
         },
         {
-          "id": "b",
-          "text": "Apply human-in-the-loop validation strategies",
-          "isCorrect": false
-        },
-        {
           "id": "c",
           "text": "Implement guardrails and safety controls",
           "isCorrect": true
+        },
+        {
+          "id": "b",
+          "text": "Apply human-in-the-loop validation strategies",
+          "isCorrect": false
         },
         {
           "id": "d",
@@ -2858,7 +2023,7 @@
           "d": "Bias, fairness, and transparency are objective 5.5's ethical AI considerations, not the guardrail implementation of 5.1."
         },
         "takeaway": "5.1 is the implementation objective: guardrails and safety controls go in.",
-        "deepDive": "Domain 5 splits cleanly along verbs. 5.1 implements, 5.2 identifies, 5.3 applies human validation, 5.4 ensures compliance, 5.5 addresses ethics. Mis-assigning a verb to the wrong objective is the most common way to lose these marks."
+        "deepDive": "Every Domain 5 objective is a verb paired with an object, and that pairing is the reliable way to sort them. For 5.1 the verb is implement and the object is guardrails and safety controls, so the deliverable lives inside the system rather than in an analysis of it."
       },
       "source": {
         "document": "Claude-Certified-Architect-Profesional-Exam-Guide.pdf",
@@ -2887,14 +2052,14 @@
           "isCorrect": false
         },
         {
-          "id": "d",
-          "text": "5.2, because guardrails and safety controls fall under ethics instead",
-          "isCorrect": false
-        },
-        {
           "id": "b",
           "text": "5.1, because guardrails and safety controls have not been implemented",
           "isCorrect": true
+        },
+        {
+          "id": "d",
+          "text": "5.2, because guardrails and safety controls fall under ethics instead",
+          "isCorrect": false
         }
       ],
       "correctCount": 1,
@@ -2931,11 +2096,6 @@
       "prompt": "Two items are open: putting controls in place inside the system, and showing the system meets a regulator's requirements. Which assignment is correct?",
       "options": [
         {
-          "id": "b",
-          "text": "The controls are 5.1's work and the regulator demonstration is 5.4's work",
-          "isCorrect": true
-        },
-        {
           "id": "a",
           "text": "The controls are 5.4's work and the regulator demonstration is 5.1's work",
           "isCorrect": false
@@ -2949,6 +2109,11 @@
           "id": "d",
           "text": "Both are 5.4's work, because guardrails only matter where a regulation applies",
           "isCorrect": false
+        },
+        {
+          "id": "b",
+          "text": "The controls are 5.1's work and the regulator demonstration is 5.4's work",
+          "isCorrect": true
         }
       ],
       "correctCount": 1,
@@ -2966,7 +2131,7 @@
           "d": "5.1 is not conditional on a regulation existing. The controls are the system's own safety behaviour, and they apply whether or not a named regulation is in scope."
         },
         "takeaway": "5.1 builds controls inside the system; 5.4 demonstrates the system against an external regulation.",
-        "deepDive": "Verb and object travel together in this domain, and that pairing is the reliable way to sort the objectives: implement controls (5.1), identify risks (5.2), apply human validation (5.3), ensure compliance (5.4), address ethics (5.5). Whenever two objectives look interchangeable, ask whether the object they name lives inside the system or outside it."
+        "deepDive": "Verb and object travel together in this domain, and that pairing is the reliable way to sort the objectives. Whenever two objectives look interchangeable, ask whether the object they name lives inside the system or outside it."
       },
       "source": {
         "document": "Claude-Certified-Architect-Profesional-Exam-Guide.pdf",
@@ -2991,6 +2156,11 @@
           "isCorrect": false
         },
         {
+          "id": "b",
+          "text": "Risks, limitations, and failure modes of LLM systems",
+          "isCorrect": true
+        },
+        {
           "id": "c",
           "text": "Datasets, frameworks, and evaluation methodologies",
           "isCorrect": false
@@ -2999,11 +2169,6 @@
           "id": "d",
           "text": "Bias, fairness, and transparency concerns",
           "isCorrect": false
-        },
-        {
-          "id": "b",
-          "text": "Risks, limitations, and failure modes of LLM systems",
-          "isCorrect": true
         }
       ],
       "correctCount": 1,
@@ -3040,6 +2205,11 @@
       "prompt": "A team has been running the system for months but has never written down how it can break - there is no register of its risks, limitations, or failure modes. Which objective covers that missing work?",
       "options": [
         {
+          "id": "c",
+          "text": "5.2 — Identify risks, limitations, and failure modes of LLM systems",
+          "isCorrect": true
+        },
+        {
           "id": "a",
           "text": "5.1 — Implement guardrails and safety controls",
           "isCorrect": false
@@ -3048,11 +2218,6 @@
           "id": "b",
           "text": "5.4 — Ensure compliance with regulations (e.g., GDPR, HIPAA, FedRAMP)",
           "isCorrect": false
-        },
-        {
-          "id": "c",
-          "text": "5.2 — Identify risks, limitations, and failure modes of LLM systems",
-          "isCorrect": true
         },
         {
           "id": "d",
@@ -3099,14 +2264,14 @@
           "isCorrect": false
         },
         {
-          "id": "c",
-          "text": "5.3 Apply human-in-the-loop validation strategies",
-          "isCorrect": true
-        },
-        {
           "id": "b",
           "text": "5.2 Identify risks, limitations, and failure modes of LLM systems",
           "isCorrect": false
+        },
+        {
+          "id": "c",
+          "text": "5.3 Apply human-in-the-loop validation strategies",
+          "isCorrect": true
         },
         {
           "id": "d",
@@ -3138,60 +2303,6 @@
       "reviewStatus": "verified"
     },
     {
-      "id": "p5-5.3-002",
-      "domain": "d5",
-      "taskStatement": "5.3",
-      "scenario": null,
-      "concept": "human-validation-vs-guardrails",
-      "mode": "swipe",
-      "type": "single",
-      "prompt": "An architect is told to add human review to the system's validation strategy. Which objective is that, as distinct from installing controls?",
-      "options": [
-        {
-          "id": "b",
-          "text": "5.3, because human-in-the-loop validation strategies put people in the loop",
-          "isCorrect": true
-        },
-        {
-          "id": "a",
-          "text": "5.1, because guardrails and safety controls are what make validation safe",
-          "isCorrect": false
-        },
-        {
-          "id": "c",
-          "text": "5.2, because the reviewers identify risks and failure modes on the team",
-          "isCorrect": false
-        },
-        {
-          "id": "d",
-          "text": "5.4, because human review is how regulatory obligations are met",
-          "isCorrect": false
-        }
-      ],
-      "correctCount": 1,
-      "optionCountRationale": "Four options because the prompt explicitly frames a contrast with 5.1, and the item only earns its keep if 5.2 and 5.4 are also tested as the two other reasons a team might reach for human review.",
-      "distractorRationale": {
-        "a": "Probes the framing error that human review is a safety control. The two are adjacent objectives but different work.",
-        "c": "Probes reading 'the people in the loop' as the analysts doing 5.2's risk identification rather than validators.",
-        "d": "Probes assuming human review discharges compliance; 5.4 is about ensuring compliance with named regulations."
-      },
-      "explanation": {
-        "correct": "Adding human review to a validation strategy is human-in-the-loop validation, which is objective 5.3. Installing controls is 5.1, and the prompt explicitly sets that aside.",
-        "whyWrong": {
-          "a": "Objective 5.1 is about implementing guardrails and safety controls. The prompt asks for validation with human review, not a new control in the system.",
-          "c": "Objective 5.2 is the identification of risks, limitations, and failure modes. It does not describe a review arrangement involving people in the flow.",
-          "d": "Objective 5.4 is ensuring compliance with regulations such as GDPR, HIPAA, and FedRAMP. Human review is a possible means, not the definition of that objective."
-        },
-        "takeaway": "Human-in-the-loop validation is 5.3; installing controls that bound system behaviour is 5.1.",
-        "deepDive": "The source does not define where in a pipeline human review sits or how validation strategies should differ by risk tier. Learn the mapping (5.3) rather than any unsourced workflow detail."
-      },
-      "source": {
-        "document": "Claude-Certified-Architect-Profesional-Exam-Guide.pdf",
-        "section": "5.3 Apply human-in-the-loop validation strategies"
-      },
-      "reviewStatus": "verified"
-    },
-    {
       "id": "p5-5.4-001",
       "domain": "d5",
       "taskStatement": "5.4",
@@ -3203,22 +2314,22 @@
       "options": [
         {
           "id": "a",
-          "text": "GDPR, PCI DSS, and SOC 2, covering data and vendor security",
+          "text": "GDPR, PCI DSS, and SOC 2",
           "isCorrect": false
         },
         {
           "id": "c",
-          "text": "GDPR, HIPAA, and FedRAMP, the three examples the objective gives",
+          "text": "GDPR, HIPAA, and FedRAMP",
           "isCorrect": true
         },
         {
           "id": "b",
-          "text": "HIPAA, SOX, and ISO 27001, covering health, finance, and ISMS",
+          "text": "HIPAA, SOX, and ISO 27001",
           "isCorrect": false
         },
         {
           "id": "d",
-          "text": "FedRAMP, CCPA, and NIST AI RMF, covering cloud, privacy, and AI",
+          "text": "FedRAMP, CCPA, and NIST AI RMF",
           "isCorrect": false
         }
       ],
@@ -3291,7 +2402,7 @@
           "d": "Objective 5.2 identifies risks, limitations, and failure modes. The scenario's problem is an unmet external requirement, which is 5.4."
         },
         "takeaway": "Controls and audits are internal work; demonstrating compliance with a named regulation is 5.4.",
-        "deepDive": "The cleanest way to hold this domain in mind: 5.1, 5.3, and 5.5 shape the system, while 5.2 shapes your understanding of it and 5.4 constrains it against external rules."
+        "deepDive": "Controls and audits are internal work that shapes the system itself; the compliance obligation sits outside it. That inside-versus-outside test is what separates the two activities in this scenario."
       },
       "source": {
         "document": "Claude-Certified-Architect-Profesional-Exam-Guide.pdf",
@@ -3345,61 +2456,7 @@
           "d": "Risks, limitations, and failure modes are objective 5.2's list. They describe what can go wrong; 5.5 is about bias, fairness, and transparency."
         },
         "takeaway": "5.5's ethical AI concerns are exactly three: bias, fairness, and transparency.",
-        "deepDive": "Bias and fairness are closely related but distinct in the objective's wording - a system can be accurate on average and still show disparities between groups, which is where fairness work sits. The source does not define either term, so learn the pairing rather than an unsourced definition."
-      },
-      "source": {
-        "document": "Claude-Certified-Architect-Profesional-Exam-Guide.pdf",
-        "section": "5.5 Address ethical AI considerations (bias, fairness, transparency)"
-      },
-      "reviewStatus": "verified"
-    },
-    {
-      "id": "p5-5.5-002",
-      "domain": "d5",
-      "taskStatement": "5.5",
-      "scenario": null,
-      "concept": "fairness-vs-safety-controls",
-      "mode": "swipe",
-      "type": "single",
-      "prompt": "One team blocks disallowed outputs; another fixes a measurable disparity between groups. Which objective covers the disparity work?",
-      "options": [
-        {
-          "id": "b",
-          "text": "5.1, because it addresses bias and fairness alongside transparency",
-          "isCorrect": false
-        },
-        {
-          "id": "a",
-          "text": "5.5, because it addresses bias and fairness alongside transparency",
-          "isCorrect": true
-        },
-        {
-          "id": "c",
-          "text": "5.4, because it addresses bias and fairness alongside transparency",
-          "isCorrect": false
-        },
-        {
-          "id": "d",
-          "text": "5.2, because it addresses bias and fairness alongside transparency",
-          "isCorrect": false
-        }
-      ],
-      "correctCount": 1,
-      "optionCountRationale": "Four options with a deliberately identical suffix, so the only discriminating feature is the objective number. Holding the rest of the wording constant prevents length or phrasing from giving the answer away and isolates the mapping being tested.",
-      "distractorRationale": {
-        "b": "Probes the 5.1 versus 5.5 boundary: blocking disallowed outputs is a safety control; a disparity between groups is an ethical concern.",
-        "c": "Probes treating fairness remediation as a compliance deliverable rather than ethical AI work.",
-        "d": "Probes treating a fairness gap as one of 5.2's risks, limitations, or failure modes rather than as a 5.5 concern."
-      },
-      "explanation": {
-        "correct": "A measurable disparity between groups is a bias and fairness concern, which objective 5.5 addresses alongside transparency.",
-        "whyWrong": {
-          "b": "Objective 5.1 covers guardrails and safety controls - the other team's job of blocking disallowed outputs. Fixing a fairness disparity is not implementing a control.",
-          "c": "Objective 5.4 is compliance with regulations such as GDPR, HIPAA, and FedRAMP. That may constrain a fairness programme, but it is not what the objective addresses.",
-          "d": "Objective 5.2 identifies risks, limitations, and failure modes. A disparity could contribute to a risk, but the remediation work described is 5.5's ethical AI focus."
-        },
-        "takeaway": "Safety controls belong to 5.1; bias and fairness work belongs to 5.5.",
-        "deepDive": "The two teams in this scenario map onto the clearest split in Domain 5: 5.1 constrains what the system will do, 5.5 examines how fairly and transparently it behaves."
+        "deepDive": "All three nouns sit in one parenthetical, and the objective's verb is address — the ethical AI work is named here as a set of concerns, in the same shape as the three items objective 5.2 asks you to identify."
       },
       "source": {
         "document": "Claude-Certified-Architect-Profesional-Exam-Guide.pdf",
@@ -3418,6 +2475,11 @@
       "prompt": "A stakeholder asks for \"a chatbot that knows our documentation.\" Nothing has established what success means or what data is available. What should happen next?",
       "options": [
         {
+          "id": "b",
+          "text": "Run structured discovery and requirement gathering with the stakeholders.",
+          "isCorrect": true
+        },
+        {
           "id": "a",
           "text": "Document the target architecture so implementation can start.",
           "isCorrect": false
@@ -3426,11 +2488,6 @@
           "id": "c",
           "text": "Pick the model with the largest context window and begin prototyping.",
           "isCorrect": false
-        },
-        {
-          "id": "b",
-          "text": "Run structured discovery and requirement gathering with the stakeholders.",
-          "isCorrect": true
         }
       ],
       "correctCount": 1,
@@ -3447,108 +2504,7 @@
         },
         "analogy": "A design drawn before discovery is a blueprint with no survey behind it.",
         "takeaway": "In Domain 6, structured discovery and requirement gathering come before any architecture is documented or decided.",
-        "deepDive": "The blueprint lists discovery in two places: as objective 6.1 (the act of eliciting requirements) and as the first phase under 6.5 (the overall lifecycle). Treat 6.1 as the competency and 6.5 as the phase sequence."
-      },
-      "source": {
-        "document": "Claude-Certified-Architect-Profesional-Exam-Guide.pdf",
-        "section": "6.1 Conduct structured discovery and requirement gathering",
-        "page": 5
-      },
-      "reviewStatus": "verified"
-    },
-    {
-      "id": "p6-61-002",
-      "domain": "d6",
-      "taskStatement": "6.1",
-      "scenario": null,
-      "concept": "discovery-vs-decision-communication",
-      "mode": "swipe",
-      "type": "single",
-      "prompt": "Which pairing assigns the work to the correct Domain 6 objective?",
-      "options": [
-        {
-          "id": "a",
-          "text": "6.1 documents the design; 6.2 gathers the requirements that shaped it.",
-          "isCorrect": false
-        },
-        {
-          "id": "c",
-          "text": "6.1 elicits requirements; 6.2 explains the chosen pattern and its trade-offs.",
-          "isCorrect": true
-        },
-        {
-          "id": "b",
-          "text": "6.1 agrees the SLAs; 6.2 hands the build over to the engineering team.",
-          "isCorrect": false
-        }
-      ],
-      "correctCount": 1,
-      "optionCountRationale": "Three options: one correct assignment and two swapped assignments that each test a specific confusion between neighbouring objectives.",
-      "distractorRationale": {
-        "a": "Probes the confusion between gathering requirements (6.1) and documenting a design (6.4), with 6.2 incorrectly absorbing discovery.",
-        "b": "Probes the confusion between expectation alignment and SLAs (6.3) and implementation guidance at handoff (6.4)."
-      },
-      "explanation": {
-        "correct": "6.1 is about conducting discovery and gathering requirements; 6.2 is about communicating architectural decisions and the trade-offs behind them.",
-        "whyWrong": {
-          "a": "This inverts the two activities. Documenting the design belongs to 6.4, and gathering requirements belongs to 6.1, not 6.2.",
-          "b": "SLAs and expectation alignment belong to 6.3; handing over implementation guidance belongs to 6.4. Neither is 6.1 or 6.2."
-        },
-        "takeaway": "6.1 finds out what is needed; 6.2 explains what was decided and what it cost.",
-        "deepDive": "Domain 6 reads as a sequence: 6.1 gather requirements, 6.2 communicate decisions and trade-offs, 6.3 align expectations and feedback, 6.4 document and guide implementation, 6.5 work across the lifecycle phases."
-      },
-      "source": {
-        "document": "Claude-Certified-Architect-Profesional-Exam-Guide.pdf",
-        "section": "6.1 Conduct structured discovery and requirement gathering",
-        "page": 5
-      },
-      "reviewStatus": "verified"
-    },
-    {
-      "id": "p6-61-003",
-      "domain": "d6",
-      "taskStatement": "6.1",
-      "scenario": null,
-      "concept": "discovery-vs-handoff-documentation",
-      "mode": "challenge",
-      "type": "multiple",
-      "prompt": "Select all that apply. Which activities fall under objective 6.1, structured discovery and requirement gathering?",
-      "options": [
-        {
-          "id": "c",
-          "text": "Explaining to sponsors why a pattern was chosen over the alternatives",
-          "isCorrect": false
-        },
-        {
-          "id": "d",
-          "text": "Writing the architecture and guidance so engineers can implement it",
-          "isCorrect": false
-        },
-        {
-          "id": "a",
-          "text": "Gathering requirements directly from the stakeholders who commissioned the work",
-          "isCorrect": true
-        },
-        {
-          "id": "b",
-          "text": "Eliciting and recording the requirements the solution must meet",
-          "isCorrect": true
-        }
-      ],
-      "correctCount": 2,
-      "optionCountRationale": "Four options with exactly two correct: each incorrect option is a real activity from a neighbouring Domain 6 objective, so the fourth slot earns its place by testing 6.2 vs 6.4 confusion.",
-      "distractorRationale": {
-        "c": "Explaining a decision and its trade-offs is 6.2, a downstream activity that presumes discovery already happened.",
-        "d": "Writing the architecture and implementation guidance is 6.4, the handoff-side activity rather than a discovery activity."
-      },
-      "explanation": {
-        "correct": "6.1 covers structured discovery and requirement gathering: engaging stakeholders and eliciting the requirements the solution must satisfy.",
-        "whyWrong": {
-          "c": "Communicating a chosen option and its trade-offs is objective 6.2, which happens after the requirements are known.",
-          "d": "Documenting the architecture and providing implementation guidance is objective 6.4, not 6.1."
-        },
-        "takeaway": "Discovery is about conversations and requirements; documentation and decision communication belong to 6.4 and 6.2.",
-        "deepDive": "Both 6.1 and 6.4 involve writing something down. The difference is what is written: requirements before the design exists, versus the architecture and its guidance after."
+        "deepDive": "Objective 6.1 names two activities in one line — structured discovery, and requirement gathering — and both come before any architecture is chosen or documented."
       },
       "source": {
         "document": "Claude-Certified-Architect-Profesional-Exam-Guide.pdf",
@@ -3606,55 +2562,6 @@
       "reviewStatus": "verified"
     },
     {
-      "id": "p6-62-003",
-      "domain": "d6",
-      "taskStatement": "6.2",
-      "scenario": null,
-      "concept": "trade-off-framing",
-      "mode": "swipe",
-      "type": "single",
-      "prompt": "An architect must explain an accuracy-versus-latency choice. Which presentation satisfies 6.2?",
-      "options": [
-        {
-          "id": "a",
-          "text": "Accuracy is 0.95 and end-to-end latency is 800 milliseconds",
-          "isCorrect": false
-        },
-        {
-          "id": "c",
-          "text": "Accuracy goes up; latency goes up too — here is the balance we chose",
-          "isCorrect": true
-        },
-        {
-          "id": "b",
-          "text": "We use the model that gives the best quality in every evaluation we ran",
-          "isCorrect": false
-        }
-      ],
-      "correctCount": 1,
-      "optionCountRationale": "Three options: one decision-plus-trade-off framing plus two bare restatements of the chosen configuration that omit the trade-off entirely.",
-      "distractorRationale": {
-        "a": "Probes the misconception that a pair of numbers communicates a decision; metrics without the trade-off are not the trade-off.",
-        "b": "Probes the misconception that maximising one axis is a decision; it hides what was given up on the other axis."
-      },
-      "explanation": {
-        "correct": "6.2 asks for the decision together with its trade-offs, so the communication must name what improves and what degrades as a result.",
-        "whyWrong": {
-          "a": "Two measurements report the chosen configuration but say nothing about what was given up to reach it, so no trade-off is communicated.",
-          "b": "Stating that one option wins outright on accuracy hides the latency it gives up, which is the opposite of communicating trade-offs."
-        },
-        "takeaway": "A trade-off is only communicated when both the gain and the cost are on the same line.",
-        "deepDive": "The accuracy-versus-latency framing is illustrative: the point being tested is 6.2's wording, that decisions travel with their trade-offs. How an architect should present that pair, and to which audience, is not specified by the guide."
-      },
-      "source": {
-        "document": "Claude-Certified-Architect-Profesional-Exam-Guide.pdf",
-        "section": "6.2 Communicate architectural decisions and trade-offs",
-        "page": 5
-      },
-      "reviewStatus": "needs-review",
-      "reviewNote": "The guide states that the architect communicates decisions and trade-offs but does not specify how they should be framed or to whom. This item tests the restatement of the objective rather than any documented technique."
-    },
-    {
       "id": "p6-63-001",
       "domain": "d6",
       "taskStatement": "6.3",
@@ -3662,7 +2569,7 @@
       "concept": "stakeholder-feedback-loop",
       "mode": "swipe",
       "type": "single",
-      "prompt": "Objective 6.3 covers both expectation alignment and stakeholder feedback loops. After launch, support leads keep raising new complaints and the architect routes them back into the design each week. Which part of 6.3 is that?",
+      "prompt": "A support assistant is live. Support leads keep raising complaints the team had not anticipated, and the architect carries each one back into the design. Objective 6.3 names two activities. Which one is happening?",
       "options": [
         {
           "id": "b",
@@ -3689,7 +2596,7 @@
       "explanation": {
         "correct": "6.3 names two distinct things: stakeholder feedback loops and expectation alignment. Complaints that keep arriving and get routed back into the design are the feedback loop - stakeholder reaction circulating back into the work rather than being handled once.",
         "whyWrong": {
-          "a": "A single approval meeting closes a conversation. The objective names a loop, and the scenario is explicitly still running in week three.",
+          "a": "A single approval meeting closes a conversation. The objective names a loop, and the scenario shows stakeholder reaction arriving repeatedly rather than once.",
           "c": "Expectation alignment is agreeing what the service will actually promise. Ongoing input about what users are actually seeing is the other half of the objective."
         },
         "takeaway": "6.3 is two halves: aligning expectations, and keeping a feedback loop open once the system is live.",
@@ -3700,7 +2607,8 @@
         "section": "6.3 Manage stakeholder feedback loops and expectation alignment (including SLAs)",
         "page": 5
       },
-      "reviewStatus": "verified"
+      "reviewStatus": "needs-review",
+      "reviewNote": "Objective 6.3 names 'stakeholder feedback loops' and 'expectation alignment' without defining either. The keyed option depends on the standard sense of a feedback loop - stakeholder reaction circulating back into the work - and on the reading that the two named activities are distinct. Both are interpretations of terms the objective only names. Confirm against fuller guide text before treating the option wording as exam-aligned."
     },
     {
       "id": "p6-63-002",
@@ -3748,7 +2656,8 @@
         "section": "6.3 Manage stakeholder feedback loops and expectation alignment (including SLAs)",
         "page": 5
       },
-      "reviewStatus": "verified"
+      "reviewStatus": "needs-review",
+      "reviewNote": "Objective 6.3 names 'expectation alignment (including SLAs)' and never defines it. The keyed option depends on the standard sense of expectation alignment - reconciling what the stakeholder assumes against the service level the solution can meet - rather than on a definition the guide supplies. Confirm against fuller guide text before treating the option wording as exam-aligned."
     },
     {
       "id": "p6-63-003",
@@ -3789,7 +2698,7 @@
           "c": "6.4 is documenting the architecture and giving implementers guidance. A target agreed with a stakeholder is not implementation guidance."
         },
         "takeaway": "6.2 explains the decision; 6.3 agrees what the service will actually promise, SLAs included.",
-        "deepDive": "The parenthetical \"(including SLAs)\" on 6.3 is the only place in the blueprint where SLAs are attached to an objective, which makes it a reliable anchor for items about expectation alignment."
+        "deepDive": "The parenthetical '(including SLAs)' on 6.3 is the only place in the guide where SLAs are attached to an objective, which makes it a reliable anchor for questions about expectation alignment."
       },
       "source": {
         "document": "Claude-Certified-Architect-Profesional-Exam-Guide.pdf",
@@ -3885,7 +2794,7 @@
           "c": "6.4 is not tied to a change event. The objective describes documenting and guiding as architect work, and 6.5 separately covers the iteration phase."
         },
         "takeaway": "6.2 communicates; 6.4 records and guides. Same decisions, different verbs.",
-        "deepDive": "Watch for items that swap these two verbs. The blueprint's own wording is the only reliable tiebreaker: communicate = 6.2, document = 6.4."
+        "deepDive": "Watch for questions that swap these two verbs. The guide's own wording is the only reliable tiebreaker: communicate = 6.2, document = 6.4."
       },
       "source": {
         "document": "Claude-Certified-Architect-Profesional-Exam-Guide.pdf",
@@ -3905,6 +2814,11 @@
       "prompt": "Which sequence matches the lifecycle phases named in objective 6.5?",
       "options": [
         {
+          "id": "b",
+          "text": "discovery → design → handoff → monitoring → iteration",
+          "isCorrect": true
+        },
+        {
           "id": "a",
           "text": "design → discovery → monitoring → handoff → iteration",
           "isCorrect": false
@@ -3913,11 +2827,6 @@
           "id": "c",
           "text": "handoff → discovery → design → iteration → monitoring",
           "isCorrect": false
-        },
-        {
-          "id": "b",
-          "text": "discovery → design → handoff → monitoring → iteration",
-          "isCorrect": true
         }
       ],
       "correctCount": 1,
@@ -3933,7 +2842,7 @@
           "c": "Handoff cannot come first, and iteration is the phase that follows monitoring rather than preceding it."
         },
         "takeaway": "Domain 6's lifecycle runs discovery → design → handoff → monitoring → iteration.",
-        "deepDive": "The same words recur across the domain: discovery appears again in 6.1, design output reappears in 6.4, and monitoring is the phase that feeds the iteration loop."
+        "deepDive": "The five names form an ordered sequence, and the order is the content of the objective: each phase hands something to the next, with monitoring and iteration closing the loop rather than ending the lifecycle."
       },
       "source": {
         "document": "Claude-Certified-Architect-Profesional-Exam-Guide.pdf",
@@ -3953,14 +2862,14 @@
       "prompt": "A shipped solution is under monitoring and the team is deciding what to change next. Which objective covers the architect's work?",
       "options": [
         {
-          "id": "a",
-          "text": "6.5 — Support lifecycle phases, including monitoring and iteration",
-          "isCorrect": true
-        },
-        {
           "id": "b",
           "text": "6.4 — Document architectures and provide implementation guidance",
           "isCorrect": false
+        },
+        {
+          "id": "a",
+          "text": "6.5 — Support lifecycle phases, including monitoring and iteration",
+          "isCorrect": true
         },
         {
           "id": "c",
@@ -3980,109 +2889,13 @@
           "b": "6.4 documents and guides implementation. Keeping a live system healthy is not documentation, even though decisions made there may be documented later.",
           "c": "6.1 is the discovery and requirement activity that starts the lifecycle. Work inside the monitoring and iteration phases is not a return to discovery."
         },
-        "takeaway": "Post-launch work on a live system is 6.5: it sits in the monitoring and iteration phases, not in 6.1 or 6.4."
+        "takeaway": "Post-launch work on a live system is 6.5: it sits in the monitoring and iteration phases, not in 6.1 or 6.4.",
+        "deepDive": "Monitoring and iteration are the two phases that sit after handoff, and together they describe work on a solution that is already running — which is what separates this scenario from anything in the earlier phases."
       },
       "source": {
         "document": "Claude-Certified-Architect-Profesional-Exam-Guide.pdf",
         "section": "6.5 Support lifecycle phases (discovery, design, handoff, monitoring, iteration)",
         "page": 5
-      },
-      "reviewStatus": "verified"
-    },
-    {
-      "id": "p6-65-003",
-      "domain": "d6",
-      "taskStatement": "6.5",
-      "scenario": null,
-      "concept": "discovery-in-61-and-65",
-      "mode": "swipe",
-      "type": "single",
-      "prompt": "The word \"discovery\" appears in both 6.1 and 6.5. How should an architect read the two?",
-      "options": [
-        {
-          "id": "a",
-          "text": "6.1 is a discrete deliverable, and 6.5 is ongoing ownership of that same work",
-          "isCorrect": false
-        },
-        {
-          "id": "b",
-          "text": "6.1 is the eliciting and recording; 6.5 places discovery as the first phase",
-          "isCorrect": true
-        },
-        {
-          "id": "c",
-          "text": "6.1 covers new builds; 6.5's discovery is a re-check of a running system",
-          "isCorrect": false
-        }
-      ],
-      "correctCount": 1,
-      "optionCountRationale": "Three options: the competency-versus-phase reading plus the two substantive misreadings worth arguing about - that discovery is one ongoing responsibility named twice, and that the 6.5 phase refers to post-launch verification rather than the opening of the lifecycle.",
-      "distractorRationale": {
-        "a": "Probes the misconception that a repeated word means a repeated task; splitting discovery into a one-off deliverable and ongoing ownership discards the phase the lifecycle actually starts with.",
-        "c": "Probes the misconception that the discovery named under 6.5 refers to a later verification pass instead of the first phase."
-      },
-      "explanation": {
-        "correct": "6.1 states the competency - conducting structured discovery and requirement gathering - while 6.5 places discovery as the first phase of the lifecycle. One names the work, the other names where the work sits.",
-        "whyWrong": {
-          "a": "Discovery is not a deliverable plus an ongoing ownership split. 6.5 lists it once, as the phase the lifecycle opens with, which is consistent with 6.1 being the activity performed in it.",
-          "c": "6.5's discovery is the opening phase, not a re-check after launch. Re-checking a running system belongs to monitoring and iteration."
-        },
-        "takeaway": "In 6.1 discovery is the activity; in 6.5 it is the phase, and the two are consistent rather than contradictory.",
-        "deepDive": "The relationship between the two is not stated anywhere, so this item offers an interpretation of the overlap rather than a rule: one objective names the work, the other names where the work sits in the lifecycle. Hold that reading lightly - what is certain is that 6.5's discovery is first in the sequence, ahead of design, handoff, monitoring, and iteration."
-      },
-      "source": {
-        "document": "Claude-Certified-Architect-Profesional-Exam-Guide.pdf",
-        "section": "6.5 Support lifecycle phases (discovery, design, handoff, monitoring, iteration)",
-        "page": 5
-      },
-      "reviewStatus": "needs-review",
-      "reviewNote": "Discovery is named under both 6.1 and 6.5 but the relationship between the two is never stated, so the keyed reading is an interpretation rather than a documented rule. The strongest anchor is that 6.5's sequence puts discovery first, ahead of design. Confirm against the full guide text before shipping."
-    },
-    {
-      "id": "p7-71-001",
-      "domain": "d7",
-      "taskStatement": "7.1",
-      "scenario": "dev-productivity",
-      "concept": "team-environment-configuration",
-      "mode": "swipe",
-      "type": "single",
-      "prompt": "What does objective 7.1 name as the architect's responsibility?",
-      "options": [
-        {
-          "id": "b",
-          "text": "Configuring Claude tools and environments so a team can work in them",
-          "isCorrect": true
-        },
-        {
-          "id": "a",
-          "text": "Choosing which business value pillar the solution targets",
-          "isCorrect": false
-        },
-        {
-          "id": "c",
-          "text": "Agreeing the accuracy-versus-latency trade-off with sponsors",
-          "isCorrect": false
-        }
-      ],
-      "correctCount": 1,
-      "optionCountRationale": "Three options: the stated 7.1 responsibility plus two responsibilities that the blueprint places in other domains.",
-      "distractorRationale": {
-        "a": "Probes the confusion between team tooling configuration (7.1) and aligning a solution to a business value pillar, which objective 1.6 covers.",
-        "c": "Probes the confusion between configuring the team's tooling and negotiating a system-level trade-off, which the blueprint places under Domain 3."
-      },
-      "explanation": {
-        "correct": "7.1 is configuring Claude tools and environments for teams, with Claude Code given as the worked example of such a tool or environment.",
-        "whyWrong": {
-          "a": "Selecting a business value pillar is solution-design work: it decides what the system is for, whereas 7.1 decides what tooling and environments the team will work in.",
-          "c": "Negotiating an accuracy-latency trade-off is a design decision surfaced in other domains; 7.1 is about the tools and environments a team works in."
-        },
-        "takeaway": "7.1 is team tooling configuration, with Claude Code named as the example.",
-        "deepDive": "At 7% of the exam, Domain 7 is the smallest domain: three objectives, no extra detail beyond their wording. Know the scope of each and do not import details from other domains."
-      },
-      "source": {
-        "document": "Claude-Certified-Architect-Profesional-Exam-Guide.pdf",
-        "section": "7.1 Configure Claude tools and environments for teams (e.g., Claude Code)",
-        "page": 6
       },
       "reviewStatus": "verified"
     },
@@ -4119,12 +2932,12 @@
         "c": "Probes the confusion between tooling setup and operational issue resolution, which is 7.3."
       },
       "explanation": {
-        "correct": "7.1 covers configuring the tools and environments for teams; 7.2 is about improving developer workflows using AI-assisted tooling, which is a change to the work itself.",
+        "correct": "7.1 covers configuring the Claude tools and environments a team works in; the distinction being tested is the environment against the work the team does with it.",
         "whyWrong": {
           "b": "Changing how the team's process runs is the workflow improvement named in 7.2, not the tooling configuration named in 7.1.",
           "c": "Investigating and resolving a production issue is 7.3, operational issue resolution, and is unrelated to either configuration or workflow design."
         },
-        "takeaway": "7.1 configures the tools and environments; 7.2 improves the work the team does with them.",
+        "takeaway": "7.1 configures the tools and environments; the objective that follows it changes how the work is done.",
         "deepDive": "The two objectives are separated by object, not by effort: 7.1 is about the environment, 7.2 is about the workflow."
       },
       "source": {
@@ -4166,7 +2979,7 @@
           "a": "Aligning stakeholders and agreeing service levels is Domain 6 work, not the purpose of a developer tool or environment."
         },
         "takeaway": "In 7.1, Claude Code is the named example of a team-configurable Claude tool or environment.",
-        "deepDive": "The guide names no settings, files, or configuration surfaces for Claude Code, so items should stay at this level of specificity rather than inventing configuration detail."
+        "deepDive": "Claude Code appears in 7.1 only as the parenthetical example, so the objective is about the class of team-configurable Claude tools and environments rather than about any one product."
       },
       "source": {
         "document": "Claude-Certified-Architect-Profesional-Exam-Guide.pdf",
@@ -4215,54 +3028,6 @@
         },
         "takeaway": "Configuration gets the tooling in place; 7.2 is the separate work of improving the workflow that uses it.",
         "deepDive": "Read 7.1 and 7.2 as a pair: the environment first, then the workflow that runs on top of it."
-      },
-      "source": {
-        "document": "Claude-Certified-Architect-Profesional-Exam-Guide.pdf",
-        "section": "7.2 Improve developer workflows using AI-assisted tooling",
-        "page": 6
-      },
-      "reviewStatus": "verified"
-    },
-    {
-      "id": "p7-72-002",
-      "domain": "d7",
-      "taskStatement": "7.2",
-      "scenario": "dev-productivity",
-      "concept": "config-vs-workflow-scope",
-      "mode": "swipe",
-      "type": "single",
-      "prompt": "Which statement correctly separates 7.1 from 7.2?",
-      "options": [
-        {
-          "id": "b",
-          "text": "7.1 changes the work; 7.2 installs and configures the tools",
-          "isCorrect": false
-        },
-        {
-          "id": "a",
-          "text": "7.1 configures the tools; 7.2 changes the work done with AI-assisted tooling",
-          "isCorrect": true
-        },
-        {
-          "id": "c",
-          "text": "7.1 and 7.2 describe the same work under two different names",
-          "isCorrect": false
-        }
-      ],
-      "correctCount": 1,
-      "optionCountRationale": "Three options: the correct split, the reversed split, and a merge claim; nothing in the guide's wording supports a third distinct reading.",
-      "distractorRationale": {
-        "b": "Probes the confusion of which objective owns configuration and which owns workflow change.",
-        "c": "Probes the misconception that adjacent, related objectives are duplicates rather than distinct scopes."
-      },
-      "explanation": {
-        "correct": "7.1 covers configuring Claude tools and environments for teams; 7.2 covers improving the developer workflows that use AI-assisted tooling.",
-        "whyWrong": {
-          "b": "This reverses the two. Configuration of tools and environments is 7.1, and improving workflows with AI-assisted tooling is 7.2.",
-          "c": "The blueprint lists them as separate objectives with different objects, so treating them as one activity loses the distinction the exam measures."
-        },
-        "takeaway": "Environment first, workflow second: 7.1 configures, 7.2 improves the work.",
-        "deepDive": "A useful memory hook for this small domain: configure (7.1), workflow (7.2), debug (7.3)."
       },
       "source": {
         "document": "Claude-Certified-Architect-Profesional-Exam-Guide.pdf",

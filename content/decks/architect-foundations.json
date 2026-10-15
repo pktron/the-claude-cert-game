@@ -89,16 +89,11 @@
       "domain": "d1",
       "taskStatement": "1.1",
       "scenario": null,
-      "concept": "agentic-loop-stop-reason",
+      "concept": "agentic-loop-termination-antipatterns",
       "mode": "swipe",
       "type": "single",
       "prompt": "A team's agent loop ends the run whenever the assistant's text contains a phrase like \"I have completed the task.\" How does the exam guide classify this pattern?",
       "options": [
-        {
-          "id": "a",
-          "text": "An anti-pattern; termination should key off stop_reason instead",
-          "isCorrect": true
-        },
         {
           "id": "b",
           "text": "Acceptable, provided the model is told to use that exact phrase",
@@ -108,6 +103,11 @@
           "id": "c",
           "text": "Acceptable, provided a hard iteration cap backs the phrase check up",
           "isCorrect": false
+        },
+        {
+          "id": "a",
+          "text": "An anti-pattern; the model's own wording is not a completion signal",
+          "isCorrect": true
         }
       ],
       "correctCount": 1,
@@ -144,11 +144,6 @@
       "prompt": "A customer-support agent looks up an order with one tool call, then must decide what to do next. Why is the tool result appended to the conversation history?",
       "options": [
         {
-          "id": "a",
-          "text": "To let the model factor the new information into its next decision",
-          "isCorrect": true
-        },
-        {
           "id": "b",
           "text": "To let the application display the raw tool output in the chat transcript",
           "isCorrect": false
@@ -157,6 +152,11 @@
           "id": "c",
           "text": "To let the API skip the next model call once the lookup is cached",
           "isCorrect": false
+        },
+        {
+          "id": "a",
+          "text": "To let the model factor the new information into its next decision",
+          "isCorrect": true
         },
         {
           "id": "d",
@@ -220,7 +220,7 @@
           "b": "That describes a pre-configured decision tree or tool sequence, where the ordering is fixed by the developer before the run. The model is following a plan, not reasoning over context."
         },
         "takeaway": "Agentic means Claude chooses the tool; a prompt chain means the developer chose the tool.",
-        "deepDive": "Both can be correct architectures. The distinction is whether the sequence adapts to what each step discovers, which is the pivot into Task Statement 1.6."
+        "deepDive": "Both can be correct architectures. The distinction is whether the sequence adapts to what each step discovers, which is exactly the choice between a fixed sequential prompt chain for predictable multi-aspect work and a dynamic decomposition plan that generates subtasks from intermediate findings."
       },
       "source": {
         "document": "Claude-Certified-Architect-Foundations-Exam-Guide.pdf",
@@ -240,14 +240,14 @@
       "prompt": "In a hub-and-spoke arrangement, how does communication between subagents actually flow?",
       "options": [
         {
-          "id": "a",
-          "text": "Subagents message each other directly whenever they need information",
-          "isCorrect": false
-        },
-        {
           "id": "b",
           "text": "A coordinator owns all subagent communication, routing, and errors",
           "isCorrect": true
+        },
+        {
+          "id": "a",
+          "text": "Subagents message each other directly whenever they need information",
+          "isCorrect": false
         }
       ],
       "correctCount": 1,
@@ -281,11 +281,6 @@
       "prompt": "A coordinator launches three research subagents and expects each to reason about what the other two already found. What goes wrong?",
       "options": [
         {
-          "id": "a",
-          "text": "Subagents have isolated context and do not inherit the coordinator's history",
-          "isCorrect": true
-        },
-        {
           "id": "b",
           "text": "Subagents share one context window, so each new finding overwrites the last",
           "isCorrect": false
@@ -294,6 +289,11 @@
           "id": "c",
           "text": "Nothing goes wrong; a coordinator normally broadcasts context to every subagent",
           "isCorrect": false
+        },
+        {
+          "id": "a",
+          "text": "Subagents have isolated context and do not inherit the coordinator's history",
+          "isCorrect": true
         }
       ],
       "correctCount": 1,
@@ -438,26 +438,26 @@
         },
         {
           "id": "a",
-          "text": "MCP, since subagents are external tools served over the MCP protocol",
+          "text": "MCP, since a coordinator delegates work by calling MCP tools directly",
           "isCorrect": false
         },
         {
           "id": "c",
-          "text": "Bash, so the coordinator can run each subagent's script itself",
+          "text": "Fork, since forking a branch is the alternative way to run configured subagents in parallel",
           "isCorrect": false
         }
       ],
       "correctCount": 1,
-      "optionCountRationale": "Three options because the two plausible wrong answers, MCP and Bash, are different categories of tool entirely and both appear in orchestration discussions. A fourth would pad rather than add a distinction.",
+      "optionCountRationale": "Three options because the two plausible wrong answers, MCP tool access and forking a branch, are different mechanisms entirely. A fourth would pad rather than add a distinction.",
       "distractorRationale": {
-        "a": "Probes confusing the Task tool, which spawns subagents, with MCP tools, which are external data and action sources a subagent may use.",
-        "c": "Probes the assumption that invoking a subagent is equivalent to running a process, which reintroduces the pre-configured sequencing model at a lower level."
+        "a": "Probes conflating MCP tool access with delegation, two separate capabilities that allowedTools governs independently.",
+        "c": "Probes confusing session branching with subagent spawning. Both can look like more parallel work, but the guide assigns each a different job."
       },
       "explanation": {
         "correct": "The Task tool is the mechanism for spawning subagents, and allowedTools must include Task for a coordinator to invoke them. Without it, the coordinator cannot delegate regardless of how good its prompt is.",
         "whyWrong": {
-          "a": "MCP tools are external tools the agent can call for data or actions. They are not the subagent-spawning mechanism, and granting MCP access does nothing for delegation.",
-          "c": "Bash executes commands; it does not spawn a configured subagent with its own system prompt and tool restrictions. Delegation goes through Task."
+          "a": "MCP tools are things the agent can call for data or actions. They are not the subagent-spawning mechanism, and granting MCP access does nothing for delegation.",
+          "c": "fork_session creates independent branches from a shared analysis baseline for exploring divergent approaches. That is session management, not subagent invocation: the guide names the Task tool as the mechanism for spawning subagents, which requires Task in the coordinator's allowedTools."
         },
         "takeaway": "allowedTools must list Task before a coordinator can invoke any subagent.",
         "deepDive": "Tool access and delegation are separate concerns. allowedTools governs what the agent may call, and AgentDefinitions supply the descriptions, system prompts, and tool restrictions for each subagent type."
@@ -538,14 +538,14 @@
           "isCorrect": false
         },
         {
-          "id": "b",
-          "text": "The complete findings in a structured form separating content from metadata",
-          "isCorrect": true
-        },
-        {
           "id": "d",
           "text": "The subagent's own read access to the original search and document tools",
           "isCorrect": false
+        },
+        {
+          "id": "b",
+          "text": "The complete findings in a structured form separating content from metadata",
+          "isCorrect": true
         }
       ],
       "correctCount": 1,
@@ -611,7 +611,7 @@
           "c": "Padding the prompt does not convert procedure into goal. The model still has no latitude to adapt, which is the capability the coordinator prompt is supposed to grant."
         },
         "takeaway": "Coordinator prompts set goals and quality criteria; subagents own the method.",
-        "deepDive": "This is the prompt-level counterpart to Task Statement 1.2, where the coordinator dynamically selects which subagents to invoke based on query complexity rather than always running the full pipeline."
+        "deepDive": "The same principle governs which subagents run at all: a coordinator should analyze the query's requirements and dynamically select which subagents to invoke, rather than always routing through the full pipeline regardless of what was asked."
       },
       "source": {
         "document": "Claude-Certified-Architect-Foundations-Exam-Guide.pdf",
@@ -628,7 +628,7 @@
       "concept": "agent-tool-restrictions",
       "mode": "swipe",
       "type": "single",
-      "prompt": "You are defining a new subagent type that a coordinator will invoke. What does objective 1.3 say the AgentDefinition for that type supplies?",
+      "prompt": "You are defining a new subagent type that a coordinator will invoke. What does the guide say the AgentDefinition for that type supplies?",
       "options": [
         {
           "id": "a",
@@ -649,17 +649,17 @@
       "correctCount": 1,
       "optionCountRationale": "Three options: the AgentDefinition contents objective 1.3 names, plus the two placement errors teams actually make - assuming findings carry over between invocations, and assuming the system prompt and tool restrictions come from the coordinator.",
       "distractorRationale": {
-        "a": "Probes treating a subagent definition as a checkpoint in a shared investigation. Objective 1.3 states that subagents do not share memory between invocations.",
-        "c": "Probes assuming a subagent runs on the coordinator's instructions. Objective 1.3 puts the system prompt and the tool restrictions in the AgentDefinition for the type itself."
+        "a": "Probes treating a subagent definition as a checkpoint in a shared investigation. The guide states that subagents do not share memory between invocations.",
+        "c": "Probes assuming a subagent runs on the coordinator's instructions. The guide puts the system prompt and the tool restrictions in the AgentDefinition for the type itself."
       },
       "explanation": {
-        "correct": "Objective 1.3 names the AgentDefinition configuration as descriptions, system prompts, and tool restrictions for each subagent type. Each type therefore carries its own instructions and its own tool boundaries.",
+        "correct": "The guide names the AgentDefinition configuration as descriptions, system prompts, and tool restrictions for each subagent type. Each type therefore carries its own instructions and its own tool boundaries.",
         "whyWrong": {
-          "a": "Objective 1.3 states that subagents do not share memory between invocations. Findings from earlier agents have to be placed explicitly in the new subagent's prompt, which is what the definition itself does not supply.",
-          "c": "Descriptions, system prompts, and tool restrictions all live in the AgentDefinition for the type. Nothing in 1.3 has the subagent inheriting instructions or tool access from the coordinator."
+          "a": "The guide states that subagents do not share memory between invocations. Findings from earlier agents have to be placed explicitly in the new subagent's prompt, which is what the definition itself does not supply.",
+          "c": "Descriptions, system prompts, and tool restrictions all live in the AgentDefinition for the type. Nothing in the guide has the subagent inheriting instructions or tool access from the coordinator."
         },
         "takeaway": "An AgentDefinition carries a description, a system prompt, and tool restrictions for one subagent type - nothing more is inherited.",
-        "deepDive": "Objective 1.3 splits the configuration in two places: allowedTools must include Task on the coordinator for subagents to be invoked at all, and each subagent type's own AgentDefinition says what it is for, how it behaves, and which tools it may use."
+        "deepDive": "The configuration lives in two places: allowedTools must include Task on the coordinator for subagents to be invoked at all, and each subagent type's own AgentDefinition says what it is for, how it behaves, and which tools it may use."
       },
       "source": {
         "document": "Claude-Certified-Architect-Foundations-Exam-Guide.pdf",
@@ -830,14 +830,14 @@
       "prompt": "When does a PostToolUse hook run relative to the model seeing a tool result?",
       "options": [
         {
-          "id": "a",
-          "text": "Before the model processes it, so the returned data can be transformed",
-          "isCorrect": true
-        },
-        {
           "id": "b",
           "text": "After the model has replied, so the exchange can be logged for audit",
           "isCorrect": false
+        },
+        {
+          "id": "a",
+          "text": "Before the model processes it, so the returned data can be transformed",
+          "isCorrect": true
         }
       ],
       "correctCount": 1,
@@ -876,14 +876,14 @@
           "isCorrect": false
         },
         {
-          "id": "a",
-          "text": "Use PostToolUse hooks to normalize the formats before the agent reads them",
-          "isCorrect": true
-        },
-        {
           "id": "c",
           "text": "Call only the tool whose format already matches what the agent expects",
           "isCorrect": false
+        },
+        {
+          "id": "a",
+          "text": "Use PostToolUse hooks to normalize the formats before the agent reads them",
+          "isCorrect": true
         }
       ],
       "correctCount": 1,
@@ -919,6 +919,11 @@
       "prompt": "Refunds over $500 are forbidden and must go to human review. What is the right mechanism?",
       "options": [
         {
+          "id": "b",
+          "text": "An interception hook that blocks the call and redirects to escalation",
+          "isCorrect": true
+        },
+        {
           "id": "a",
           "text": "A prompt instruction telling the model to refuse refunds above $500",
           "isCorrect": false
@@ -927,11 +932,6 @@
           "id": "c",
           "text": "An extra coordinator pass that re-checks the amount before paying out",
           "isCorrect": false
-        },
-        {
-          "id": "b",
-          "text": "An interception hook that blocks the call and redirects to escalation",
-          "isCorrect": true
         }
       ],
       "correctCount": 1,
@@ -961,41 +961,41 @@
       "domain": "d1",
       "taskStatement": "1.6",
       "scenario": "code-gen",
-      "concept": "prompt-chaining-vs-adaptive",
+      "concept": "fixed-pipeline-for-predictable-work",
       "mode": "swipe",
       "type": "single",
-      "prompt": "A predictable review must cover a fixed list of known files. Which decomposition pattern fits?",
+      "prompt": "A workflow's stages are fixed and known before it starts, and nothing discovered at one stage can change what runs next. Which decomposition strategy does the guide prescribe?",
       "options": [
         {
           "id": "b",
-          "text": "Dynamic decomposition: let each step invent new subtasks from what it finds",
+          "text": "Dynamic decomposition, so each stage generates its own next subtask from what it finds.",
           "isCorrect": false
         },
         {
           "id": "a",
-          "text": "Prompt chaining: a per-file analysis pass, then a cross-file integration pass",
+          "text": "A fixed sequential pipeline, since prompt chaining is the pattern for predictable multi-aspect work.",
           "isCorrect": true
         },
         {
           "id": "c",
-          "text": "One pass over the whole changeset, spreading attention across every file",
+          "text": "No decomposition at all: one pass that handles every stage together, since the stages never depend on each other.",
           "isCorrect": false
         }
       ],
       "correctCount": 1,
-      "optionCountRationale": "Three options map directly onto the guide's choice: prompt chaining for predictable multi-aspect work, dynamic decomposition for open-ended work, and the do-nothing option that ignores attention dilution.",
+      "optionCountRationale": "Three options test the selection rule itself against the two ways teams over-correct: paying for adaptive planning on fixed work, and skipping decomposition on work that has known, distinct stages.",
       "distractorRationale": {
-        "b": "Probes applying adaptive decomposition to a task whose inputs are already known. When the scope is fixed, dynamic subtask generation adds planning cost with no discovery to justify it.",
-        "c": "Probes the belief that a bigger single pass is simpler and therefore better, ignoring the attention dilution the guide names."
+        "b": "Probes applying adaptive decomposition to a task with nothing to discover. The guide reserves that for open-ended investigation where intermediate findings shape the next step.",
+        "c": "Probes treating a known, staged workflow as a single undifferentiated pass, which is the attention dilution the guide warns about."
       },
       "explanation": {
-        "correct": "Prompt chaining fits predictable multi-aspect reviews: analyze each file individually, then run a separate cross-file integration pass. Fixed sequential pipelines are appropriate when the steps are known in advance.",
+        "correct": "The guide draws the line explicitly: prompt chaining suits predictable multi-aspect reviews, where the steps are known in advance, and a fixed sequential pipeline is the right shape when discovery cannot change what comes next.",
         "whyWrong": {
-          "b": "Dynamic decomposition earns its cost when intermediate findings shape the next step. With a known file list there is nothing to discover, so the adaptation is pure overhead.",
-          "c": "Splitting one pass over everything is exactly the attention dilution the two-stage pattern exists to avoid. The cross-file pass is what makes the per-file work add up."
+          "b": "Adaptive plans earn their planning cost when intermediate findings shape the next step. Here the stages are fixed, so generating subtasks from findings adds cost with nothing to discover.",
+          "c": "A single pass across every stage spreads attention thinly. The guide's answer to a predictable multi-aspect workflow is a staged pipeline, not one undifferentiated run."
         },
-        "takeaway": "Known scope calls for prompt chaining; open-ended questions call for adaptive decomposition.",
-        "deepDive": "The split between fixed pipelines and adaptive plans is the central judgment in this task statement, and it is decided by whether intermediate findings can change what comes next."
+        "takeaway": "Known scope calls for a fixed pipeline; open-ended questions call for adaptive decomposition.",
+        "deepDive": "The judgment reduces to one question: can what you learn at step three change what runs at step four? If not, the pipeline is fixed. If it can, the plan has to be generated adaptively."
       },
       "source": {
         "document": "Claude-Certified-Architect-Foundations-Exam-Guide.pdf",
@@ -1009,48 +1009,48 @@
       "domain": "d1",
       "taskStatement": "1.6",
       "scenario": "code-gen",
-      "concept": "per-file-then-integration",
+      "concept": "prompt-chaining-vs-dynamic-decomposition",
       "mode": "swipe",
       "type": "single",
-      "prompt": "Why split a large code review into per-file passes plus a separate integration pass?",
+      "prompt": "A team must add comprehensive tests to an unfamiliar legacy codebase, and they do not yet know which areas carry the most risk. Which decomposition strategy does the guide describe?",
       "options": [
         {
+          "id": "b",
+          "text": "Map the structure, identify high-impact areas, then build a prioritized plan that adapts as dependencies emerge.",
+          "isCorrect": true
+        },
+        {
           "id": "a",
-          "text": "Larger inputs exceed what the model can hold in context at once",
+          "text": "A fixed sequential pipeline whose steps are chosen up front and run in the same order every time.",
           "isCorrect": false
         },
         {
           "id": "c",
-          "text": "A model cannot read two different files in the same conversation",
+          "text": "Freeze the risk list after a one-time structural scan and execute the resulting plan unchanged.",
           "isCorrect": false
         },
         {
           "id": "d",
-          "text": "Per-file passes let the model skip the integration stage afterwards",
+          "text": "Send the whole codebase through one pass and let the model decide on its own what to test.",
           "isCorrect": false
-        },
-        {
-          "id": "b",
-          "text": "It keeps each step focused and avoids diluting attention across the diff",
-          "isCorrect": true
         }
       ],
       "correctCount": 1,
-      "optionCountRationale": "Four options because the three distractors are three genuinely different wrong explanations, two of them capacity myths and one a misunderstanding of the two-stage structure. Separating them prevents the capacity myths from being learned as the reason.",
+      "optionCountRationale": "Four options because this is an open-ended investigation task and the realistic wrong turns are three: freezing a pipeline up front, freezing the risk list after a first pass, and skipping decomposition altogether.",
       "distractorRationale": {
-        "a": "Probes attributing the pattern to context limits. The guide's stated reason is attention dilution, which is a focus problem rather than a capacity ceiling.",
-        "c": "Probes the flat misconception that the model can only ever touch one file per conversation, which is unrelated to the decomposition pattern.",
-        "d": "Probes misreading the two-stage design as an either-or. The integration pass is what synthesizes the per-file analysis and cannot be dropped."
+        "a": "Probes reaching for a fixed sequence when the shape of the work is still unknown.",
+        "c": "Probes planning the work once and freezing it. The guide's plan adapts as dependencies are discovered, which is the point of decomposing this task dynamically.",
+        "d": "Probes treating decomposition as optional when the codebase has not been mapped yet."
       },
       "explanation": {
-        "correct": "Splitting large code reviews into per-file local analysis passes plus a separate cross-file integration pass avoids attention dilution. Each pass stays focused, and the integration pass is where findings from different files are reconciled.",
+        "correct": "The guide describes this as dynamic decomposition: an open-ended investigation is broken down by first mapping the structure, identifying high-impact areas, and then creating a prioritized plan that adapts as dependencies are discovered.",
         "whyWrong": {
-          "a": "The guide attributes the split to attention dilution, not to exceeding a context window. Attention and capacity are different problems with different fixes.",
-          "c": "There is no such one-file-per-conversation constraint. Reading many files is fine; diluting focus across them at once is what the pattern avoids.",
-          "d": "The integration pass is the point of the pattern. Per-file findings are local until the cross-file pass connects them."
+          "a": "A pipeline whose steps are chosen before the work begins cannot respond to what the mapping turns up, which is the entire reason for decomposing this task adaptively.",
+          "c": "A one-time scan produces a snapshot, not a plan. The guide's strategy is a prioritized plan that keeps adapting as dependencies are discovered, so freezing the risk list after the first pass discards the adaptation that makes the strategy worth choosing.",
+          "d": "One undifferentiated pass is the opposite of decomposition. Nothing in the guide proposes skipping the plan; the skill here is to derive the plan from what discovery surfaces."
         },
-        "takeaway": "Review per file for focus, then integrate across files for the cross-cutting view.",
-        "deepDive": "This pairing is the canonical prompt-chaining example in the guide: predictable multi-aspect work broken into sequential steps rather than one undifferentiated pass."
+        "takeaway": "When the plan has to follow what the investigation discovers, generate the subtasks dynamically instead of writing them down in advance.",
+        "deepDive": "The value of an adaptive investigation plan is that its subtasks come from what is discovered at each step rather than from a list written in advance, which is what makes it the right choice for something like adding comprehensive tests to a legacy codebase."
       },
       "source": {
         "document": "Claude-Certified-Architect-Foundations-Exam-Guide.pdf",
@@ -1095,7 +1095,7 @@
         "correct": "Starting a new session with a structured summary is more reliable than resuming with stale tool results. The clean session carries forward conclusions, not superseded data.",
         "whyWrong": {
           "a": "The choice turns on how valid the prior tool results are, not on how much history the session holds. The prompt states those results are stale after the refactor, which is the case for starting fresh with an injected summary.",
-          "c": "Objective 1.7 states that starting a new session with a structured summary is more reliable than resuming with stale tool results. A record the prompt has just declared stale cannot serve as the authoritative account."
+          "c": "The guide states that starting a new session with a structured summary is more reliable than resuming with stale tool results. A record the prompt has just declared stale cannot serve as the authoritative account."
         },
         "takeaway": "Prior context mostly valid means resume; stale tool results mean start fresh with a summary.",
         "deepDive": "The decision rule is about the freshness of the prior tool results, not about how much effort the session represents. Sessions full of stale data are worth summarizing; sessions full of still-valid findings are worth resuming."
@@ -1146,7 +1146,7 @@
           "c": "--resume continues a specific prior conversation rather than creating a parallel branch. Divergent exploration needs fork_session."
         },
         "takeaway": "Same baseline, divergent directions: that is fork_session, not resume.",
-        "deepDive": "Fork-based session management is listed alongside spawning under Task Statement 1.3 as well, because both are ways of creating parallel lines of work that do not share context."
+        "deepDive": "The same idea shows up when coordinating subagents. Forks and spawned subagents are both ways of creating parallel lines of work that do not share context with the original conversation, which is why divergent exploration is the case that calls for a fork rather than more turns."
       },
       "source": {
         "document": "Claude-Certified-Architect-Foundations-Exam-Guide.pdf",
@@ -1260,14 +1260,14 @@
           "isCorrect": false
         },
         {
-          "id": "c",
-          "text": "Rename both tools so they share a common analyze_ prefix and a single combined description",
-          "isCorrect": false
-        },
-        {
           "id": "b",
           "text": "Rewrite each description to state its purpose, expected inputs and outputs, and when to prefer it over the other",
           "isCorrect": true
+        },
+        {
+          "id": "c",
+          "text": "Rename both tools so they share a common analyze_ prefix and a single combined description",
+          "isCorrect": false
         }
       ],
       "correctCount": 1,
@@ -1279,7 +1279,7 @@
       "explanation": {
         "correct": "Ambiguous or overlapping descriptions cause misrouting. The guide's remedy is to write descriptions that clearly differentiate each tool's purpose, expected inputs, outputs, and when to use it versus the similar alternative.",
         "whyWrong": {
-          "a": "Keyword-sensitive system prompt instructions can create unintended tool associations. Papering over overlapping descriptions with a prompt rule leaves the underlying boundary undefined.",
+          "a": "Papering over overlapping descriptions with a prompt rule leaves the underlying boundary undefined. The descriptions are the signal the model matches a request against, so that is where the fix has to land.",
           "c": "Renaming both tools under one prefix and one description makes the overlap worse, not better. The model still has nothing to match a request against."
         },
         "analogy": "Two doors labeled 'analysis'. The model guesses until one label names the room it is actually in.",
@@ -1308,14 +1308,14 @@
           "isCorrect": false
         },
         {
-          "id": "b",
-          "text": "Leave the tool alone and restrict when the agent may call it through system prompt wording",
-          "isCorrect": false
-        },
-        {
           "id": "c",
           "text": "Split it into extract_data_points, summarize_content, and verify_claim_against_source with defined contracts",
           "isCorrect": true
+        },
+        {
+          "id": "b",
+          "text": "Leave the tool alone and restrict when the agent may call it through system prompt wording",
+          "isCorrect": false
         },
         {
           "id": "d",
@@ -1357,14 +1357,14 @@
       "prompt": "A system prompt says: \"Always use the research tool for anything involving data.\" Unrelated requests start triggering that tool. What does the guide identify as the cause?",
       "options": [
         {
-          "id": "a",
-          "text": "The agent being given every tool in the suite instead of a small, scoped set",
-          "isCorrect": false
-        },
-        {
           "id": "b",
           "text": "Keyword-sensitive system prompt wording creating unintended tool associations",
           "isCorrect": true
+        },
+        {
+          "id": "a",
+          "text": "The agent being given every tool in the suite instead of a small, scoped set",
+          "isCorrect": false
         },
         {
           "id": "c",
@@ -1449,14 +1449,14 @@
           "isCorrect": false
         },
         {
-          "id": "b",
-          "text": "Transient, because a retry against the policy service may return a different answer",
-          "isCorrect": false
-        },
-        {
           "id": "c",
           "text": "Business, because a policy rule was violated rather than a technical failure",
           "isCorrect": true
+        },
+        {
+          "id": "b",
+          "text": "Transient, because a retry against the policy service may return a different answer",
+          "isCorrect": false
         }
       ],
       "correctCount": 1,
@@ -1488,17 +1488,17 @@
       "concept": "generic-error-blocks-recovery",
       "mode": "swipe",
       "type": "single",
-      "prompt": "A CI tool returns `{ \"isError\": true, \"content\": \"Operation failed\" }` for every failure mode. What is the consequence?",
+      "prompt": "A CI tool flags every failure with the isError flag and returns the same bare string, \"Operation failed\", whatever actually went wrong. What is the consequence?",
       "options": [
-        {
-          "id": "a",
-          "text": "The agent gets a consistent message, so its recovery path stays simple and predictable",
-          "isCorrect": false
-        },
         {
           "id": "b",
           "text": "The agent cannot separate transient from permanent failures, so it retries blindly or gives up",
           "isCorrect": true
+        },
+        {
+          "id": "a",
+          "text": "The agent gets a consistent message, so its recovery path stays simple and predictable",
+          "isCorrect": false
         },
         {
           "id": "c",
@@ -1538,6 +1538,11 @@
       "prompt": "A search tool returns zero rows for a query the agent formed correctly. How should the tool distinguish this from failing to reach the index?",
       "options": [
         {
+          "id": "b",
+          "text": "Return the empty result set as a success, and flag access failures with isError plus a category",
+          "isCorrect": true
+        },
+        {
           "id": "a",
           "text": "Return the empty result set with isError set, so the agent knows nothing matched",
           "isCorrect": false
@@ -1546,11 +1551,6 @@
           "id": "c",
           "text": "Return a retryable error, since an empty result set may mean the query failed silently",
           "isCorrect": false
-        },
-        {
-          "id": "b",
-          "text": "Return the empty result set as a success, and flag access failures with isError plus a category",
-          "isCorrect": true
         }
       ],
       "correctCount": 1,
@@ -1632,11 +1632,6 @@
       "prompt": "A synthesis agent that should only combine findings keeps running its own web searches and returning raw results. What is the best fix?",
       "options": [
         {
-          "id": "c",
-          "text": "Restrict it to its role's tools, plus limited cross-role tools such as verify_fact for frequent needs",
-          "isCorrect": true
-        },
-        {
           "id": "a",
           "text": "Add a system prompt instruction telling it to stop searching and synthesize what it has",
           "isCorrect": false
@@ -1650,6 +1645,11 @@
           "id": "d",
           "text": "Drop the synthesis agent and hand the whole research task to one general-purpose agent",
           "isCorrect": false
+        },
+        {
+          "id": "c",
+          "text": "Restrict it to its role's tools, plus limited cross-role tools such as verify_fact for frequent needs",
+          "isCorrect": true
         }
       ],
       "correctCount": 1,
@@ -1686,11 +1686,6 @@
       "prompt": "Which of these are the tool_choice configurations the guide lists? Select all that apply.",
       "options": [
         {
-          "id": "c",
-          "text": "Forced selection using {\"type\": \"tool\", \"name\": \"...\"} to pin the first call",
-          "isCorrect": true
-        },
-        {
           "id": "d",
           "text": "\"none\", which blocks all tool calls for that turn until the setting is changed",
           "isCorrect": false
@@ -1703,6 +1698,11 @@
         {
           "id": "b",
           "text": "\"any\", which guarantees the model calls a tool instead of replying in text",
+          "isCorrect": true
+        },
+        {
+          "id": "c",
+          "text": "Forced selection using {\"type\": \"tool\", \"name\": \"...\"} to pin the first call",
           "isCorrect": true
         }
       ],
@@ -1736,11 +1736,6 @@
       "prompt": "An extraction pipeline must gather document metadata before any enrichment step runs. How should tool_choice be set?",
       "options": [
         {
-          "id": "b",
-          "text": "Force extract_metadata, then process the remaining enrichment steps in follow-up turns",
-          "isCorrect": true
-        },
-        {
           "id": "a",
           "text": "Set \"any\" so the model picks an appropriate tool in each of the two steps",
           "isCorrect": false
@@ -1749,6 +1744,11 @@
           "id": "c",
           "text": "Set \"auto\" and describe the ordering in the system prompt, trusting the model to keep the sequence",
           "isCorrect": false
+        },
+        {
+          "id": "b",
+          "text": "Force extract_metadata, then process the remaining enrichment steps in follow-up turns",
+          "isCorrect": true
         }
       ],
       "correctCount": 1,
@@ -1783,14 +1783,14 @@
       "prompt": "A team wants every member to get the same authenticated MCP server without committing a token to the repository. Where should it be configured?",
       "options": [
         {
-          "id": "a",
-          "text": "In user-scoped ~/.claude.json on each machine, with the token pasted in directly",
-          "isCorrect": false
-        },
-        {
           "id": "b",
           "text": "In project-scoped .mcp.json, referencing the credential as ${GITHUB_TOKEN} via environment variable expansion",
           "isCorrect": true
+        },
+        {
+          "id": "a",
+          "text": "In user-scoped ~/.claude.json on each machine, with the token pasted in directly",
+          "isCorrect": false
         },
         {
           "id": "c",
@@ -1837,11 +1837,6 @@
       "prompt": "Agents burn exploratory tool calls just to discover which issues, documents, or schemas exist. What does the guide recommend?",
       "options": [
         {
-          "id": "b",
-          "text": "Expose the catalogs as MCP resources so the agent can see available data without exploratory calls",
-          "isCorrect": true
-        },
-        {
           "id": "a",
           "text": "Give agents a generic list_all tool and let them call it until the catalog is mapped out",
           "isCorrect": false
@@ -1850,6 +1845,11 @@
           "id": "c",
           "text": "Document the catalogs in the system prompt, repeating the listing whenever content is added",
           "isCorrect": false
+        },
+        {
+          "id": "b",
+          "text": "Expose the catalogs as MCP resources so the agent can see available data without exploratory calls",
+          "isCorrect": true
         }
       ],
       "correctCount": 1,
@@ -1884,14 +1884,14 @@
       "prompt": "A team needs an issue-tracker integration for its delivery workflows. Which approach does the guide favor?",
       "options": [
         {
-          "id": "a",
-          "text": "Build a custom server so the integration matches the team's pipeline exactly from day one",
-          "isCorrect": false
-        },
-        {
           "id": "b",
           "text": "Adopt an existing community server for the standard integration, reserving custom servers for team-specific workflows",
           "isCorrect": true
+        },
+        {
+          "id": "a",
+          "text": "Build a custom server so the integration matches the team's pipeline exactly from day one",
+          "isCorrect": false
         },
         {
           "id": "c",
@@ -1936,14 +1936,14 @@
           "isCorrect": false
         },
         {
-          "id": "b",
-          "text": "Read, to load each source file in the repository and scan it for the name yourself",
-          "isCorrect": false
-        },
-        {
           "id": "c",
           "text": "Grep, to search file contents for the function name and its call pattern",
           "isCorrect": true
+        },
+        {
+          "id": "b",
+          "text": "Read, to load each source file in the repository and scan it for the name yourself",
+          "isCorrect": false
         }
       ],
       "correctCount": 1,
@@ -1979,11 +1979,6 @@
       "prompt": "Edit reports that its anchor text matches multiple places in the file. What is the reliable next step?",
       "options": [
         {
-          "id": "b",
-          "text": "Read the file to load full context, then Write the corrected contents back to disk",
-          "isCorrect": true
-        },
-        {
           "id": "a",
           "text": "Repeat Edit with a shorter fragment of the same text until it matches only one place",
           "isCorrect": false
@@ -1992,6 +1987,11 @@
           "id": "c",
           "text": "Use Grep to count the occurrences, then Edit again with the same anchor text",
           "isCorrect": false
+        },
+        {
+          "id": "b",
+          "text": "Read the file to load full context, then Write the corrected contents back to disk",
+          "isCorrect": true
         }
       ],
       "correctCount": 1,
@@ -2026,11 +2026,6 @@
       "prompt": "What does the guide describe as the right way to build understanding of an unfamiliar codebase?",
       "options": [
         {
-          "id": "b",
-          "text": "Start with Grep to find entry points, then Read to follow imports and trace flows from there",
-          "isCorrect": true
-        },
-        {
           "id": "a",
           "text": "Read every file up front, then trace the flows once the whole picture is loaded",
           "isCorrect": false
@@ -2039,6 +2034,11 @@
           "id": "c",
           "text": "Glob for every source file first, so the agent knows the file inventory before reading anything",
           "isCorrect": false
+        },
+        {
+          "id": "b",
+          "text": "Start with Grep to find entry points, then Read to follow imports and trace flows from there",
+          "isCorrect": true
         }
       ],
       "correctCount": 1,
@@ -2074,14 +2074,14 @@
       "prompt": "A team standard ('every service method returns a typed Result') lives in ~/.claude/CLAUDE.md. Only the developer who wrote it reports Claude following it; teammates on the same repository do not. Why?",
       "options": [
         {
-          "id": "b",
-          "text": "User-level instructions apply only to that user and are not shared with teammates through version control.",
-          "isCorrect": true
-        },
-        {
           "id": "a",
           "text": "The standard belongs in a .claude/rules/ file instead, because CLAUDE.md is never loaded for team-wide use.",
           "isCorrect": false
+        },
+        {
+          "id": "b",
+          "text": "User-level instructions apply only to that user and are not shared with teammates through version control.",
+          "isCorrect": true
         },
         {
           "id": "c",
@@ -2127,11 +2127,6 @@
           "isCorrect": false
         },
         {
-          "id": "b",
-          "text": "Use @import in each package's CLAUDE.md to reference the external standards files relevant to that package.",
-          "isCorrect": true
-        },
-        {
           "id": "c",
           "text": "Put the standards in one directory-level CLAUDE.md so every package in the repository picks it up.",
           "isCorrect": false
@@ -2140,17 +2135,22 @@
           "id": "d",
           "text": "Turn the standards into a slash command in .claude/commands/ that each package invokes whenever it needs them.",
           "isCorrect": false
+        },
+        {
+          "id": "b",
+          "text": "Use @import in each package's CLAUDE.md to reference the external standards files relevant to that package.",
+          "isCorrect": true
         }
       ],
       "correctCount": 1,
-      "optionCountRationale": "Four options because this is a best-choice architecture question where all four modularization strategies are real, guide-named techniques and only one fits a per-package selective load.",
+      "optionCountRationale": "Four options because this is a best-choice question about keeping one copy of a standard while loading it selectively. Copying it into every package, parking it in a single directory-level file, and turning it into a command are the three realistic wrong turns; only @import states the standard once and pulls it in where it is relevant.",
       "distractorRationale": {
         "a": "Probes the copy-everywhere instinct; it works but is exactly the duplication @import exists to remove.",
         "c": "Probes the belief that a directory-level CLAUDE.md broadcasts repository-wide; directory-level files are scoped to their own subdirectory.",
         "d": "Probes confusion between on-demand commands and always-loaded standards; a convention that must always apply cannot depend on someone remembering to invoke it."
       },
       "explanation": {
-        "correct": "@import lets a CLAUDE.md reference external files, which is how the guide describes keeping CLAUDE.md modular: each package's maintainers decide which standards files are relevant and import only those. The guide also names .claude/rules/ as an alternative way to split a monolithic CLAUDE.md into focused topic files such as testing.md, api-conventions.md, and deployment.md.",
+        "correct": "@import lets a CLAUDE.md reference external files, which is how the guide describes keeping CLAUDE.md modular: each package's maintainers decide which standards files are relevant to that package and import only those, rather than duplicating the text.",
         "whyWrong": {
           "a": "That is the duplication @import is designed to avoid - the standard would have to be maintained in N places and would drift between packages.",
           "c": "Directory-level CLAUDE.md files are scoped to their own subdirectory. They are not a repository-wide broadcast mechanism, so a file in the standards folder would not load for a package elsewhere in the tree.",
@@ -2158,7 +2158,7 @@
         },
         "analogy": "CLAUDE.md is a resume; @import is the 'references available on request' line that avoids pasting every document inline.",
         "takeaway": "@import keeps CLAUDE.md modular: one copy of a standard, imported only by the packages that need it.",
-        "deepDive": "Modularization and scoping are complementary: @import and .claude/rules/ topic files reduce the size of any single CLAUDE.md, while path-scoped rules in .claude/rules/ reduce how often a rule loads at all."
+        "deepDive": "Modularization and scoping are complementary: @import keeps one copy of a standard in one place, and .claude/rules/ topic files keep any single CLAUDE.md small enough for a maintainer to read."
       },
       "source": {
         "document": "Claude-Certified-Architect-Foundations-Exam-Guide.pdf",
@@ -2182,14 +2182,14 @@
           "isCorrect": false
         },
         {
-          "id": "b",
-          "text": "Run /memory to verify which files are loaded, and keep large CLAUDE.md files split into .claude/rules/ topic files.",
-          "isCorrect": true
-        },
-        {
           "id": "c",
           "text": "Move every convention into a custom slash command so each convention is only loaded when a developer requests it.",
           "isCorrect": false
+        },
+        {
+          "id": "b",
+          "text": "Run /memory to verify which files are loaded, and keep large CLAUDE.md files split into .claude/rules/ topic files.",
+          "isCorrect": true
         }
       ],
       "correctCount": 1,
@@ -2268,12 +2268,17 @@
       "concept": "skill-frontmatter-controls",
       "mode": "swipe",
       "type": "single",
-      "prompt": "A skill takes a target directory as a required argument, writes generated files under it, and must not be able to do anything outside that directory. Which frontmatter configuration matches the guide's guidance?",
+      "prompt": "A skill takes a target directory as a required argument, writes generated files under it, and must not run destructive commands. Which frontmatter configuration matches the guide's guidance?",
       "options": [
         {
           "id": "a",
           "text": "context: fork only - running the skill in an isolated sub-agent means it needs no other frontmatter configuration.",
           "isCorrect": false
+        },
+        {
+          "id": "c",
+          "text": "allowed-tools limited to file write operations, plus argument-hint so the required directory is prompted for when the skill is invoked bare.",
+          "isCorrect": true
         },
         {
           "id": "b",
@@ -2284,29 +2289,24 @@
           "id": "d",
           "text": "A description field only - frontmatter configuration is limited to descriptive text about the skill.",
           "isCorrect": false
-        },
-        {
-          "id": "c",
-          "text": "allowed-tools limited to file write operations, plus argument-hint so the required directory is prompted for when the skill is invoked bare.",
-          "isCorrect": true
         }
       ],
       "correctCount": 1,
-      "optionCountRationale": "Four options, one per combination the scenario makes thinkable: isolate only, restrict only, restrict and prompt, and the 'frontmatter is only metadata' misconception. Both forced capabilities, allowed-tools and argument-hint, have to be in the same option, and the distractors each drop or replace one of them.",
+      "optionCountRationale": "Four options, one per combination the scenario makes thinkable: isolate only, restrict destructive tools only, restrict destructive tools and prompt for the required argument, and the 'frontmatter is only metadata' misconception. Both required capabilities, allowed-tools and argument-hint, have to be in the same option, and the distractors each drop or replace one of them.",
       "distractorRationale": {
         "a": "Probes treating context: fork as a substitute for the rest of the configuration; it decides where the skill's output goes, not what it needs or may do.",
         "b": "Probes restricting tools but ignoring the required argument, and the belief that allowed-tools is the only field frontmatter offers.",
         "d": "Probes the belief that SKILL.md frontmatter is documentation-only rather than executable configuration."
       },
       "explanation": {
-        "correct": "Objective 3.2 gives the two capabilities this skill needs. allowed-tools restricts tool access during skill execution, for example limiting it to file write operations to prevent destructive actions, which is what keeps the skill inside its directory. argument-hint prompts developers for required parameters when they invoke the skill without arguments, which is what supplies the directory.",
+        "correct": "allowed-tools restricts tool access during skill execution, for example limiting it to file write operations to prevent destructive actions, which is what the scenario's no-destructive-commands requirement calls for. argument-hint prompts developers for required parameters when they invoke the skill without arguments, which is what supplies the target directory.",
         "whyWrong": {
           "a": "context: fork runs the skill in an isolated sub-agent context so its output does not pollute the main conversation. It neither prompts for a missing required parameter nor restricts which tools the skill may call, so it cannot deliver this skill's two requirements.",
-          "b": "allowed-tools is right about the tool boundary but stops there. Without argument-hint a developer who invokes the skill without arguments gets no prompt for the required directory, and the guide supports context: fork and argument-hint alongside allowed-tools.",
-          "d": "Frontmatter is configuration, not just documentation: objective 3.2 supports context: fork, allowed-tools, and argument-hint as frontmatter options in SKILL.md."
+          "b": "allowed-tools is right about the destructive-tool restriction but stops there. Without argument-hint a developer who invokes the skill without arguments gets no prompt for the required directory, and the guide supports context: fork and argument-hint alongside allowed-tools.",
+          "d": "Frontmatter is configuration, not just documentation: context: fork, allowed-tools, and argument-hint are all supported frontmatter options in a SKILL.md file."
         },
         "takeaway": "context: fork isolates a skill's noisy output, allowed-tools limits what it can do, argument-hint asks for missing parameters.",
-        "deepDive": "Objective 3.2 names three frontmatter options with three different jobs: context: fork for skills that produce verbose output or exploratory context such as codebase analysis or brainstorming alternatives, allowed-tools to bound what a skill can do, and argument-hint so the skill never has to guess a required input. A well-configured skill uses the ones its use case calls for, which is not necessarily all three."
+        "deepDive": "Three frontmatter options carry three different jobs: context: fork for skills that produce verbose output or exploratory context such as codebase analysis or brainstorming alternatives, allowed-tools to bound which tools a skill may call while it runs, and argument-hint so the skill never has to guess a required input. Note what allowed-tools bounds: the set of tools, not the paths those tools may write to. A well-configured skill uses the options its use case calls for, which is not necessarily all three."
       },
       "source": {
         "document": "Claude-Certified-Architect-Foundations-Exam-Guide.pdf",
@@ -2338,7 +2338,7 @@
       "correctCount": 1,
       "optionCountRationale": "Two options because this is a clean binary distinction with a single, memorable failure mode - swapping the loading behavior of the two mechanisms.",
       "distractorRationale": {
-        "a": "Probes the exact inversion the exam tests: on-demand versus always-loaded, and skills versus CLAUDE.md."
+        "a": "Probes the exact inversion this objective tests: on-demand versus always-loaded, and skills versus CLAUDE.md."
       },
       "explanation": {
         "correct": "The guide states the choice plainly: skills are the on-demand mechanism for task-specific workflows, while CLAUDE.md holds the universal standards that are always loaded. That is the decision rule for whether a piece of guidance belongs in .claude/skills/ or in CLAUDE.md.",
@@ -2346,7 +2346,7 @@
           "a": "Both halves are reversed. CLAUDE.md is always loaded rather than invoked on demand, and skills wait for an explicit invocation rather than loading automatically."
         },
         "takeaway": "CLAUDE.md is always on; a skill waits until someone invokes it.",
-        "deepDive": "Project skills in .claude/skills/ are shared via version control, so a skill is also the right home for a team workflow; personal variants in ~/.claude/skills/ use different names so teammates are unaffected."
+        "deepDive": "The same personal-versus-team split shows up in customization: a developer can keep personal variants in ~/.claude/skills/ under different names, so their own workflows do not affect teammates."
       },
       "source": {
         "document": "Claude-Certified-Architect-Foundations-Exam-Guide.pdf",
@@ -2365,19 +2365,14 @@
       "prompt": "Test files are spread across packages/web, packages/api, and packages/worker, and all of them must follow the same conventions. What does the guide recommend?",
       "options": [
         {
-          "id": "b",
-          "text": "Create a .claude/rules/ file with YAML frontmatter paths such as [\"**/*.test.tsx\"] so it loads for test files.",
-          "isCorrect": true
-        },
-        {
           "id": "a",
           "text": "Add a separate CLAUDE.md file inside each of the three directories so the test conventions load per folder.",
           "isCorrect": false
         },
         {
-          "id": "c",
-          "text": "Write the conventions into the root CLAUDE.md so they apply to every file Claude edits in the repository.",
-          "isCorrect": false
+          "id": "b",
+          "text": "Create a .claude/rules/ file with YAML frontmatter paths such as [\"**/*.test.tsx\"] so it loads for test files.",
+          "isCorrect": true
         },
         {
           "id": "d",
@@ -2386,21 +2381,19 @@
         }
       ],
       "correctCount": 1,
-      "optionCountRationale": "Four options because the decision here is a genuine architectural trade-off - per-directory files, unconditional root content, and two different glob strategies are all plausible-sounding designs, and only the file-type glob satisfies the requirement.",
+      "optionCountRationale": "Three options because the only real decision is how to scope one convention that must reach many directories: duplicate it per folder, glob the package tree, or glob the file type. Only the file-type glob satisfies the requirement.",
       "distractorRationale": {
         "a": "Probes the per-directory duplication that path-scoped rules exist to replace when a convention spans multiple directories.",
-        "c": "Probes unconditional loading; it 'works' but spends context on every file rather than only the test files that need it.",
         "d": "Probes writing a glob at the wrong level of specificity - packages/** matches every file under packages, so the rule would load for package source too."
       },
       "explanation": {
-        "correct": ".claude/rules/ files support YAML frontmatter with a paths field of glob patterns, and path-scoped rules load only when matching files are edited, reducing irrelevant context and token usage. A pattern like **/*.test.tsx applies the conventions to test files by type regardless of directory location, which is exactly the situation described.",
+        "correct": ".claude/rules/ files support YAML frontmatter with a paths field of glob patterns. Glob patterns let a rule apply a convention to files by type regardless of directory location, so a pattern like **/*.test.tsx reaches every test file in the repository, which is exactly the situation described.",
         "whyWrong": {
           "a": "Directory-level CLAUDE.md files work per directory, which is precisely the limitation the guide says path-scoped rules overcome. Three copies of the same convention would also drift apart over time.",
-          "c": "Root CLAUDE.md content is loaded universally rather than conditionally, so every unrelated task would carry the test conventions in context.",
           "d": "packages/** matches all files under packages, so the rule would activate while editing package source files as well as tests. The glob must target the test file type, not the package tree."
         },
         "takeaway": "When a convention spans directories, glob by file type in a .claude/rules/ paths field rather than copying it into each folder.",
-        "deepDive": "The guide's Terraform example - paths: [\"terraform/**/*\"] - is the same idea narrowed to a subtree: rules load only while files matching the pattern are edited, so token usage tracks the work actually being done."
+        "deepDive": "The guide's Terraform example - paths: [\"terraform/**/*\"] - is the same idea narrowed to a subtree: one rule, one glob, stated once instead of once per folder."
       },
       "source": {
         "document": "Claude-Certified-Architect-Foundations-Exam-Guide.pdf",
@@ -2413,34 +2406,41 @@
       "domain": "d3",
       "taskStatement": "3.3",
       "scenario": null,
-      "concept": "path-scoped-rules-token-usage",
+      "concept": "path-scoped-rules-conditional-loading",
       "mode": "swipe",
       "type": "single",
-      "prompt": "A convention should apply only when Claude is editing files that match a pattern. Which change actually reduces irrelevant context and token usage?",
+      "prompt": "A repository adds a long, file-type-specific rule to .claude/rules/. According to the guide, when does that rule load, and what does that save?",
       "options": [
         {
-          "id": "a",
-          "text": "Move the convention into a .claude/rules/ file with a paths glob, so it loads only when matching files are edited.",
+          "id": "b",
+          "text": "Only while files matching its path pattern are edited, which reduces irrelevant context and token usage.",
           "isCorrect": true
         },
         {
-          "id": "b",
-          "text": "Keep the convention in the root CLAUDE.md so it is reliably loaded for every task in the repository.",
+          "id": "a",
+          "text": "Whenever that file type is mentioned in a request, even if no matching file is being edited.",
+          "isCorrect": false
+        },
+        {
+          "id": "c",
+          "text": "Once at session start, after which it stays resident for the whole session as project instructions.",
           "isCorrect": false
         }
       ],
       "correctCount": 1,
-      "optionCountRationale": "Two options isolate the single mechanism the guide credits with reducing token usage, so the item cannot be passed on general familiarity with the feature.",
+      "optionCountRationale": "Three options isolate the guide's stated trigger, files being edited, from the two plausible but undescribed triggers, topical mention in the request and unconditional session residency.",
       "distractorRationale": {
-        "b": "Probes equating 'more reliably loaded' with 'better' - the guide frames always-loaded placement as the opposite of the token-saving benefit."
+        "a": "Probes treating path scoping as topical relevance: the guide keys activation to editing matching files, not to what the conversation mentions.",
+        "c": "Probes assuming rule files behave like always-loaded memory files, which removes the conditional loading that saves context."
       },
       "explanation": {
-        "correct": "Path-scoped rules in .claude/rules/ use a YAML frontmatter paths field containing glob patterns and load only when matching files are edited. The guide states this conditional loading is what reduces irrelevant context and token usage.",
+        "correct": "The guide states that path-scoped rules load only when matching files are edited, which reduces irrelevant context and token usage. The rule stays out of the way on unrelated work, and its detail costs nothing until the files it governs are actually being changed.",
         "whyWrong": {
-          "b": "Keeping the convention in the root CLAUDE.md means it is loaded whether or not the task touches the files it governs. That is reliable but is not the mechanism the guide credits with cutting token usage."
+          "a": "Activation is tied to editing files that match the pattern, not to the subject of the request. A conversation about Terraform that touches no Terraform file does not pull the rule in.",
+          "c": "Rules that load once and remain for the whole session are exactly the always-loaded case. The guide's point is that a rule can be long and highly specific because it only appears when it is relevant."
         },
-        "takeaway": "Conditional loading is the token-saving move: paths globs in .claude/rules/, not unconditional root content.",
-        "deepDive": "The same principle explains the guide's preference for path-scoped rules over subdirectory CLAUDE.md files when a convention must apply to files spread across the codebase: one glob replaces many copies."
+        "takeaway": "Path scoping is what lets a rule be long and specific: it costs context only while its files are being edited.",
+        "deepDive": "This is the second half of the case for rules over duplicated files. The glob decides which files a convention governs; conditional loading decides how much that convention costs on every task that does not."
       },
       "source": {
         "document": "Claude-Certified-Architect-Foundations-Exam-Guide.pdf",
@@ -2459,6 +2459,11 @@
       "prompt": "Which task most clearly warrants plan mode before any code is written?",
       "options": [
         {
+          "id": "b",
+          "text": "Choosing between integration approaches that carry different infrastructure requirements.",
+          "isCorrect": true
+        },
+        {
           "id": "a",
           "text": "Any change that touches more than one file, since multi-file modification always requires plan mode first.",
           "isCorrect": false
@@ -2467,11 +2472,6 @@
           "id": "c",
           "text": "Fixing a single-file bug where the stack trace already points at the failing line.",
           "isCorrect": false
-        },
-        {
-          "id": "b",
-          "text": "Choosing between integration approaches that carry different infrastructure requirements.",
-          "isCorrect": true
         }
       ],
       "correctCount": 1,
@@ -2516,14 +2516,14 @@
           "isCorrect": false
         },
         {
-          "id": "c",
-          "text": "Use the Explore subagent to isolate the verbose discovery output and return a summary to the main conversation.",
-          "isCorrect": true
-        },
-        {
           "id": "d",
           "text": "Wrap the discovery in a custom skill with context: fork so its output is delivered back into the main session.",
           "isCorrect": false
+        },
+        {
+          "id": "c",
+          "text": "Use the Explore subagent to isolate the verbose discovery output and return a summary to the main conversation.",
+          "isCorrect": true
         }
       ],
       "correctCount": 1,
@@ -2647,11 +2647,6 @@
       "prompt": "A review turned up several bugs. Which grouping matches the guide's guidance on how to deliver them?",
       "options": [
         {
-          "id": "c",
-          "text": "Send interacting fixes together in one detailed message, and address independent issues sequentially.",
-          "isCorrect": true
-        },
-        {
           "id": "a",
           "text": "Send every issue in a single message regardless of interaction, to minimize the number of turns.",
           "isCorrect": false
@@ -2660,6 +2655,11 @@
           "id": "b",
           "text": "Send one issue per message in every case, even when several fixes must agree on the same code.",
           "isCorrect": false
+        },
+        {
+          "id": "c",
+          "text": "Send interacting fixes together in one detailed message, and address independent issues sequentially.",
+          "isCorrect": true
         },
         {
           "id": "d",
@@ -2682,7 +2682,7 @@
           "d": "This reverses the rule: independent problems are the ones the guide advises handling sequentially, while interacting ones belong in one message."
         },
         "takeaway": "Interacting fixes go in one message; independent fixes go one at a time.",
-        "deepDive": "The same sequencing logic appears when iterating on test failures - each failure is an independent problem to be fed back one at a time, whereas changes to the same behavior must be described coherently together."
+        "deepDive": "The same judgment governs how test-driven iteration is delivered. The guide has you write the test suite first and then iterate by sharing test failures to guide progressive improvement, which is the habit of letting each response answer a specific, identified problem instead of a mixed batch of them."
       },
       "source": {
         "document": "Claude-Certified-Architect-Foundations-Exam-Guide.pdf",
@@ -2802,14 +2802,14 @@
       "prompt": "A CI job must turn Claude Code's findings into automated inline PR comments. Which mechanism does the guide give?",
       "options": [
         {
-          "id": "b",
-          "text": "--output-format json together with --json-schema, to produce machine-parseable structured findings.",
-          "isCorrect": true
-        },
-        {
           "id": "a",
           "text": "-p alone, so the review runs without waiting for interactive input before producing comments.",
           "isCorrect": false
+        },
+        {
+          "id": "b",
+          "text": "--output-format json together with --json-schema, to produce machine-parseable structured findings.",
+          "isCorrect": true
         },
         {
           "id": "c",
@@ -2905,23 +2905,23 @@
         },
         {
           "id": "d",
-          "text": "Review in the same session but with elevated reasoning effort, so it catches the mistakes it just made.",
+          "text": "Start a fresh review instance but seed it with a summary of the generator's reasoning, so it knows the original intent.",
           "isCorrect": false
         }
       ],
       "correctCount": 1,
-      "optionCountRationale": "Four options for a misconception the guide names explicitly, plus three realistic attempts to keep or improve the same session as an alternative.",
+      "optionCountRationale": "Four options for a misconception the guide names explicitly, plus three realistic attempts to obtain a good review without actually isolating it from the generating session.",
       "distractorRationale": {
         "a": "Probes the intuition that more context from the authoring session makes a better reviewer - the exact effect the guide calls out as reduced.",
         "b": "Probes stripping context as a way to gain independence; independence comes from a separate instance, not from deleting project standards.",
-        "d": "Probes treating the weakness as an effort problem rather than a session-context problem."
+        "d": "Probes treating a new session as sufficient separation. The guide's independence is defined by the absence of the generator's reasoning context, which a summary reintroduces."
       },
       "explanation": {
         "correct": "Session context isolation is the guide's point for CI review: the same Claude session that generated the code is less effective at reviewing its own changes than an independent review instance would be. CLAUDE.md supplies the project context the independent reviewer needs - testing standards, fixture conventions, review criteria.",
         "whyWrong": {
           "a": "This is the misconception the guide names. Reusing the generating session reduces the value of the review rather than improving it, no matter how well that session understands the intent.",
           "b": "Removing CLAUDE.md strips the review of the criteria it is supposed to check against. Independence is achieved with a separate instance, not by deleting project context.",
-          "d": "The guide attributes the weakness to shared session context, not to insufficient effort; raising reasoning in the same session does not create the separation it prescribes."
+          "d": "A fresh instance is only independent while it lacks the generator's reasoning. A summary of that reasoning reintroduces the same committed explanation of the choices, so the reviewer inherits the blind spot the guide is trying to remove."
         },
         "takeaway": "Review with a fresh, independent instance - not the session that generated the code.",
         "deepDive": "Combine the pieces for a complete CI review: -p for non-interactive execution, --output-format json with --json-schema for machine-parseable findings, CLAUDE.md for project context, and prior findings in context so re-runs report only new or still-unaddressed issues."
@@ -2943,14 +2943,14 @@
       "prompt": "A code-review prompt tells Claude to \"check that comments are accurate.\" Which revision applies the guidance the guide recommends most directly?",
       "options": [
         {
-          "id": "b",
-          "text": "Flag comments only when the claimed behavior contradicts the actual code behavior.",
-          "isCorrect": true
-        },
-        {
           "id": "a",
           "text": "Be conservative: only report comments you are highly confident are wrong.",
           "isCorrect": false
+        },
+        {
+          "id": "b",
+          "text": "Flag comments only when the claimed behavior contradicts the actual code behavior.",
+          "isCorrect": true
         },
         {
           "id": "c",
@@ -3045,6 +3045,11 @@
       "prompt": "One review category keeps producing findings developers dismiss as noise, and trust in the accurate categories is now slipping. What does the guide recommend?",
       "options": [
         {
+          "id": "b",
+          "text": "Temporarily disable that category while its prompt is improved, then bring it back.",
+          "isCorrect": true
+        },
+        {
           "id": "a",
           "text": "Lower the severity threshold across every category so the noisy findings blend into the rest.",
           "isCorrect": false
@@ -3053,11 +3058,6 @@
           "id": "c",
           "text": "Leave it enabled but attach a confidence score to each finding and filter on that score.",
           "isCorrect": false
-        },
-        {
-          "id": "b",
-          "text": "Temporarily disable that category while its prompt is improved, then bring it back.",
-          "isCorrect": true
         }
       ],
       "correctCount": 1,
@@ -3091,14 +3091,14 @@
       "prompt": "According to the guide, when is few-shot prompting the most effective technique?",
       "options": [
         {
-          "id": "b",
-          "text": "When detailed instructions alone yield inconsistent formatting and the output must be reliably actionable.",
-          "isCorrect": true
-        },
-        {
           "id": "a",
           "text": "When a task is fully deterministic and the same output can be computed without a model.",
           "isCorrect": false
+        },
+        {
+          "id": "b",
+          "text": "When detailed instructions alone yield inconsistent formatting and the output must be reliably actionable.",
+          "isCorrect": true
         },
         {
           "id": "c",
@@ -3137,6 +3137,11 @@
       "prompt": "The guide recommends 2-4 targeted few-shot examples for ambiguous cases such as tool selection. What should each example actually show?",
       "options": [
         {
+          "id": "b",
+          "text": "The ambiguous request, the chosen action, and the reasoning for why it beat plausible alternatives.",
+          "isCorrect": true
+        },
+        {
           "id": "a",
           "text": "A catalog of every request pattern seen so far, each mapped to the action that matched it.",
           "isCorrect": false
@@ -3145,11 +3150,6 @@
           "id": "c",
           "text": "The final answer only, so the model copies the output shape without inheriting any reasoning.",
           "isCorrect": false
-        },
-        {
-          "id": "b",
-          "text": "The ambiguous request, the chosen action, and the reasoning for why it beat plausible alternatives.",
-          "isCorrect": true
         }
       ],
       "correctCount": 1,
@@ -3188,14 +3188,14 @@
           "isCorrect": false
         },
         {
-          "id": "b",
-          "text": "Examples showing correct extraction from documents with varied formats and structures.",
-          "isCorrect": true
-        },
-        {
           "id": "c",
           "text": "Many copies of one perfectly formatted document, reinforcing a single expected layout.",
           "isCorrect": false
+        },
+        {
+          "id": "b",
+          "text": "Examples showing correct extraction from documents with varied formats and structures.",
+          "isCorrect": true
         }
       ],
       "correctCount": 1,
@@ -3223,46 +3223,42 @@
       "id": "d4-3-001",
       "domain": "d4",
       "taskStatement": "4.3",
-      "scenario": null,
-      "concept": "tool-choice-modes",
-      "mode": "challenge",
-      "type": "multiple",
-      "prompt": "Select all that apply. Which statements about tool_choice match the guide?",
+      "scenario": "data-extraction",
+      "concept": "tool-choice-any-unknown-document-type",
+      "mode": "swipe",
+      "type": "single",
+      "prompt": "An ingestion service defines extract_invoice, extract_purchase_order, and extract_manifest, and it cannot tell in advance which of them a request needs. Which tool_choice setting does the guide prescribe?",
       "options": [
         {
-          "id": "c",
-          "text": "A forced choice such as {\"type\": \"tool\", \"name\": \"extract_metadata\"} ensures that specific tool runs.",
+          "id": "b",
+          "text": "\"any\", which guarantees structured output when several extraction schemas exist and the document type is unknown.",
           "isCorrect": true
-        },
-        {
-          "id": "d",
-          "text": "\"any\" also pins the response to one named tool, the same way a forced tool choice does.",
-          "isCorrect": false
         },
         {
           "id": "a",
-          "text": "\"auto\" lets the model return text instead of calling any tool.",
-          "isCorrect": true
+          "text": "\"auto\", leaving it to the model to weigh the schema descriptions and decide whether a tool is needed.",
+          "isCorrect": false
         },
         {
-          "id": "b",
-          "text": "\"any\" requires the model to call a tool but leaves the choice of which one open.",
-          "isCorrect": true
+          "id": "c",
+          "text": "A forced tool by name, so that every document is pinned to one extraction schema and compliance never varies.",
+          "isCorrect": false
         }
       ],
-      "correctCount": 3,
-      "optionCountRationale": "Three true modes plus one conflation of two of them is the minimum set that forces the learner to separate auto, any, and forced selection.",
+      "correctCount": 1,
+      "optionCountRationale": "Three options separate the setting the guide pairs with the unknown-document-type case from the two alternatives a reader is likely to reach for, a model-judged choice and a pinned single tool.",
       "distractorRationale": {
-        "d": "Probes the core confusion between \"any\" (must call something, choice is the model's) and a forced named tool (the choice is already made)."
+        "a": "Probes trusting \"auto\" because the schemas are well described, forgetting that auto still permits a plain text answer instead of a tool call.",
+        "c": "Probes reaching for a pinned tool as the strongest guarantee, when the document type is precisely what is not known."
       },
       "explanation": {
-        "correct": "The guide distinguishes three settings: \"auto\" may return text, \"any\" must call a tool but the model picks which, and a forced tool such as {\"type\": \"tool\", \"name\": \"extract_metadata\"} guarantees that specific tool.",
+        "correct": "The guide pairs \"any\" with this exact situation: setting tool_choice to \"any\" guarantees structured output when multiple extraction schemas exist and the document type is unknown. The model chooses among the available schemas, and every branch still returns a schema-compliant result.",
         "whyWrong": {
-          "d": "Pinning a tool requires the forced form with an explicit name. \"any\" guarantees that a tool is called, not which one."
+          "a": "\"auto\" leaves the decision to call a tool to the model, which means it may reply in conversational text instead. That is the gap \"any\" closes in this scenario.",
+          "c": "Forcing a tool by name pins one extraction, which only helps when you already know which extraction to run. Here the document type is unknown, so pinning one schema discards the other two."
         },
-        "analogy": "\"auto\" is \"reply however you like\", \"any\" is \"do something, your choice\", and forced is \"do exactly this\".",
-        "takeaway": "\"any\" guarantees a tool call; only the forced form guarantees which tool.",
-        "deepDive": "Use \"any\" when several extraction schemas exist and the document type is unknown; force a named tool when a particular extraction must run before enrichment steps."
+        "takeaway": "Several extraction schemas and an unknown document type is the \"any\" case; forcing a named tool is the opposite situation.",
+        "deepDive": "Choosing \"any\" removes the need for a classification step of your own. The model arbitrates between the available schemas, so the guarantee of a schema-compliant response holds on every branch rather than depending on your guess about the document."
       },
       "source": {
         "document": "Claude-Certified-Architect-Foundations-Exam-Guide.pdf",
@@ -3281,14 +3277,14 @@
       "prompt": "Extraction runs through a tool with a strict JSON schema, yet invoices arrive where line items sum to $400 while the total field says $500. What did the schema actually guarantee?",
       "options": [
         {
-          "id": "b",
-          "text": "Only the syntax and shape: strict schemas remove JSON syntax errors but not semantic errors.",
-          "isCorrect": true
-        },
-        {
           "id": "a",
           "text": "That every required field holds a value actually extracted from the source document.",
           "isCorrect": false
+        },
+        {
+          "id": "b",
+          "text": "Only the syntax and shape: strict schemas remove JSON syntax errors but not semantic errors.",
+          "isCorrect": true
         },
         {
           "id": "c",
@@ -3334,14 +3330,14 @@
           "isCorrect": false
         },
         {
-          "id": "b",
-          "text": "Make the field optional or nullable so the model can return nothing instead of inventing a value.",
-          "isCorrect": true
-        },
-        {
           "id": "c",
           "text": "Keep the field required and constrain it to an enum of \"unclear\" and \"other\" with a detail string.",
           "isCorrect": false
+        },
+        {
+          "id": "b",
+          "text": "Make the field optional or nullable so the model can return nothing instead of inventing a value.",
+          "isCorrect": true
         }
       ],
       "correctCount": 1,
@@ -3557,15 +3553,15 @@
         }
       ],
       "correctCount": 2,
-      "optionCountRationale": "Two endorsed designs plus two wrong ones that echo 4.1 and 4.4 misconceptions, so a learner cannot select both correct options by pattern alone.",
+      "optionCountRationale": "Four options: two endorsed designs and two wrong ones, where the third discards the explicit report-versus-skip criteria that objective 4.1 requires and the fourth repeats the retry-limits misconception, so a learner cannot select both correct options by pattern alone.",
       "distractorRationale": {
-        "c": "Reuses the confidence-filtering misconception from 4.1, which the guide says does not improve precision.",
+        "c": "Probes the belief that some substitute signal can stand in for written review criteria. Objective 4.1 asks for criteria that state which issues to report versus which to skip, and this option is wrong precisely because it drops them.",
         "d": "Reuses the retry-limits misconception: retrying cannot conjure absent information."
       },
       "explanation": {
         "correct": "The guide describes both self-correction flows (extracting calculated_total alongside stated_total, and adding conflict_detected booleans for inconsistent source data) and feedback loop design via detected_pattern fields on structured findings to enable systematic analysis of dismissal patterns.",
         "whyWrong": {
-          "c": "Confidence-based routing was already rejected in 4.1 as ineffective for precision; explicit criteria must stay in place.",
+          "c": "The second half is the failure. Objective 4.1 asks for review criteria written out explicitly, stating which issues to report and which to skip, and this option deletes exactly that requirement instead of supplying it.",
           "d": "The guide is explicit that retries are ineffective when the required information is absent from the source document."
         },
         "analogy": "calculated_total is an audit against stated_total; detected_pattern is a complaint tracker for the reviewer.",
@@ -3588,11 +3584,6 @@
       "prompt": "Which description matches the Message Batches API as this guide characterizes it?",
       "options": [
         {
-          "id": "c",
-          "text": "A 50% cheaper path with an up-to-24-hour processing window and no guaranteed latency SLA.",
-          "isCorrect": true
-        },
-        {
           "id": "a",
           "text": "A 50% cheaper path that commits to a guaranteed completion time, so pipelines can rely on it.",
           "isCorrect": false
@@ -3606,6 +3597,11 @@
           "id": "d",
           "text": "A 50% cheaper path in which custom_id values force batch responses to be returned in submission order.",
           "isCorrect": false
+        },
+        {
+          "id": "c",
+          "text": "A 50% cheaper path with an up-to-24-hour processing window and no guaranteed latency SLA.",
+          "isCorrect": true
         }
       ],
       "correctCount": 1,
@@ -3647,14 +3643,14 @@
           "isCorrect": false
         },
         {
-          "id": "c",
-          "text": "Message Batches API submitted every 4 hours, to guarantee a 30-hour SLA across the merge timeout.",
-          "isCorrect": false
-        },
-        {
           "id": "b",
           "text": "Synchronous API, because a blocking check cannot wait on an up-to-24-hour batch window.",
           "isCorrect": true
+        },
+        {
+          "id": "c",
+          "text": "Message Batches API submitted every 4 hours, to guarantee a 30-hour SLA across the merge timeout.",
+          "isCorrect": false
         },
         {
           "id": "d",
@@ -3705,14 +3701,14 @@
           "isCorrect": false
         },
         {
-          "id": "d",
-          "text": "Wait for the next scheduled run, since failed items cannot be identified after a batch completes.",
-          "isCorrect": false
-        },
-        {
           "id": "c",
           "text": "Resubmit only the failed documents, identified by custom_id, chunking any that exceeded context limits.",
           "isCorrect": true
+        },
+        {
+          "id": "d",
+          "text": "Wait for the next scheduled run, since failed items cannot be identified after a batch completes.",
+          "isCorrect": false
         }
       ],
       "correctCount": 1,
@@ -3742,41 +3738,41 @@
       "domain": "d4",
       "taskStatement": "4.6",
       "scenario": "code-gen",
-      "concept": "self-review-limitations",
+      "concept": "independent-instance-vs-self-review-instructions",
       "mode": "swipe",
       "type": "single",
-      "prompt": "Why is a second, independent Claude instance a stronger reviewer of generated code than the generating instance reviewing its own output?",
+      "prompt": "A team wants the generating session to catch its own mistakes, and proposes two fixes: tell it to review its own work more carefully, and give it extended thinking. What does the guide say?",
       "options": [
         {
           "id": "a",
-          "text": "It has not yet spent context on generation, so it can devote the whole window to the review.",
-          "isCorrect": false
-        },
-        {
-          "id": "b",
-          "text": "It lacks the generator's reasoning context, so it is more willing to question the choices made.",
+          "text": "Neither substitutes for an independent review instance, which the guide ranks above both.",
           "isCorrect": true
         },
         {
+          "id": "b",
+          "text": "Extended thinking alone is enough, since re-checking the same reasoning in more depth catches what the first pass missed.",
+          "isCorrect": false
+        },
+        {
           "id": "c",
-          "text": "Extended thinking in the generating session replaces it by re-checking the same reasoning in more depth.",
+          "text": "Both are endorsed substitutes, and the guide treats them as equivalent to an independent instance.",
           "isCorrect": false
         }
       ],
       "correctCount": 1,
-      "optionCountRationale": "Three options isolate the guide's stated reason for independent review from the two most common but incorrect explanations: context budget and extended thinking.",
+      "optionCountRationale": "Three options because the guide names exactly two substitutes to rank against an independent review instance - self-review instructions and extended thinking - plus one option that misreads the guide as putting all three on equal footing.",
       "distractorRationale": {
-        "a": "Probes the belief that the benefit is spare context rather than the absence of the generator's reasoning.",
-        "c": "Probes the claim that extended thinking substitutes for independence, which the guide rules out."
+        "b": "Probes the belief that more reasoning depth inside the generating session recovers what self-review loses.",
+        "c": "Probes reading the guide as listing three interchangeable options rather than ranking one above the other two."
       },
       "explanation": {
-        "correct": "The guide states that a model retains reasoning context from generation, making it less likely to question its own decisions in the same session, and that independent review instances without that context are more effective at catching subtle issues.",
+        "correct": "The guide ranks independent review instances, which carry none of the generator's prior reasoning context, above two named substitutes: self-review instructions and extended thinking. Both are described as less effective at catching subtle issues than a separate instance.",
         "whyWrong": {
-          "a": "Context budget is not the mechanism named; the point is that the generating instance carries its own reasoning and defends it.",
-          "c": "The guide explicitly says independent review instances are more effective than self-review instructions or extended thinking."
+          "b": "Extended thinking is one of the two things an independent instance is ranked above, not a repair for self-review. Re-reading the same reasoning more carefully keeps the reasoning in place.",
+          "c": "The guide does not put the three on equal footing. It says independent instances are more effective than self-review instructions or extended thinking, which is a ranking, not a menu of equivalents."
         },
-        "analogy": "You do not catch your own misreading as sharply when you remember why you read it that way.",
-        "takeaway": "Self-review fails because the generator keeps its reasoning; independence, not more thinking, is the fix."
+        "analogy": "Asking someone to reread their own paragraph carefully is not the same as handing it to a fresh reader; more time with the same reasoning is still the same reasoning.",
+        "takeaway": "Self-review instructions and extended thinking both rank below an instance that never saw the reasoning."
       },
       "source": {
         "document": "Claude-Certified-Architect-Foundations-Exam-Guide.pdf",
@@ -3795,14 +3791,14 @@
       "prompt": "A change spans 200 files and must be reviewed end to end. Which review architecture does the guide recommend?",
       "options": [
         {
-          "id": "a",
-          "text": "One instance reading all files in a single pass, so every finding comes from a consistent voice.",
-          "isCorrect": false
-        },
-        {
           "id": "c",
           "text": "Per-file local analysis passes plus separate cross-file integration passes for data flow.",
           "isCorrect": true
+        },
+        {
+          "id": "a",
+          "text": "One instance reading all files in a single pass, so every finding comes from a consistent voice.",
+          "isCorrect": false
         },
         {
           "id": "b",
@@ -3826,7 +3822,7 @@
         "correct": "The guide recommends multi-pass review: splitting large reviews into per-file local analysis passes plus cross-file integration passes to avoid attention dilution and contradictory findings.",
         "whyWrong": {
           "a": "A single pass over 200 files dilutes attention and produces contradictory findings, which is what the multi-pass design exists to prevent.",
-          "b": "Independence comes from reviewing the code without the generator's reasoning context, not from reviewing a summary of it.",
+          "b": "Reviewing the generator's final answer text is not a review of the code. The multi-pass design splits the actual files into per-file local passes and separate cross-file integration passes.",
           "d": "Local and integration passes are complementary; dropping the local passes leaves local issues unexamined."
         },
         "takeaway": "Split large reviews into per-file passes plus cross-file integration passes."
@@ -3848,11 +3844,6 @@
       "prompt": "A team adds a verification pass in which Claude reports a confidence score alongside each finding and routes low-confidence findings to humans. How does the guide view this?",
       "options": [
         {
-          "id": "c",
-          "text": "It is a supported pattern for calibrated review routing, but it does not replace explicit criteria.",
-          "isCorrect": true
-        },
-        {
           "id": "a",
           "text": "It is the recommended replacement for explicit report-versus-skip criteria, because scores are more objective.",
           "isCorrect": false
@@ -3861,6 +3852,11 @@
           "id": "b",
           "text": "It is invalid: the guide permits confidence only inside few-shot examples, never in review output.",
           "isCorrect": false
+        },
+        {
+          "id": "c",
+          "text": "It is a supported pattern for calibrated review routing, but it does not replace explicit criteria.",
+          "isCorrect": true
         },
         {
           "id": "d",
@@ -3880,7 +3876,7 @@
         "whyWrong": {
           "a": "Confidence routing is for deciding what a human looks at; precision still comes from criteria that define which issues to report versus skip.",
           "b": "The guide explicitly describes verification passes with self-reported confidence, so this overstates the restriction.",
-          "d": "The independence requirement in the guide concerns catching subtle issues through review, not the validity of a confidence field on a finding."
+          "d": "The guide attaches no independence condition to this pattern; verification passes that self-report confidence are listed as a review design in their own right."
         },
         "takeaway": "Self-reported confidence is a routing signal, not a substitute for explicit report-versus-skip criteria."
       },
@@ -3901,11 +3897,6 @@
       "prompt": "A support agent summarizes earlier turns before each new prompt. What is the primary risk of that practice?",
       "options": [
         {
-          "id": "b",
-          "text": "Condensing turns drops exact details such as amounts, dates, and order numbers.",
-          "isCorrect": true
-        },
-        {
           "id": "a",
           "text": "The summary keeps shrinking until the agent can no longer follow the thread.",
           "isCorrect": false
@@ -3914,6 +3905,11 @@
           "id": "c",
           "text": "The model reads summarized text less reliably than the original transcript.",
           "isCorrect": false
+        },
+        {
+          "id": "b",
+          "text": "Condensing turns drops exact details such as amounts, dates, and order numbers.",
+          "isCorrect": true
         }
       ],
       "correctCount": 1,
@@ -3949,6 +3945,11 @@
       "prompt": "Which change most directly protects transactional accuracy across a long support session?",
       "options": [
         {
+          "id": "c",
+          "text": "Extract amounts, dates, order numbers, and statuses into a case facts block.",
+          "isCorrect": true
+        },
+        {
           "id": "a",
           "text": "Ask the customer to restate the order number and total at the start of each session.",
           "isCorrect": false
@@ -3957,11 +3958,6 @@
           "id": "b",
           "text": "Summarize the history progressively and check the details once at the end.",
           "isCorrect": false
-        },
-        {
-          "id": "c",
-          "text": "Extract amounts, dates, order numbers, and statuses into a case facts block.",
-          "isCorrect": true
         }
       ],
       "correctCount": 1,
@@ -4012,23 +4008,23 @@
         },
         {
           "id": "d",
-          "text": "Split the same content into many small prompts in randomized order.",
+          "text": "Trim each report down to a few sentences first, so the aggregate stops counting as a long input.",
           "isCorrect": false
         }
       ],
       "correctCount": 1,
-      "optionCountRationale": "Four options are justified because the practical alternatives people actually try (end placement, recency reliance, prompt splitting) are all realistic and each probes a different wrong theory of position.",
+      "optionCountRationale": "Four options are justified because the practical alternatives people actually try (end placement, recency reliance, shrinking the aggregate) are all realistic and each probes a different wrong theory of position.",
       "distractorRationale": {
         "a": "Probes the half-right belief that the end of the input is as safe as the beginning, while discarding the section headers the guide pairs with it.",
         "c": "Probes the assumption that recency weighting makes middle content safe; the lost-in-the-middle effect is precisely that middle findings get omitted.",
-        "d": "Probes the idea that fragmenting the input solves a position problem that exists within each prompt."
+        "d": "Probes treating the lost-in-the-middle effect as an input-size problem that shrinking solves, when it is a position problem that structure solves."
       },
       "explanation": {
         "correct": "Models reliably process the beginning and end of long inputs and may omit findings from middle sections, so the guide's mitigation is to put key findings summaries at the beginning of aggregated inputs and organize detailed results under explicit section headers.",
         "whyWrong": {
           "a": "End placement alone loses the organizing headers and still leaves every middle section exposed; the guide pairs beginning placement with explicit section structure.",
           "c": "Relying on recency is exactly what the lost-in-the-middle effect contradicts: middle sections are the ones dropped.",
-          "d": "Randomized order does nothing to guarantee attention, and splitting input trades one attention problem for many coordination problems."
+          "d": "Shrinking the aggregate reintroduces the progressive-summarization risk the guide warns about, where amounts, dates, and expectations are condensed into vague summaries. The guide's fix for position effects is to reorganize the input, not to compress it away."
         },
         "takeaway": "Put the findings summary first and use explicit headers, because the middle of a long input is where findings disappear.",
         "deepDive": "Position effects also argue for compressing what enters the input. When downstream agents have limited context budgets, the guide recommends modifying upstream agents to return structured data (key facts, citations, relevance scores) instead of verbose content and reasoning chains."
@@ -4096,6 +4092,11 @@
       "prompt": "According to the guide, which situation is an appropriate trigger for escalation?",
       "options": [
         {
+          "id": "c",
+          "text": "Policy is ambiguous or silent on the specific request being made.",
+          "isCorrect": true
+        },
+        {
           "id": "a",
           "text": "The customer is visibly frustrated but the issue is inside the agent's capability.",
           "isCorrect": false
@@ -4104,11 +4105,6 @@
           "id": "b",
           "text": "The case is complex, but policy clearly covers the request and the agent can complete it.",
           "isCorrect": false
-        },
-        {
-          "id": "c",
-          "text": "Policy is ambiguous or silent on the specific request being made.",
-          "isCorrect": true
         },
         {
           "id": "d",
@@ -4178,7 +4174,7 @@
           "c": "The conditional is invented. Policy exceptions genuinely warrant escalation, but they warrant it because policy is silent on the request, not because sentiment is high."
         },
         "takeaway": "Sentiment and self-reported confidence are not complexity measures; escalate on policy gaps and lack of progress.",
-        "deepDive": "Contrast with 5.5: confidence scores are useful there only as field-level signals calibrated against a labeled validation set before they are used to route review."
+        "deepDive": "The guide's escalation triggers are stated as facts about the case: a customer who asks for a human, a policy that is silent on the specific request, and a case where no further progress is being made. Tone and a self-assessed score are inferences about the case; none of them tells you whether the policy covers the request."
       },
       "source": {
         "document": "Claude-Certified-Architect-Foundations-Exam-Guide.pdf",
@@ -4237,41 +4233,48 @@
       "domain": "d5",
       "taskStatement": "5.3",
       "scenario": "multi-agent-research",
-      "concept": "access-failure-vs-empty-result",
+      "concept": "synthesis-coverage-annotations",
       "mode": "swipe",
       "type": "single",
-      "prompt": "A subagent's lookup returns zero rows. Which report correctly describes what happened?",
+      "prompt": "A research run finishes with two subagents that timed out, so some topic areas rest on far weaker evidence than others. How should the coordinator hand this to synthesis?",
       "options": [
         {
           "id": "b",
-          "text": "Report a successful query that returned no matching results.",
+          "text": "Annotate which findings are well-supported and which topic areas have gaps because sources were unavailable.",
           "isCorrect": true
         },
         {
           "id": "a",
-          "text": "Report a failure and state that the search service was unavailable.",
+          "text": "Pass the findings through unannotated, since the synthesis agent can judge support from the text.",
           "isCorrect": false
         },
         {
           "id": "c",
-          "text": "Report a failure with empty partial results and a retry suggestion.",
+          "text": "Drop the weakly supported areas entirely, so synthesis is not misled by incomplete material.",
+          "isCorrect": false
+        },
+        {
+          "id": "d",
+          "text": "List the weak findings alongside the strong ones without marking the difference between them.",
           "isCorrect": false
         }
       ],
       "correctCount": 1,
-      "optionCountRationale": "Three options drawn directly from the guide's named confusion: valid empty result versus access failure, with the generic error string as the third variant.",
+      "optionCountRationale": "Four options because a gap can be handled four ways - annotated, passed through unannotated, deleted, or flattened - and only the annotation preserves both the finding and the quality of the evidence behind it.",
       "distractorRationale": {
-        "a": "Probes reporting a generic failure status for a successful query, which hides context from the coordinator.",
-        "c": "Probes treating an empty result as a transient failure and triggering unnecessary retries."
+        "a": "Probes assuming the synthesis agent can supply the coverage judgement the coordinator already has.",
+        "c": "Probes deletion as tidiness, which erases the very gap the run should surface.",
+        "d": "Probes treating annotation as commentary rather than as a distinction between two grades of evidence."
       },
       "explanation": {
-        "correct": "The guide draws a hard line between access failures, such as timeouts that need a retry decision, and valid empty results, which are successful queries with no matches. Zero rows is the second kind.",
+        "correct": "The guide recommends structuring synthesis output with coverage annotations that indicate which findings are well-supported and which topic areas have gaps due to unavailable sources, so the quality of the evidence travels with the findings.",
         "whyWrong": {
-          "a": "This is the anti-pattern the guide names: returning a generic status such as \"search unavailable\" instead of describing what actually happened.",
-          "c": "A retry cannot produce rows that the query legitimately does not match, and the failure label sends the coordinator down the wrong recovery path."
+          "a": "The synthesis agent cannot infer coverage from the text itself. The annotation is what carries evidence quality across the boundary, and an unannotated handoff hides gaps the coordinator already knows about.",
+          "c": "Silently dropping material is the same suppression problem the guide names as an anti-pattern in error reporting. A gap the coordinator knows about should be marked, not quietly deleted.",
+          "d": "Listing weak and strong findings identically defeats the annotation. The purpose is to distinguish what the evidence supports from what it merely touches."
         },
-        "takeaway": "Empty is not broken: report a valid empty result differently from an access failure.",
-        "analogy": "A search that finds nothing is a successful trip to an empty warehouse; a search that times out never reached the warehouse at all."
+        "takeaway": "Coverage annotations are how a gap travels: mark what is well-supported and what is missing.",
+        "analogy": "It is a map legend - solid lines for ground you actually covered, dashed for ground you could not reach. The reader needs both, and needs to know which is which."
       },
       "source": {
         "document": "Claude-Certified-Architect-Foundations-Exam-Guide.pdf",
@@ -4290,14 +4293,14 @@
       "prompt": "A research subagent's search times out. What must its error report contain for the coordinator to recover intelligently?",
       "options": [
         {
-          "id": "c",
-          "text": "Failure type, what was attempted, partial results, and possible alternatives.",
-          "isCorrect": true
-        },
-        {
           "id": "a",
           "text": "A failure flag, the tool name, and the subagent's identifier.",
           "isCorrect": false
+        },
+        {
+          "id": "c",
+          "text": "Failure type, what was attempted, partial results, and possible alternatives.",
+          "isCorrect": true
         },
         {
           "id": "b",
@@ -4348,14 +4351,14 @@
           "isCorrect": false
         },
         {
-          "id": "a",
-          "text": "Only after it has attempted local recovery for a transient failure it cannot resolve.",
-          "isCorrect": true
-        },
-        {
           "id": "c",
           "text": "Never; subagents should retry quietly until they succeed or the run ends.",
           "isCorrect": false
+        },
+        {
+          "id": "a",
+          "text": "Only after it has attempted local recovery for a transient failure it cannot resolve.",
+          "isCorrect": true
         }
       ],
       "correctCount": 1,
@@ -4395,14 +4398,14 @@
           "isCorrect": false
         },
         {
-          "id": "c",
-          "text": "Context degradation: the model is answering from priors, not from its findings.",
-          "isCorrect": true
-        },
-        {
           "id": "b",
           "text": "Evidence that the repository changed between exploration phases.",
           "isCorrect": false
+        },
+        {
+          "id": "c",
+          "text": "Context degradation: the model is answering from priors, not from its findings.",
+          "isCorrect": true
         }
       ],
       "correctCount": 1,
@@ -4436,14 +4439,14 @@
       "prompt": "What is the guide's mechanism for keeping key findings usable as an exploration session's context fills up?",
       "options": [
         {
-          "id": "b",
-          "text": "Maintain a scratchpad file of key findings and reference it in later questions.",
-          "isCorrect": true
-        },
-        {
           "id": "a",
           "text": "Retain every discovery verbatim so nothing is ever dropped from the session.",
           "isCorrect": false
+        },
+        {
+          "id": "b",
+          "text": "Maintain a scratchpad file of key findings and reference it in later questions.",
+          "isCorrect": true
         },
         {
           "id": "c",
@@ -4494,11 +4497,6 @@
           "isCorrect": false
         },
         {
-          "id": "c",
-          "text": "Load each agent's exported state manifest and inject it into the agent prompts.",
-          "isCorrect": true
-        },
-        {
           "id": "b",
           "text": "Run /compact beforehand so the earlier exploration survives the restart.",
           "isCorrect": false
@@ -4507,6 +4505,11 @@
           "id": "d",
           "text": "Restart the exploration from the first question to rebuild state cleanly.",
           "isCorrect": false
+        },
+        {
+          "id": "c",
+          "text": "Load each agent's exported state manifest and inject it into the agent prompts.",
+          "isCorrect": true
         }
       ],
       "correctCount": 1,
@@ -4547,14 +4550,14 @@
           "isCorrect": false
         },
         {
-          "id": "b",
-          "text": "Accuracy by document type and field segment, since aggregates hide weak areas.",
-          "isCorrect": true
-        },
-        {
           "id": "c",
           "text": "That the model version matches the one already serving production traffic.",
           "isCorrect": false
+        },
+        {
+          "id": "b",
+          "text": "Accuracy by document type and field segment, since aggregates hide weak areas.",
+          "isCorrect": true
         },
         {
           "id": "d",
@@ -4595,6 +4598,11 @@
       "prompt": "A team wants an ongoing error-rate estimate from its high-confidence extractions. Which design does the guide describe?",
       "options": [
         {
+          "id": "c",
+          "text": "Stratified random sampling of high-confidence extractions over time.",
+          "isCorrect": true
+        },
+        {
           "id": "a",
           "text": "Review the lowest-confidence extractions, since errors concentrate at that end.",
           "isCorrect": false
@@ -4603,11 +4611,6 @@
           "id": "b",
           "text": "Re-review cases a human already corrected, to confirm the correction stuck.",
           "isCorrect": false
-        },
-        {
-          "id": "c",
-          "text": "Stratified random sampling of high-confidence extractions over time.",
-          "isCorrect": true
         }
       ],
       "correctCount": 1,
@@ -4635,46 +4638,46 @@
       "domain": "d5",
       "taskStatement": "5.5",
       "scenario": "data-extraction",
-      "concept": "confidence-calibration",
+      "concept": "confidence-calibration-and-review-routing",
       "mode": "challenge",
       "type": "multiple",
-      "prompt": "Select all that apply: before reducing human review on high-confidence document extractions, which practices does the guide support?",
+      "prompt": "Select all that apply. Which practices does the guide describe for turning model confidence into a working human review queue?",
       "options": [
         {
           "id": "a",
-          "text": "Emit field-level confidence scores and calibrate thresholds on a labeled validation set.",
+          "text": "Have the model output a confidence score per field, then calibrate the review threshold on a labeled validation set.",
           "isCorrect": true
         },
         {
           "id": "b",
-          "text": "Check accuracy by document type and field segment before relaxing review.",
+          "text": "Route low-confidence extractions and ambiguous or contradictory source documents to human review, prioritizing limited reviewer capacity.",
           "isCorrect": true
         },
         {
           "id": "c",
-          "text": "Accept the reported aggregate accuracy as proof that every field type is safe.",
+          "text": "Let each extraction call pick its own review threshold from the document in front of it, adjusting the bar as it goes.",
           "isCorrect": false
         },
         {
           "id": "d",
-          "text": "Send only the lowest-confidence extractions to reviewers to protect capacity.",
+          "text": "Send every extraction to human review, since any field could turn out to be wrong at any confidence level.",
           "isCorrect": false
         }
       ],
       "correctCount": 2,
-      "optionCountRationale": "A four-option multiple-response item lets both supported practices coexist, which a single-answer format could not represent, while keeping one aggregate-metric misconception and one capacity-trimming misconception as the traps.",
+      "optionCountRationale": "A four-option multiple-response item is the only format that can present calibration and routing as two separate endorsed practices. The distractors are the two opposite failures: thresholds nobody calibrated, and a queue nobody triages.",
       "distractorRationale": {
-        "c": "Probes the aggregate-accuracy blind spot: a headline figure can hide weak document types and fields.",
-        "d": "Probes trimming reviewer capacity to the low-confidence tail, leaving the high-confidence band unmeasured."
+        "c": "Probes treating the score as self-appraising. The guide has the threshold set against labeled data, not negotiated per request.",
+        "d": "Probes the belief that confidence is too weak to filter with. Routing and prioritizing reviewer capacity is the guide's answer precisely because review capacity is limited."
       },
       "explanation": {
-        "correct": "The guide supports emitting field-level confidence scores and calibrating review thresholds using labeled validation sets, and separately requires analyzing accuracy by document type and field to verify consistent performance across segments before automating high-confidence extractions.",
+        "correct": "The guide pairs the two practices: have models output field-level confidence scores and calibrate the review thresholds using labeled validation sets, then route extractions with low model confidence or ambiguous or contradictory source documents to human review, prioritizing limited reviewer capacity.",
         "whyWrong": {
-          "c": "Aggregate accuracy such as 97% overall may mask poor performance on specific document types or fields, so it cannot certify every segment.",
-          "d": "Prioritizing limited reviewer capacity is for routing low-confidence or ambiguous and contradictory documents to human review; restricting review to that tail abandons measurement of the high-confidence band."
+          "c": "Thresholds calibrated against a labeled validation set are a fixed, measured decision made ahead of time. Letting each call adjust its own bar removes the calibration step entirely and makes the queue unpredictable.",
+          "d": "If everything went to review, there would be no confidence signal to route on and no capacity to prioritize with. The guide's design spends limited reviewer attention where confidence is low or the source is ambiguous or contradictory."
         },
-        "takeaway": "Calibrate field-level confidence on labeled data and validate by segment before trusting any confidence band.",
-        "deepDive": "Routing targets the guide names for human review are low model confidence and ambiguous or contradictory source documents, with limited reviewer capacity spent accordingly."
+        "takeaway": "Field-level confidence scores are only meaningful once calibrated on labeled data; then they decide what a limited reviewer looks at.",
+        "deepDive": "Calibration is what makes the scores trustworthy enough to automate against. Without a labeled set to measure against, a confidence score is just another number, and a review queue built on it either starves reviewers or floods them."
       },
       "source": {
         "document": "Claude-Certified-Architect-Foundations-Exam-Guide.pdf",
@@ -4693,6 +4696,11 @@
       "prompt": "A synthesis agent compresses many subagent findings into short paragraphs. What provenance is at risk of being lost?",
       "options": [
         {
+          "id": "b",
+          "text": "The claim-source mappings, because compression discards source attribution.",
+          "isCorrect": true
+        },
+        {
           "id": "a",
           "text": "The publication dates, since short prose rarely carries them.",
           "isCorrect": false
@@ -4701,11 +4709,6 @@
           "id": "c",
           "text": "Nothing, as long as the compressed text stays factually accurate.",
           "isCorrect": false
-        },
-        {
-          "id": "b",
-          "text": "The claim-source mappings, because compression discards source attribution.",
-          "isCorrect": true
         }
       ],
       "correctCount": 1,
@@ -4739,6 +4742,11 @@
       "prompt": "Two credible sources report different figures for the same metric. What should the synthesis agent do?",
       "options": [
         {
+          "id": "a",
+          "text": "Report both figures with source attribution and annotate the conflict.",
+          "isCorrect": true
+        },
+        {
           "id": "b",
           "text": "Report only the value from whichever source looks more authoritative.",
           "isCorrect": false
@@ -4752,11 +4760,6 @@
           "id": "d",
           "text": "Report only the newer value, since the older figure is superseded.",
           "isCorrect": false
-        },
-        {
-          "id": "a",
-          "text": "Report both figures with source attribution and annotate the conflict.",
-          "isCorrect": true
         }
       ],
       "correctCount": 1,
@@ -4793,14 +4796,14 @@
       "prompt": "Two sources describe the same company at different points in time. What prevents a false contradiction?",
       "options": [
         {
-          "id": "c",
-          "text": "Requiring publication or data collection dates in every structured output.",
-          "isCorrect": true
-        },
-        {
           "id": "a",
           "text": "Reporting both statements without dates and letting readers judge.",
           "isCorrect": false
+        },
+        {
+          "id": "c",
+          "text": "Requiring publication or data collection dates in every structured output.",
+          "isCorrect": true
         },
         {
           "id": "b",
